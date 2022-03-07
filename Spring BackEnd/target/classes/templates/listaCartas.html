@@ -1,0 +1,23 @@
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Código</th>
+            <th>Expansión</th>
+            <th>Texto</th>
+            <th>Keywords</th>
+            <th>Reprint</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="carta : ${cartas}">
+            <td th:text="${carta.nombre}"></td>
+            <td th:text="${carta.codigo}"></td>
+            <td th:text="${carta.expansion.nombre}"></td>
+            <td th:text="${carta.texto}"></td>
+            <td th:text="${carta.keywords}"></td>
+            <td th:text="${carta.reprint}"></td>
+            <td th:text="${carta.precio}"></td>
+    </tbody>
+</table>

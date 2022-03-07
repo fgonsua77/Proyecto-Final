@@ -1,0 +1,37 @@
+<form th:action="@{/cartas/save}" method="post" th:object="${carta}">
+    <div>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" th:field="*{nombre}">
+    </div>
+    <div>
+        <label for="codigo">Código</label>
+        <input type="text" id="codigo" name="codigo" th:field="*{codigo}">
+    </div>
+    <div>
+        <label for="expansion">Expansión</label>
+        <select id="expansion" name="expansion" th:field="*{expansion}">
+            <option th:each="expansion : ${expansiones}" th:value="${expansion.id}" th:text="${expansion.nombre}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <label for="texto">Texto</label>
+        <textarea id="texto" name="texto" th:field="*{texto}"></textarea>
+    </div>
+    <div>
+        <label for="keywords">Keywords</label>
+        <input type="text" id="keywords" name="keywords" th:field="*{keywords}">
+    </div>
+    <div>
+        <label for="reprint">Reprint</label>
+        <input type="checkbox" id="reprint" name="reprint" value="true" th:field="*{reprint}">/>
+    </div>
+    <div>
+        <label for="precio">Precio</label>
+        <input type="text" id="precio" name="precio" th:field="*{precio}">
+    </div>
+    <div>
+        <input type="submit" value="Guardar">
+    </div>
+    
+</form>
