@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import nando.proyect.entornoServidor.model.Carta;
 import nando.proyect.entornoServidor.service.IServiceCarta;
 
-@RestController
+@RestController 
 @RequestMapping("/apicartas")
 @CrossOrigin(origins = "http://localhost:3000")
 public class CartaRESTController {
     @Autowired
     private IServiceCarta cartaService;
-
     @GetMapping("/cartas")
     public List<Carta> encontrarTodas() {
         return cartaService.encontrarTodas();

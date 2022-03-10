@@ -1,8 +1,7 @@
 package nando.proyect.entornoServidor.model;
 
+import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,9 +13,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="usuario")
-public class Usuario {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Entity @Data @Slf4j @NoArgsConstructor @AllArgsConstructor
+@Table(name="usuarios")
+public class Usuarios {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,20 +36,12 @@ public class Usuario {
 			joinColumns = @JoinColumn(name="idUsuario"),
 			inverseJoinColumns = @JoinColumn(name="idPerfil")
 			)
-	private List<Perfil> perfiles;
+	private Collection<Perfil> perfiles;
 
-	
-	public void agregar(Perfil temPerfil) {
-		if (perfiles == null) {
-			perfiles = new LinkedList<Perfil>();
-		}
-		perfiles.add(temPerfil);
-	}
-	
-	public List<Perfil> getPerfiles() {
+	public Collection<Perfil> getPerfiles() {
 		return perfiles;
 	}
-	public void setPerfiles(List<Perfil> perfiles) {
+	public void setPerfiles(Collection<Perfil> perfiles) {
 		this.perfiles = perfiles;
 	}
 	public Integer getId() {
@@ -92,9 +88,11 @@ public class Usuario {
 	}
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", username=" + username + ", nombre=" + nombre + ", email=" + email
-				+ ", password=" + password + ", estatus=" + estatus + ", fechaRegistro=" + fechaRegistro + "]";
+		return "Usuario [email=" + email + ", estatus=" + estatus + ", fechaRegistro=" + fechaRegistro + ", id=" + id
+				+ ", nombre=" + nombre + ", password=" + password + ", perfiles=" + perfiles + ", username=" + username
+				+ "]";
 	}
+	
 	
 	
 
