@@ -16,9 +16,8 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Entity @Data @Slf4j @NoArgsConstructor @AllArgsConstructor
+@Entity @Data  @NoArgsConstructor @AllArgsConstructor
 @Table(name="usuarios")
 public class Usuarios {
 	
