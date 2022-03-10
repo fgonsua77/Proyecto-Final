@@ -1,5 +1,6 @@
 package nando.proyect.entornoServidor.controller;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.ResponseEntity;
@@ -53,8 +56,8 @@ public class UsuarioRESTController {
         usuarioService.añadirPerfilAUsuario(form.getUsername(), form.getPerfilname());
         return ResponseEntity.ok().build();
     }
-    @PostMapping("/addRoleToUser")
-    public void refreshToken(HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping("/tokenRefresh")
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws StreamWriteException, DatabindException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
         if(authorizationHeader == null || authorizationHeader.startsWith("Bearer ")) {
             try{
@@ -71,7 +74,6 @@ public class UsuarioRESTController {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authToken);
                 }catch(Exception e){
-                    logger.info("Error en el token: "+e.getMessage());
                     response.setHeader("error", e.getMessage());
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     Map<String, String> error = new HashMap<>();

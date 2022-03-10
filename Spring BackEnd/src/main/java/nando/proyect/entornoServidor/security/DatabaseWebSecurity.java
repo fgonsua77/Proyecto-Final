@@ -35,7 +35,7 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 		customAuthenticationFilter.setFilterProcessesUrl("/apiuser/login");
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeRequests().antMatchers("/apiuser/login").permitAll();
+		http.authorizeRequests().antMatchers("/apiuser/login", "/tokenRefresh/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/apiuser/users/**").hasAnyAuthority("USUARIO");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/apiuser/save/**").hasAnyAuthority("ADMINISTRADOR");
 		http.authorizeRequests().anyRequest().authenticated();
