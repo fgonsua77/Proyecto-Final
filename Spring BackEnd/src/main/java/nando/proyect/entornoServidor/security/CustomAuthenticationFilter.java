@@ -21,7 +21,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin(origins = "http://localhost:3000")
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authManager;
 
@@ -58,8 +60,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         map.put("refresh_token", refreshToken);
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), map);
-
-
     }
 	
 }

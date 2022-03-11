@@ -14,9 +14,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
+@CrossOrigin(origins = "http://localhost:3000")
 public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetails;
@@ -30,12 +32,13 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
+		http.cors().disable();
 		CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
 		CustomAuthorizationFilter customAuthorizationFilter = new CustomAuthorizationFilter();
 		customAuthenticationFilter.setFilterProcessesUrl("/apiuser/login");
-		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeRequests().antMatchers("/apiuser/login", "/tokenRefresh/**").permitAll();
+		http.authorizeRequests().antMatchers("/apiuser/login", "/tokenRefresh/**", "/apicartas/cartas").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/apiuser/users/**").hasAnyAuthority("USUARIO");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/apiuser/save/**").hasAnyAuthority("ADMINISTRADOR");
 		http.authorizeRequests().anyRequest().authenticated();
