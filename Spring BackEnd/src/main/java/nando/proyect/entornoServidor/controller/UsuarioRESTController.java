@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,13 +21,18 @@ import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,23 +40,48 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import nando.proyect.entornoServidor.model.Perfil;
 import nando.proyect.entornoServidor.model.Usuarios;
+import nando.proyect.entornoServidor.repository.PerfilRepository;
 import nando.proyect.entornoServidor.service.IServiceUsuario;
 
 @RestController @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST})
 @RequestMapping("/apiuser")
-@CrossOrigin(origins = "http://localhost:3000")
+
 public class UsuarioRESTController {
+    @Autowired
     private IServiceUsuario usuarioService;
-    
+    @Autowired
+    private PerfilRepository perfilRepository;
+    @Autowired
+    private PasswordEncoder pwEncoder;
+    @PostMapping("/signin")
+    public ResponseEntity<?> signin(@RequestBody Usuarios usuario) {
+        UserDetails usuarioEncontrado = usuarioService.loadUserByUsername(usuario.getNombre());
+        if (usuarioEncontrado == null) {
+            return ResponseEntity.notFound().build();
+        }
+        if (!usuarioEncontrado.getPassword().equals(usuario.getPassword())) {
+            return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).build();
+        }
+        String token = JWT.create().withSubject(usuario.getNombre()).sign(Algorithm.HMAC256(usuario.getPassword()));
+        return ResponseEntity.ok(token);
+    }
     @GetMapping("/usuarios")
     public ResponseEntity<List<Usuarios>> encontrarTodas() {
         return ResponseEntity.ok().body(usuarioService.encontrarTodoslosUsuarios());
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Usuarios> guardarUsuario(@RequestBody Usuarios user) {
+    public ResponseEntity<Usuarios> guardarUsuario(@ModelAttribute Usuarios user) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/apiuser/usuarios/{id}").toUriString());
+        Collection<Perfil> perfiles = new ArrayList<>();
+        perfiles.add(perfilRepository.findByPerfil("USUARIO"));
+        user.setFechaRegistro(new Date());
+        user.setPerfiles(perfiles);
+        user.setPassword(pwEncoder.encode(user.getPassword()));
+        user.setEstatus(1);
         return ResponseEntity.created(uri).body(usuarioService.guardarUsuario(user));
     }
     @PostMapping("/addRoleToUser")

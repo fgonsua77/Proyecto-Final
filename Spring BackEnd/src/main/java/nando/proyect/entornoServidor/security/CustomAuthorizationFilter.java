@@ -22,17 +22,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-@CrossOrigin(origins = "http://localhost:3000")
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        if(request.getServletPath().equals("/apiuser/login") 
+        if(request.getServletPath().equals("/apiuser/signin") 
         || request.getServletPath().equals("/tokenRefresh/**") 
-        || request.getServletPath().equals("/apicartas/cartas")){
+        || request.getServletPath().equals("/apicartas/cartas")
+        || request.getServletPath().equals("/apiuser/signup") ){
             filterChain.doFilter(request, response);
         }else{
             String authorizationHeader = request.getHeader("Authorization");

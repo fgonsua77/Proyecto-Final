@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './LoginView.css';
 import AuthContext from "./Context/AuthProvider";
-const LOGIN_URL = 'localhost:8080/apiuser/login';
+const LOGIN_URL = 'http://localhost:8080/apiuser/signin';
 
 const LoginView = () => {
     const { setAuth } = useContext(AuthContext);
@@ -29,12 +29,14 @@ const LoginView = () => {
             const response = await axios.post(LOGIN_URL,
                 JSON.stringify({ user, pwd }),
                 {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
+                    headers: { 'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin" : "*",
+                    "Access-Control-Allow-Methods" : "DELETE, POST, GET, OPTIONS",
+                    "Access-Control-Allow-Headers" : "Content-Type, Authorization, X-Requested-With",
+                    'Access-Control-Allow-Credentials' : "true"}
                 }
             );
             console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             setAuth({ user, pwd, roles, accessToken });
@@ -69,12 +71,12 @@ const LoginView = () => {
                 <div className="login-view">
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <div className="login-view-container">
-                    <div className="login-view-header">
+                    <div className="login-view-header d-flex justify-content-center">
                         <h1>Login</h1>
                     </div>
-                    <div className="login-view-body">
+                    <div className="login-view-body d-flex justify-content-center">
                         <form onSubmit={handleSubmit}>
-                            <div className="form-group">
+                            <div className="form-group p-3">
                                 <label htmlFor="username">Username</label>
                                 <input 
                                 type="text" 
@@ -105,10 +107,12 @@ const LoginView = () => {
                                 <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
                             </div>
                             <button type="submit" className="btn btn-primary">Login</button>
-                        </form>
-                        <div className="login-view-footer">
+                            <div className="login-view-footer">
                             <p>Don't have an account? <a href="/register">Register</a></p>
                             </div>
+                            
+                        </form>
+
                         </div>
                     </div>
                 </div>
