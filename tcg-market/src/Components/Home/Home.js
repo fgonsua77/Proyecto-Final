@@ -1,11 +1,11 @@
 import "./Home.css";
 import {useState, useEffect} from "react";
-import CardItemList from "./CardComponent/CardItemList";
-import Pagination from "./PaginationComponent/Pagination";
+import CardItemList from "../CardsComponent/CardItemList";
+import Pagination from "../PaginationComponent/Pagination";
 const Home = () => {
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [cardsPerPage, setCardsPerPage] = useState(2);
+    const [cardsPerPage, setCardsPerPage] = useState(4);
     const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
         setLoading(true)
@@ -38,7 +38,7 @@ const Home = () => {
                         </p>
                     </div>
                 </div>
-                <h1 class="d-flex justify-content-center">Cartas</h1>
+                <h1 class="d-flex justify-content-center">Destacados</h1>
                 <CardItemList cards={currentCards}/>
                 <Pagination
                 cardsPerPage={cardsPerPage}

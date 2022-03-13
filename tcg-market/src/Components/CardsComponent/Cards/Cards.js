@@ -1,6 +1,5 @@
 import './Cards.css';
 import{useEffect, useState} from "react";
-import { useParams} from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import CardItemList from "../CardItemList";

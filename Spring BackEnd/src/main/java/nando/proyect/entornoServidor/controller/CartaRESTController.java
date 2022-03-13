@@ -29,7 +29,7 @@ public class CartaRESTController {
     public List<Carta> encontrarTodas() {
         return cartaService.encontrarTodas();
     }
-    @GetMapping("/destacadas")
+    @GetMapping("/cartas/destacadas")
     public List<Carta> encontrarDestacadas() {
         return cartaService.encontrarCartasDestacadas();
     }
