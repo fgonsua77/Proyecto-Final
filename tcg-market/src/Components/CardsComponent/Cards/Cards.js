@@ -1,13 +1,16 @@
 import './Cards.css';
 import{useEffect, useState} from "react";
+import { useParams} from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import CardItemList from "../CardItemList";
+import Pagination from "../../PaginationComponent/Pagination";
 const Cards = () => {
+
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(false);
     const [busqueda, setBusqueda] = useState();
-    const [cardPerPage, setCardsPerPage] = useState(4);
+    const [cardsPerPage, setCardsPerPage] = useState(4);
     const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
         setLoading(true)
@@ -21,9 +24,11 @@ const Cards = () => {
     if(loading){
         return <h2>Loading....</h2>
     }
-    const indexOfLastCard = currentPage * cardPerPage;
-    const indexOfFirstCard = indexOfLastCard - cardPerPage;
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const currentCards = cards.slice(indexOfFirstCard, indexOfLastCard);
+    
+    const paginate = pageNumber => setCurrentPage(pageNumber);
     return (
         <div className="cards">
             <div className="searchBar">
@@ -39,6 +44,11 @@ const Cards = () => {
             </div>
             <h1 class="d-flex justify-content-center">Cartas</h1>
             <CardItemList cards={currentCards}/>
+            <Pagination
+            cardsPerPage={cardsPerPage}
+            totalCards={cards.length}
+            paginate={paginate}
+            />
         </div>
     );
 }

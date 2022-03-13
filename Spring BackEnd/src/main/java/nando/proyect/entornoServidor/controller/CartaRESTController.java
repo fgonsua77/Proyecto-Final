@@ -29,6 +29,10 @@ public class CartaRESTController {
     public List<Carta> encontrarTodas() {
         return cartaService.encontrarTodas();
     }
+    @GetMapping("/destacadas")
+    public List<Carta> encontrarDestacadas() {
+        return cartaService.encontrarCartasDestacadas();
+    }
     @GetMapping("/cartas/buscarPorNombre/{lineaNombre}")
     public List<Carta> encontrarCartasPorLineadeNombre(@PathVariable String lineaNombre) {
         return cartaService.encontrarCartasPorLineadeNombre(lineaNombre);

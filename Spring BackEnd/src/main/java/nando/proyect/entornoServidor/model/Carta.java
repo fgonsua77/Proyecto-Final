@@ -24,6 +24,7 @@ public class Carta {
     @JoinColumn(name="expansion")
     public Expansion expansion;
     public String imagen;
+    public Boolean destacado;
     public Integer getId() {
         return id;
     }
@@ -79,11 +80,19 @@ public class Carta {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+    public Boolean getDestacado() {
+        return destacado;
+    }
+    public void setDestacado(Boolean destacado) {
+        this.destacado = destacado;
+    }
     @Override
     public String toString() {
-        return "Carta [codigo=" + codigo + ", expansion=" + expansion + ", id=" + id + ", keywords=" + keywords
-                + ", nombre=" + nombre + ", precio=" + precio + ", reprint=" + reprint + ", texto=" + texto + "]";
+        return "Carta [codigo=" + codigo + ", destacado=" + destacado + ", expansion=" + expansion + ", id=" + id
+                + ", imagen=" + imagen + ", keywords=" + keywords + ", nombre=" + nombre + ", precio=" + precio
+                + ", reprint=" + reprint + ", texto=" + texto + "]";
     }
+    
     
     
     

@@ -13,5 +13,6 @@ public interface CartaRepository extends JpaRepository<Carta, Integer> {
     List<Carta> findByPrecio(String precio);
     List<Carta> findByReprint(String reprint);
     List<Carta> findByTexto(String texto);
+    List<Carta> findByDestacado(Boolean destacado);
 
 }

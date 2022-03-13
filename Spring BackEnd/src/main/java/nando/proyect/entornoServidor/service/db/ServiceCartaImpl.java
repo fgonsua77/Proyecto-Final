@@ -53,5 +53,9 @@ public class ServiceCartaImpl implements IServiceCarta {
         }
         return cartasAEnviar;
     }
-    
+    @Override
+    public List<Carta> encontrarCartasDestacadas() {
+        // TODO Auto-generated method stub
+        return cartaRepository.findByDestacado(true);
+    }
 }

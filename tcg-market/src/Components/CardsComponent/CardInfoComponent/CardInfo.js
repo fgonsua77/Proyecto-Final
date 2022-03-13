@@ -1,7 +1,6 @@
 import './CardInfo.css';
 import { useParams} from 'react-router-dom';
-import { useState, useEffect, } from 'react';
-import Card from 'react-bootstrap/Card';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import ListGroup from 'react-bootstrap/ListGroup';
