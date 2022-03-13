@@ -23,7 +23,7 @@ public class Carta {
     @ManyToOne
     @JoinColumn(name="expansion")
     public Expansion expansion;
-    
+    public String imagen;
     public Integer getId() {
         return id;
     }
@@ -71,6 +71,13 @@ public class Carta {
     }
     public void setExpansion(Expansion expansion) {
         this.expansion = expansion;
+    }
+    
+    public String getImagen() {
+        return imagen;
+    }
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
     @Override
     public String toString() {

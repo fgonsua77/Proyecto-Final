@@ -34,7 +34,7 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 		CustomAuthorizationFilter customAuthorizationFilter = new CustomAuthorizationFilter();
 		customAuthenticationFilter.setFilterProcessesUrl("/apiuser/signin");
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeRequests().antMatchers("/apiuser/signin","/apiuser/signup", "/tokenRefresh/**", "/apicartas/cartas").permitAll();
+		http.authorizeRequests().antMatchers("/apiuser/signin","/apiuser/signup", "/tokenRefresh/**", "/apicartas/cartas/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/apiuser/users/**").hasAnyAuthority("USUARIO");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/apiuser/save/**").hasAnyAuthority("ADMINISTRADOR");
 		http.authorizeRequests().anyRequest().authenticated();
@@ -49,6 +49,5 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	public static PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	}
-	
-}
+	} 
+} 

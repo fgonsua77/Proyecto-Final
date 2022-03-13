@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -57,7 +58,10 @@ public class UsuarioRESTController {
     @Autowired
     private PasswordEncoder pwEncoder;
     @PostMapping("/signin")
-    public ResponseEntity<?> signin(@RequestBody Usuarios usuario) {
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<?> signin(@ModelAttribute Usuarios usuario) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CACHE_CONTROL, "Access-Control-Allow-Origin: http://localhost:3000");
         UserDetails usuarioEncontrado = usuarioService.loadUserByUsername(usuario.getNombre());
         if (usuarioEncontrado == null) {
             return ResponseEntity.notFound().build();
@@ -76,12 +80,18 @@ public class UsuarioRESTController {
     @PostMapping("/signup")
     public ResponseEntity<Usuarios> guardarUsuario(@ModelAttribute Usuarios user) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/apiuser/usuarios/{id}").toUriString());
-        Collection<Perfil> perfiles = new ArrayList<>();
-        perfiles.add(perfilRepository.findByPerfil("USUARIO"));
-        user.setFechaRegistro(new Date());
-        user.setPerfiles(perfiles);
-        user.setPassword(pwEncoder.encode(user.getPassword()));
-        user.setEstatus(1);
+        UserDetails usuarioEncontrado = usuarioService.loadUserByUsername(user.getNombre());
+        if (usuarioEncontrado == null) {
+            Collection<Perfil> perfiles = new ArrayList<>();
+            perfiles.add(perfilRepository.findByPerfil("USUARIO"));
+            user.setFechaRegistro(new Date());
+            user.setPerfiles(perfiles);
+            user.setPassword(pwEncoder.encode(user.getPassword()));
+            user.setEstatus(1);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+        
         return ResponseEntity.created(uri).body(usuarioService.guardarUsuario(user));
     }
     @PostMapping("/addRoleToUser")

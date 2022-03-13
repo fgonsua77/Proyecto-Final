@@ -29,11 +29,12 @@ const SignUpView = () => {
             const response = await axios.post(SIGNUP_URL,
                 JSON.stringify({ user, pwd, name, email }),
                 {
-                    headers: { 'Content-Type': 'application/json',
-                    "Access-Control-Allow-Origin" : "*",
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded',
+                    "Access-Control-Allow-Origin" : "localhost:8080",
                     "Access-Control-Allow-Methods" : "DELETE, POST, GET, OPTIONS",
                     "Access-Control-Allow-Headers" : "Content-Type, Authorization, X-Requested-With",
                     'Access-Control-Allow-Credentials' : "true"}
+                    .withCredentials = true
                 }
             );
             console.log(JSON.stringify(response?.data));

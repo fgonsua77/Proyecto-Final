@@ -17,7 +17,7 @@ public class EntornoServidorApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/apiuser/login").allowedOrigins("http://localhost:3000");
+				registry.addMapping("/apiuser/signin").allowedOrigins("http://localhost:3000");
 			}
 		};
 	}

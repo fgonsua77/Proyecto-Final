@@ -29,7 +29,15 @@ public class CartaRESTController {
     public List<Carta> encontrarTodas() {
         return cartaService.encontrarTodas();
     }
-    @GetMapping("/cartas/{id}")
+    @GetMapping("/cartas/buscarPorNombre/{lineaNombre}")
+    public List<Carta> encontrarCartasPorLineadeNombre(@PathVariable String lineaNombre) {
+        return cartaService.encontrarCartasPorLineadeNombre(lineaNombre);
+    }
+    @GetMapping("/cartas/buscarPorJuego/{nombreJuego}")
+    public List<Carta> encontrarCartasPorjuego(@PathVariable String nombreJuego) {
+        return cartaService.encontrarCartasPorJuego(nombreJuego);
+    }
+    @GetMapping("/cartas/getCarta/cardId={id}")
     public Carta encontrarUnaCartaPorId(@PathVariable("id") Integer id) {
         return cartaService.encontrarUnaCartaPorId(id);
     }
