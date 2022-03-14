@@ -28,21 +28,21 @@ const CardInfo = () => {
                     <Breadcrumb.Item active>{card.nombre}</Breadcrumb.Item>
                 </Breadcrumb>
                 <Row>
-                    <Col>
-                    <Image src={card.imagen} />
-                    </Col>
+                    <div className=" d-flex justify-content-center col-lg-6">
+                        <Image src={card.imagen} />
+                    </div>
                     <Col>
                         <Container class="d-flex flex-column">
                             <h1>{card.nombre}</h1>
                             <ListGroup className="list-group-flush">
-                                <ListGroupItem>Codigo: {card.codigo}</ListGroupItem>
-                                <ListGroupItem>Precio: {card.precio}€</ListGroupItem>
-                                <ListGroupItem>Palabras Clave: {card.keywords}</ListGroupItem>
-                                <ListGroupItem>Texto: {card.texto}</ListGroupItem>
+                                <ListGroupItem><h4>Codigo:</h4>{card.codigo}</ListGroupItem>
+                                <ListGroupItem><h4>Precio:</h4>{card.precio}€</ListGroupItem>
+                                <ListGroupItem><h4>Palabras Clave:</h4> {card.keywords}</ListGroupItem>
+                                <ListGroupItem><h4>Texto:</h4>{card.texto}</ListGroupItem>
                             </ListGroup>
                         </Container>
                         <Container class="d-flex justify-content-end">
-                                <Button variant="primary" className="pt-2" href="" >Comprar</Button>
+                                <Button className="pt-2" href="" >Comprar</Button>
                         </Container>
                     </Col>
                 </Row>

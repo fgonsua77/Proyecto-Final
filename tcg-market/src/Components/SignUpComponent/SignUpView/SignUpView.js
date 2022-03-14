@@ -1,16 +1,17 @@
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect} from 'react';
 import axios from 'axios';
 import './SignUpView.css';
-const SIGNUP_URL = 'http://localhost:8080/apiuser/signin';
+const SIGNUP_URL = 'http://localhost:8080/apiuser/signup';
 
 const SignUpView = () => {
     const userRef = useRef();
     const errRef = useRef();
 
-    const [user, setUser] = useState('');
-    const [pwd, setPwd] = useState('');
-    const [name, setName] = useState('');
+    const [username, setusername] = useState('');
+    const [password, setpassword] = useState('');
+    const [nombre, setnombre] = useState('');
     const [email, setEmail] = useState('');
+    const [JSON, setJSON] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
@@ -20,28 +21,21 @@ const SignUpView = () => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd])
+    }, [username, password, nombre, email])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setJSON({ username, email, nombre, password });
+        console.log(JSON);
         try {
             const response = await axios.post(SIGNUP_URL,
-                JSON.stringify({ user, pwd, name, email }),
-                {
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded',
-                    "Access-Control-Allow-Origin" : "localhost:8080",
-                    "Access-Control-Allow-Methods" : "DELETE, POST, GET, OPTIONS",
-                    "Access-Control-Allow-Headers" : "Content-Type, Authorization, X-Requested-With",
-                    'Access-Control-Allow-Credentials' : "true"}
-                    .withCredentials = true
-                }
+                JSON.stringify({ username, email, nombre, password })
             );
             console.log(JSON.stringify(response?.data));
-            setUser('');
-            setPwd('');
+            setusername('');
+            setpassword('');
             setEmail('');
-            setName('');
+            setnombre('');
             setSuccess(true);
         } catch (err) {
             if (!err?.response) {
@@ -67,66 +61,66 @@ const SignUpView = () => {
                 </section>
             ): (
                 <div className="login-view">
-                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                <p class="d-flex justify-content-center p-6"ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <div className="login-view-container">
                     <div className="login-view-header d-flex justify-content-center">
                         <h1>Registro</h1>
                     </div>
                     <div className="login-view-body d-flex justify-content-center">
                         <form onSubmit={handleSubmit}>
-                        <div className="form-group p-3">
-                                <label htmlFor="name">Nombre</label>
-                                <input 
-                                type="text" 
-                                className="form-control" 
-                                id="name" 
-                                aria-describedby="nameHelp" 
-                                placeholder="Enter name"
-                                ref={userRef}
-                                autoComplete="off"
-                                onChange={(e) => setName(e.target.value)}
-                                value={name}
-                                required />
-                            </div>
                             <div className="form-group p-3">
-                                <label htmlFor="username">Nombre de usuario</label>
-                                <input 
-                                type="text" 
-                                className="form-control" 
-                                id="username" 
-                                aria-describedby="usernameHelp" 
-                                placeholder="Enter username"
-                                ref={userRef}
-                                autoComplete="off"
-                                onChange={(e) => setUser(e.target.value)}
-                                value={user}
-                                required />
-                                <small id="usernameHelp" className="form-text text-muted">No se compartirá tu nombre de usuario.</small>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password">Contraseña</label>
-                                <input 
-                                type="password" 
-                                className="form-control" 
-                                id="password" 
-                                placeholder="Password"
-                                onChange={(e) => setPwd(e.target.value)}
-                                value={pwd}
-                                required />
-                            </div>
-                            <div className="form-group p-3">
-                                <label htmlFor="email">Correo Electrónico</label>
-                                <input 
-                                type="email" 
-                                className="form-control" 
-                                id="email" 
-                                aria-describedby="emailHelp" 
-                                placeholder="Enter email"
-                                autoComplete="off"
-                                onChange={(e) => setEmail(e.target.value)}
-                                value={email}
-                                required />
-                            </div>
+                                    <label htmlFor="name">Nombre</label>
+                                    <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    id="nombre" 
+                                    aria-describedby="nameHelp" 
+                                    placeholder="Enter nombre"
+                                    ref={userRef}
+                                    autoComplete="off"
+                                    onChange={(e) => setnombre(e.target.value)}
+                                    value={nombre}
+                                    required />
+                                </div>
+                                <div className="form-group p-3">
+                                    <label htmlFor="username">Nombre de usuario</label>
+                                    <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    id="username" 
+                                    aria-describedby="usernameHelp" 
+                                    placeholder="Enter username"
+                                    ref={userRef}
+                                    autoComplete="off"
+                                    onChange={(e) => setusername(e.target.value)}
+                                    value={username}
+                                    required />
+                                    <small id="usernameHelp" className="form-text text-muted">No se compartirá tu nombre de usuario.</small>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="password">Contraseña</label>
+                                    <input 
+                                    type="password" 
+                                    className="form-control" 
+                                    id="password" 
+                                    placeholder="Password"
+                                    onChange={(e) => setpassword(e.target.value)}
+                                    value={password}
+                                    required />
+                                </div>
+                                <div className="form-group p-3">
+                                    <label htmlFor="email">Correo Electrónico</label>
+                                    <input 
+                                    type="email" 
+                                    className="form-control" 
+                                    id="email" 
+                                    aria-describedby="emailHelp" 
+                                    placeholder="Enter email"
+                                    autoComplete="off"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={email}
+                                    required />
+                                </div>
                             <button type="submit" className="btn btn-primary">Registrarme</button>
                         </form>
 

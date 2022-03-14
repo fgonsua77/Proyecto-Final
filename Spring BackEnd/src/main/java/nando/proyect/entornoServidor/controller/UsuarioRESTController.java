@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +48,7 @@ import nando.proyect.entornoServidor.repository.PerfilRepository;
 import nando.proyect.entornoServidor.service.IServiceUsuario;
 
 @RestController @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.OPTIONS})
 @RequestMapping("/apiuser")
 
 public class UsuarioRESTController {
@@ -58,18 +59,16 @@ public class UsuarioRESTController {
     @Autowired
     private PasswordEncoder pwEncoder;
     @PostMapping("/signin")
-    @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<?> signin(@ModelAttribute Usuarios usuario) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CACHE_CONTROL, "Access-Control-Allow-Origin: http://localhost:3000");
-        UserDetails usuarioEncontrado = usuarioService.loadUserByUsername(usuario.getNombre());
+    public ResponseEntity<?> signin( Usuarios usuario) {
+        System.out.println("usuario: " + usuario);
+        UserDetails usuarioEncontrado = usuarioService.loadUserByUsernameLogin(usuario.getUsername());
         if (usuarioEncontrado == null) {
             return ResponseEntity.notFound().build();
         }
         if (!usuarioEncontrado.getPassword().equals(usuario.getPassword())) {
             return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).build();
         }
-        String token = JWT.create().withSubject(usuario.getNombre()).sign(Algorithm.HMAC256(usuario.getPassword()));
+        String token = JWT.create().withSubject(usuario.getUsername()).sign(Algorithm.HMAC256(usuario.getPassword()));
         return ResponseEntity.ok(token);
     }
     @GetMapping("/usuarios")
@@ -78,9 +77,9 @@ public class UsuarioRESTController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Usuarios> guardarUsuario(@ModelAttribute Usuarios user) {
+    public ResponseEntity<Usuarios> guardarUsuario(Usuarios user) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/apiuser/usuarios/{id}").toUriString());
-        UserDetails usuarioEncontrado = usuarioService.loadUserByUsername(user.getNombre());
+        Usuarios usuarioEncontrado = usuarioService.encontrarPorNombreUsuario(user.getUsername());
         if (usuarioEncontrado == null) {
             Collection<Perfil> perfiles = new ArrayList<>();
             perfiles.add(perfilRepository.findByPerfil("USUARIO"));

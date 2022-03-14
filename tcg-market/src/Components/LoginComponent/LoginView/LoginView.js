@@ -24,16 +24,18 @@ const LoginView = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log({user, pwd});
         try {
             const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ user, pwd }),
+                JSON.stringify({ 'username': user,
+                                'password' : pwd }),
                 {
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded',
                     "Access-Control-Allow-Origin" : "*",
                     "Access-Control-Allow-Methods" : "DELETE, POST, GET, OPTIONS",
                     "Access-Control-Allow-Headers" : "Content-Type, Authorization, X-Requested-With",
                     'Access-Control-Allow-Credentials' : "true"}
-                    .withCredentials(true)
+                    
                 }
             );
             console.log(JSON.stringify(response?.data));
@@ -44,6 +46,7 @@ const LoginView = () => {
             setPwd('');
             setSuccess(true);
         } catch (err) {
+            console.log(err);
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 400) {

@@ -75,8 +75,9 @@ public class ServiceUsuarioImpl implements IServiceUsuario, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsernameLogin(String username) throws UsernameNotFoundException {
         Usuarios user = usuarioRepository.findByUsername(username);
+        System.out.println("user: " + user);
         if (user == null) {
             log.error("Error en el login: no existe el usuario '" + username + "' en el sistema.");
             throw new UsernameNotFoundException(username);
@@ -89,4 +90,17 @@ public class ServiceUsuarioImpl implements IServiceUsuario, UserDetailsService {
         });
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
+
+    @Override
+    public Usuarios encontrarPorNombreUsuario(String username) {
+        // TODO Auto-generated method stub
+        return usuarioRepository.findByUsername(username);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
 }

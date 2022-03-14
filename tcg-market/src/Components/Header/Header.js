@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 const Header = () =>{
     return (
     <header>
-        <Navbar bg="primary" expand="lg">
+        <Navbar expand="lg">
             <Container class="d-flex justify-content-around">
                 <Navbar.Brand href="/"><p class="h1">TCG-Market</p></Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll"/>

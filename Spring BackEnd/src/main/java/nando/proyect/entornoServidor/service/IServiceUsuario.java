@@ -13,5 +13,6 @@ public interface IServiceUsuario {
     List<Usuarios> encontrarTodoslosUsuarios();
     Usuarios encontrarUsuarioPorId(Integer id);
     void añadirPerfilAUsuario(String username, String perfilname);
-    public UserDetails loadUserByUsername(String username);
+    public UserDetails loadUserByUsernameLogin(String username);
+    Usuarios encontrarPorNombreUsuario(String username);
 }
