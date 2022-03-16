@@ -9,7 +9,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-const CardInfo = () => {
+const CardInfo = (props) => {
+    const {onAdd} = props;
     const {cardId} = useParams();
     const [card, setCard] = useState({});
     useEffect(() => {
@@ -42,7 +43,7 @@ const CardInfo = () => {
                             </ListGroup>
                         </Container>
                         <Container class="d-flex justify-content-end">
-                                <Button className="pt-2" href="" >Comprar</Button>
+                                <Button className="pt-2" onClick={() => onAdd(card)}>Añadir al carrito</Button>
                         </Container>
                     </Col>
                 </Row>

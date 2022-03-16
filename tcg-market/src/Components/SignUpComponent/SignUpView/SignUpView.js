@@ -1,138 +1,177 @@
-import { useRef, useState, useEffect} from 'react';
-import axios from 'axios';
-import './SignUpView.css';
-const SIGNUP_URL = 'http://localhost:8080/apiuser/signup';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import FormControl from 'react-bootstrap/FormControl';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock, faUndo, faUserPlus, faUser} from "@fortawesome/free-solid-svg-icons";
+import { registerUser } from "../../../Services/index";
+import MyToast from "../../../MyToast";
 
-const SignUpView = () => {
-    const userRef = useRef();
-    const errRef = useRef();
+const Register = (props) => {
+const [show, setShow] = useState(false);
+const [message, setMessage] = useState("");
+const navigate = useNavigate();
+const initialState = {
+    username: "",
+    email: "",
+    password: "",
+    nombre: "",
+};
 
-    const [username, setusername] = useState('');
-    const [password, setpassword] = useState('');
-    const [nombre, setnombre] = useState('');
-    const [email, setEmail] = useState('');
-    const [JSON, setJSON] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+const [user, setUser] = useState(initialState);
 
-    useEffect(() => {
-        userRef.current.focus();
-    }, [])
+const userChange = (event) => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+};
 
-    useEffect(() => {
-        setErrMsg('');
-    }, [username, password, nombre, email])
+const dispatch = useDispatch();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setJSON({ username, email, nombre, password });
-        console.log(JSON);
-        try {
-            const response = await axios.post(SIGNUP_URL,
-                JSON.stringify({ username, email, nombre, password })
-            );
-            console.log(JSON.stringify(response?.data));
-            setusername('');
-            setpassword('');
-            setEmail('');
-            setnombre('');
-            setSuccess(true);
-        } catch (err) {
-            if (!err?.response) {
-                setErrMsg('No hay respuesta del servidor');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Falta un elemento');
-            } else {
-                setErrMsg('Registro fallido');
-            }
-            errRef.current.focus();
-        }
-    }
+const saveUser = () => {
+    dispatch(registerUser(user))
+    .then((response) => {
+        setShow(true);
+        setMessage(response.message);
+        resetRegisterForm();
+        navigate("/");
+        setTimeout(() => {
+        setShow(false);
+        }, 2000);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+};
 
-    return (
-            <>
-            {success ? (
-                <section>
-                    <h1>Se te ha registrado!</h1>
-                    <br />
-                    <p>
-                        <a href="/login">Inicia sesión</a>
-                    </p>
-                </section>
-            ): (
-                <div className="login-view">
-                <p class="d-flex justify-content-center p-6"ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <div className="login-view-container">
-                    <div className="login-view-header d-flex justify-content-center">
-                        <h1>Registro</h1>
-                    </div>
-                    <div className="login-view-body d-flex justify-content-center">
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-group p-3">
-                                    <label htmlFor="name">Nombre</label>
-                                    <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    id="nombre" 
-                                    aria-describedby="nameHelp" 
-                                    placeholder="Enter nombre"
-                                    ref={userRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setnombre(e.target.value)}
-                                    value={nombre}
-                                    required />
-                                </div>
-                                <div className="form-group p-3">
-                                    <label htmlFor="username">Nombre de usuario</label>
-                                    <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    id="username" 
-                                    aria-describedby="usernameHelp" 
-                                    placeholder="Enter username"
-                                    ref={userRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setusername(e.target.value)}
-                                    value={username}
-                                    required />
-                                    <small id="usernameHelp" className="form-text text-muted">No se compartirá tu nombre de usuario.</small>
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="password">Contraseña</label>
-                                    <input 
-                                    type="password" 
-                                    className="form-control" 
-                                    id="password" 
-                                    placeholder="Password"
-                                    onChange={(e) => setpassword(e.target.value)}
-                                    value={password}
-                                    required />
-                                </div>
-                                <div className="form-group p-3">
-                                    <label htmlFor="email">Correo Electrónico</label>
-                                    <input 
-                                    type="email" 
-                                    className="form-control" 
-                                    id="email" 
-                                    aria-describedby="emailHelp" 
-                                    placeholder="Enter email"
-                                    autoComplete="off"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    value={email}
-                                    required />
-                                </div>
-                            <button type="submit" className="btn btn-primary">Registrarme</button>
-                        </form>
+const resetRegisterForm = () => {
+    setUser(initialState);
+};
 
-                        </div>
-                    </div>
-                </div>
-                )
-            }
-            
-            </>
-            
-        );
-    }
+return (
+    <div>
+    <div style={{ display: show ? "block" : "none" }}>
+        <MyToast show={show} message={message} type={"success"} />
+    </div>
+    <Row className="justify-content-md-center">
+        <Col xs={5}>
+        <Card className={"border border-dark bg-dark text-white"}>
+            <Card.Header>
+            <FontAwesomeIcon icon={faUserPlus} /> Register
+            </Card.Header>
+            <Card.Body>
+            <Row>
+                <Form.Group as={Col}>
+                <InputGroup>
+                    <InputGroup>
+                    <InputGroup.Text>
+                        <FontAwesomeIcon icon={faUser} />
+                    </InputGroup.Text>
+                    </InputGroup>
+                    <FormControl
+                    autoComplete="off"
+                    type="text"
+                    name="name"
+                    value={user.name}
+                    onChange={userChange}
+                    className={"bg-white text-dark"}
+                    placeholder="Enter Name"
+                    />
+                </InputGroup>
+                </Form.Group>
+            </Row>
+            <Form>
+                <Form.Group as={Col}>
+                <InputGroup>
+                    <InputGroup>
+                    <InputGroup.Text>
+                        <FontAwesomeIcon icon={faEnvelope} />
+                    </InputGroup.Text>
+                    </InputGroup>
+                    <FormControl
+                    required
+                    autoComplete="off"
+                    type="text"
+                    name="email"
+                    value={user.email}
+                    onChange={userChange}
+                    className={"bg-white text-dark"}
+                    placeholder="Enter Email Address"
+                    />
+                </InputGroup>
+                </Form.Group>
+            </Form>
+            <Form>
+                <Form.Group as={Col}>
+                <InputGroup>
+                    <InputGroup>
+                    <InputGroup.Text>
+                        <FontAwesomeIcon icon={faLock} />
+                    </InputGroup.Text>
+                    </InputGroup>
+                    <FormControl
+                    required
+                    autoComplete="off"
+                    type="password"
+                    name="password"
+                    value={user.password}
+                    onChange={userChange}
+                    className={"bg-white text-dark"}
+                    placeholder="Enter Password"
+                    />
+                </InputGroup>
+                </Form.Group>
+            </Form>
+            <Form>
+                <Form.Group as={Col}>
+                <InputGroup>
+                    <InputGroup>
+                    <InputGroup.Text>
+                        <FontAwesomeIcon icon={faUser} />
+                    </InputGroup.Text>
+                    </InputGroup>
+                    <FormControl
+                    autoComplete="off"
+                    type="text"
+                    name="nombre"
+                    value={user.nombre}
+                    onChange={userChange}
+                    className={"bg-white text-dark"}
+                    placeholder="Introduzca nombre"
+                    />
+                </InputGroup>
+                </Form.Group>
+            </Form>
+            </Card.Body>
+            <Card.Footer style={{ textAlign: "right" }}>
+            <Button
+                size="sm"
+                type="button"
+                variant="success"
+                onClick={saveUser}
+                disabled={user.email.length === 0 || user.password.length === 0}
+            >
+                <FontAwesomeIcon icon={faUserPlus} /> Registrate
+            </Button>{" "}
+            <Button
+                size="sm"
+                type="button"
+                variant="info"
+                onClick={resetRegisterForm}
+            >
+                <FontAwesomeIcon icon={faUndo} /> Reset
+            </Button>
+            </Card.Footer>
+        </Card>
+        </Col>
+    </Row>
+    </div>
+);
+};
 
-export default SignUpView;
+export default Register;

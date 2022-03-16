@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,21 +24,17 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -58,38 +56,45 @@ public class UsuarioRESTController {
     private PerfilRepository perfilRepository;
     @Autowired
     private PasswordEncoder pwEncoder;
-    @PostMapping("/signin")
-    public ResponseEntity<?> signin( Usuarios usuario) {
-        System.out.println("usuario: " + usuario);
-        UserDetails usuarioEncontrado = usuarioService.loadUserByUsernameLogin(usuario.getUsername());
-        if (usuarioEncontrado == null) {
-            return ResponseEntity.notFound().build();
-        }
-        if (!usuarioEncontrado.getPassword().equals(usuario.getPassword())) {
-            return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).build();
-        }
-        String token = JWT.create().withSubject(usuario.getUsername()).sign(Algorithm.HMAC256(usuario.getPassword()));
-        return ResponseEntity.ok(token);
+
+    @PostMapping("/login")
+    public ResponseEntity<?> signin(@RequestBody Usuarios usuario, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        System.out.println(usuario);
+        Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+        String access_token = JWT.create()
+                .withSubject(usuario.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                .withIssuer(request.getRequestURL().toString())
+                .withClaim("perfiles", true)
+                .sign(algorithm);
+        String refreshToken = JWT.create()
+                .withSubject(usuario.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
+                .withIssuer(request.getRequestURL().toString())
+                .sign(algorithm);
+        Map<String, String> map = new HashMap<>();
+        map.put("access_token", access_token);
+        map.put("refresh_token", refreshToken);
+        response.setContentType("application/json");
+        return ResponseEntity.ok(map);
     }
+	
     @GetMapping("/usuarios")
     public ResponseEntity<List<Usuarios>> encontrarTodas() {
         return ResponseEntity.ok().body(usuarioService.encontrarTodoslosUsuarios());
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Usuarios> guardarUsuario(Usuarios user) {
+    public ResponseEntity<Usuarios> guardarUsuario(@RequestBody Usuarios user) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/apiuser/usuarios/{id}").toUriString());
-        Usuarios usuarioEncontrado = usuarioService.encontrarPorNombreUsuario(user.getUsername());
-        if (usuarioEncontrado == null) {
+        System.out.println(user);
             Collection<Perfil> perfiles = new ArrayList<>();
             perfiles.add(perfilRepository.findByPerfil("USUARIO"));
             user.setFechaRegistro(new Date());
             user.setPerfiles(perfiles);
-            user.setPassword(pwEncoder.encode(user.getPassword()));
+            String password = user.getPassword();
+            user.setPassword(pwEncoder.encode(password));
             user.setEstatus(1);
-        }else{
-            return ResponseEntity.notFound().build();
-        }
         
         return ResponseEntity.created(uri).body(usuarioService.guardarUsuario(user));
     }

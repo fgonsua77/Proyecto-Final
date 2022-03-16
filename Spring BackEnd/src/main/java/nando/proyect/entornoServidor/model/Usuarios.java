@@ -88,7 +88,7 @@ public class Usuarios {
 	@Override
 	public String toString() {
 		return "Usuario [email=" + email + ", estatus=" + estatus + ", fechaRegistro=" + fechaRegistro + ", id=" + id
-				+ ", nombre=" + nombre + ", password=" + password + ", perfiles=" + perfiles + ", username=" + username
+				+ ", nombre=" + nombre + ", perfiles=" + perfiles + ", username=" + username
 				+ "]";
 	}
 	

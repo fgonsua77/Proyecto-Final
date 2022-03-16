@@ -46,13 +46,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("perfiles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(java.util.stream.Collectors.toList()))
                 .sign(algorithm);
-        /*response.setHeader("access_token", access_token);*/
         String refreshToken = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
-        /*response.setHeader("refresh_token", refreshToken);*/
         Map<String, String> map = new HashMap<>();
         map.put("access_token", access_token);
         map.put("refresh_token", refreshToken);

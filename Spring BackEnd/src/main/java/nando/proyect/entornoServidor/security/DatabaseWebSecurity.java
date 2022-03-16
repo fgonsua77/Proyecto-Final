@@ -37,12 +37,12 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
 		CustomAuthorizationFilter customAuthorizationFilter = new CustomAuthorizationFilter();
-		customAuthenticationFilter.setFilterProcessesUrl("/apiuser/signin");
+		customAuthenticationFilter.setFilterProcessesUrl("/apiuser/login");
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests().antMatchers("/",
 											"/apiuser/signup",
 											"/apiuser/search",
-											"/apiuser/signin",
+											"/apiuser/login",
 											"/apicartas/cartas/**").permitAll();
 		http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 	}

@@ -16,7 +16,7 @@ public class Juego{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     public String nombre;
-    public String compañia;
+    public String compania;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="distribuidoraNA", referencedColumnName="id")
     public Distribuidora distribuidoraNA;
@@ -35,11 +35,11 @@ public class Juego{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public String getCompañia() {
-        return compañia;
+    public String getcompania() {
+        return compania;
     }
-    public void setCompañia(String compañia) {
-        this.compañia = compañia;
+    public void setcompania(String compania) {
+        this.compania = compania;
     }
     public Distribuidora getDistribuidoraNA() {
         return distribuidoraNA;
@@ -55,7 +55,7 @@ public class Juego{
     }
     @Override
     public String toString() {
-        return "juego [compañia=" + compañia + ", distribuidoraEU=" + distribuidoraEU.getNombre() + ", distribuidoraNA="
+        return "juego [compania=" + compania + ", distribuidoraEU=" + distribuidoraEU.getNombre() + ", distribuidoraNA="
                 + distribuidoraNA.getNombre() + ", id=" + id + ", nombre=" + nombre + "]";
     }
     

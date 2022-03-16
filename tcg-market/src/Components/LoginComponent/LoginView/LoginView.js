@@ -1,130 +1,139 @@
-import { useRef, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import './LoginView.css';
-import AuthContext from "./Context/AuthProvider";
-const LOGIN_URL = 'http://localhost:8080/apiuser/signin';
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+import FormControl from 'react-bootstrap/FormControl';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faSignInAlt, faEnvelope, faLock, faUndo } from "@fortawesome/free-solid-svg-icons";
+import { authenticateUser } from "../../../Services/index";
 
-const LoginView = () => {
-    const { setAuth } = useContext(AuthContext);
-    const userRef = useRef();
-    const errRef = useRef();
+const Login = (props) => {
+const [error, setError] = useState();
+const [show, setShow] = useState(true);
+const navigate = useNavigate();
+const initialState = {
+    username: "",
+    password: "",
+};
 
-    const [user, setUser] = useState('');
-    const [pwd, setPwd] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+const [user, setUser] = useState(initialState);
 
-    useEffect(() => {
-        userRef.current.focus();
-    }, [])
+const credentialChange = (event) => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+};
 
-    useEffect(() => {
-        setErrMsg('');
-    }, [user, pwd])
+const dispatch = useDispatch();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log({user, pwd});
-        try {
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ 'username': user,
-                                'password' : pwd }),
-                {
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded',
-                    "Access-Control-Allow-Origin" : "*",
-                    "Access-Control-Allow-Methods" : "DELETE, POST, GET, OPTIONS",
-                    "Access-Control-Allow-Headers" : "Content-Type, Authorization, X-Requested-With",
-                    'Access-Control-Allow-Credentials' : "true"}
-                    
-                }
-            );
-            console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
-            setUser('');
-            setPwd('');
-            setSuccess(true);
-        } catch (err) {
-            console.log(err);
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login Failed');
-            }
-            errRef.current.focus();
-        }
-    }
+const validateUser = () => {
+    dispatch(authenticateUser(user.username, user.password))
+    .then((response) => {
+        console.log(response.data);
+        navigate("/");
+    })
+    .catch((error) => {
+        console.log(error.message);
+        setShow(true);
+        resetLoginForm();
+        setError("Invalid username and password");
+    });
+};
 
-    return (
-            <>
-            {success ? (
-                <section>
-                    <h1>You are logged in!</h1>
-                    <br />
-                    <p>
-                        <a href="/home">Go to Home</a>
-                    </p>
-                </section>
-            ): (
-                <div className="login-view">
-                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <div className="login-view-container">
-                    <div className="login-view-header d-flex justify-content-center">
-                        <h1>Login</h1>
-                    </div>
-                    <div className="login-view-body d-flex justify-content-center">
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-group p-3">
-                                <label htmlFor="username">Username</label>
-                                <input 
-                                type="text" 
-                                className="form-control" 
-                                id="username" 
-                                aria-describedby="usernameHelp" 
-                                placeholder="Enter username"
-                                ref={userRef}
-                                autoComplete="off"
-                                onChange={(e) => setUser(e.target.value)}
-                                value={user}
-                                required />
-                                <small id="usernameHelp" className="form-text text-muted">We'll never share your username with anyone else.</small>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <input 
-                                type="password" 
-                                className="form-control" 
-                                id="password" 
-                                placeholder="Password"
-                                onChange={(e) => setPwd(e.target.value)}
-                                value={pwd}
-                                required />
-                            </div>
-                            <div className="form-group form-check">
-                                <input type="checkbox" className="form-check-input" id="rememberMe" />
-                                <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
-                            </div>
-                            <button type="submit" className="btn btn-primary">Login</button>
-                            <div className="login-view-footer">
-                            <p>Don't have an account? <a href="/register">Register</a></p>
-                            </div>
-                            
-                        </form>
+const resetLoginForm = () => {
+    setUser(initialState);
+};
 
-                        </div>
-                    </div>
-                </div>
-                )
-            }
-            
-            </>
-            
-        );
-    }
+return (
+    <Row className="justify-content-md-center">
+    <Col xs={5}>
+        {show && props.message && (
+        <Alert variant="success" onClose={() => setShow(false)} dismissible>
+            {props.message}
+        </Alert>
+        )}
+        {show && error && (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+            {error}
+        </Alert>
+        )}
+        <Card className={"border border-dark bg-dark text-white"}>
+        <Card.Header>
+            <FontAwesomeIcon icon={faSignInAlt} /> Login
+        </Card.Header>
+        <Card.Body>
+            <Row>
+            <Form.Group as={Col}>
+                <InputGroup>
+                <InputGroup>
+                    <InputGroup.Text>
+                    <FontAwesomeIcon icon={faEnvelope} />
+                    </InputGroup.Text>
+                </InputGroup>
+                <FormControl
+                    required
+                    autoComplete="off"
+                    type="text"
+                    name="username"
+                    value={user.username}
+                    onChange={credentialChange}
+                    className={"bg-dark text-white"}
+                    placeholder="Introduce tu nombre de usuario"
+                />
+                </InputGroup>
+            </Form.Group>
+            </Row>
+            <Row>
+            <Form.Group as={Col}>
+                <InputGroup>
+                <InputGroup>
+                    <InputGroup.Text>
+                    <FontAwesomeIcon icon={faLock} />
+                    </InputGroup.Text>
+                </InputGroup>
+                <FormControl
+                    required
+                    autoComplete="off"
+                    type="password"
+                    name="password"
+                    value={user.password}
+                    onChange={credentialChange}
+                    className={"bg-dark text-white"}
+                    placeholder="Introduce tu contraseña"
+                />
+                </InputGroup>
+            </Form.Group>
+            </Row>
+        </Card.Body>
+        <Card.Footer style={{ textAlign: "right" }}>
+            <Button
+            size="sm"
+            type="button"
+            variant="success"
+            onClick={validateUser}
+            disabled={user.username.length === 0 || user.password.length === 0}
+            >
+            <FontAwesomeIcon icon={faSignInAlt} /> Login
+            </Button>{" "}
+            <Button
+            size="sm"
+            type="button"
+            variant="info"
+            onClick={resetLoginForm}
+            disabled={user.username.length === 0 && user.password.length === 0}
+            >
+            <FontAwesomeIcon icon={faUndo} /> Reset
+            </Button>
+        </Card.Footer>
+        </Card>
+    </Col>
+    </Row>
+);
+};
 
-export default LoginView;
+export default Login;

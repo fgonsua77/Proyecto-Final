@@ -1,11 +1,10 @@
 import './Cards.css';
-import{useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import CardItemList from "../CardItemList";
 import Pagination from "../../PaginationComponent/Pagination";
 const Cards = () => {
-
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(false);
     const [busqueda, setBusqueda] = useState();
@@ -18,8 +17,13 @@ const Cards = () => {
         .then(cards => setCards(cards))
         .then(() => setLoading(false));
     }, []);
-
-    
+    const handleSubmit = (e) => {
+        setLoading(true)
+        fetch(`http://localhost:8080/apicartas/cartas/busqueda/${busqueda}`)
+        .then(response => response.json())
+        .then(cards => setCards(cards))
+        .then(() => setLoading(false));
+    }
     if(loading){
         return <h2>Loading....</h2>
     }
@@ -31,10 +35,10 @@ const Cards = () => {
     return (
         <div className="cards">
             <div className="searchBar">
-                <Form>
+                <Form onSubmit={handleSubmit(busqueda)}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Busca por Nombre</Form.Label>
-                        <Form.Control type="text" value={busqueda} placeholder="Buscar..." onChange={(e) => setBusqueda(e.target.value)} />
+                        <Form.Control type="text" value={busqueda} placeholder="Buscar..."  />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Submit
