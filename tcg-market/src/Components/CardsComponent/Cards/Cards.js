@@ -7,8 +7,8 @@ import Pagination from "../../PaginationComponent/Pagination";
 const Cards = () => {
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [busqueda, setBusqueda] = useState();
-    const [cardsPerPage, setCardsPerPage] = useState(4);
+    const [busqueda] = useState();
+    const [cardsPerPage] = useState(4);
     const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
         setLoading(true)
@@ -17,13 +17,6 @@ const Cards = () => {
         .then(cards => setCards(cards))
         .then(() => setLoading(false));
     }, []);
-    const handleSubmit = (e) => {
-        setLoading(true)
-        fetch(`http://localhost:8080/apicartas/cartas/busqueda/${busqueda}`)
-        .then(response => response.json())
-        .then(cards => setCards(cards))
-        .then(() => setLoading(false));
-    }
     if(loading){
         return <h2>Loading....</h2>
     }
@@ -35,7 +28,7 @@ const Cards = () => {
     return (
         <div className="cards">
             <div className="searchBar">
-                <Form onSubmit={handleSubmit(busqueda)}>
+                <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Busca por Nombre</Form.Label>
                         <Form.Control type="text" value={busqueda} placeholder="Buscar..."  />

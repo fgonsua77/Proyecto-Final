@@ -35,7 +35,7 @@ const userLinks = (
         </Link>
     </Nav>
     <Nav className="navbar-right">
-        <Link to={"logout"} className="nav-link d-flex justify-content-between" onClick={logout}>
+        <Link to={"/logout"} className="nav-link d-flex justify-content-between" onClick={logout}>
         <FontAwesomeIcon icon={faSignOutAlt} /> <h2>Cerrar sesión</h2>
         </Link>
     </Nav>
