@@ -7,9 +7,9 @@ import Login from './Components/LoginComponent/LoginView';
 import Signup from './Components/SignUpComponent/SignUpView';
 import CardInfo from './Components/CardsComponent/CardInfoComponent';
 import ShoppingCart from './Components/ShoppingCartComponent/ShoppingCart';
+import CartContextProvider from './Context/CartContext';
 import Home from './Components/Home';
 const App = () => {
-  const [cartItems, setCartItems] = useState([]);
   window.onbeforeunload = (event) => {
     const e = event || window.event;
     e.preventDefault();
@@ -20,7 +20,8 @@ const App = () => {
   };
   return (
         <BrowserRouter>
-        <Header countCartItems={cartItems.length} />
+        <CartContextProvider>
+        <Header/>
         <Routes>
           <Route path="/" element={ <Navigate to='/home' />} />
           <Route path="/home" element={ <Home /> } />
@@ -30,13 +31,13 @@ const App = () => {
           <Route path="/card/:cardId" element={<CardInfo/>} />
           <Route path="/shoppingCart" element={<ShoppingCart/>} />
           <Route
-                path="/logout"
-                exact
-                component={() => (
-                  <Login message="User Logged Out Successfully." />
+                path="/logout" exact component={() => (
+                  <Login message="User Logged Out Successfully."/>
                 )}
           />
         </Routes>
+        </CartContextProvider>
+       
         </BrowserRouter>
   );
 };

@@ -1,89 +1,131 @@
-import React from 'react';
-import {useState} from 'react';
-export default function Basket(props) {
-    const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
-    const shippingPrice = itemsPrice > 2000 ? 0 : 20;
-    const totalPrice = itemsPrice + shippingPrice;
-    const [cartItems, setCartItems] = useState([]);
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { cartContext } from "../../Context/CartContext";
 
-const onAdd = (card) => {
-    const exist = cartItems.find((x) => x.id === card.id);
-    if (exist) {
-        setCartItems(
-        cartItems.map((x) =>
-            x.id === card.id ? { ...exist, qty: exist.qty + 1 } : x
-        )
+const cart = () => {
+const cont = useContext(cartContext);
+
+const navigate = useNavigate();
+
+const eliminarCarta = (idEliminar) => {
+    cont.setCart(
+    cont.cart.filter((carta) => carta.id !== idEliminar)
     );
-    } else {
-    setCartItems([...cartItems, { ...card, qty: 1 }]);
-    }
 };
-const onRemove = (card) => {
-    const exist = cartItems.find((x) => x.id === card.id);
-    if (exist.qty === 1) {
-        setCartItems(cartItems.filter((x) => x.id !== card.id));
-    } else {
-        setCartItems(
-            cartItems.map((x) =>
-            x.id === card.id ? { ...exist, qty: exist.qty - 1 } : x
-            )
-        );
-    }
-};
-return (
-    <aside className="block col-1">
-    <h2>Cart Items</h2>
-        <div>
-        {cartItems.length === 0 && <div>Cart is empty</div>}
-        {cartItems.map((item) => (
-        <div key={item.id} className="row">
-            <div className="col-2">{item.name}</div>
-            <div className="col-2">
-                <button onClick={() => onRemove(item)} className="remove">
-                    -
-                </button>{' '}
-                <button onClick={() => onAdd(item)} className="add">
-                    +
-                </button>
-            </div>
 
-            <div className="col-2 text-right">
-                {item.qty} x ${item.price.toFixed(2)}
+    return cont.cart.length > 0 ? (
+        <div className="container">
+        <div className="row">
+            <div className="col-sm-12 col-md-10 col-md-offset-1">
+            <table className="table table-hover">
+                <thead>
+                <tr>
+                    <th>Carta</th>
+                    <th>Cantidad</th>
+                    <th className="text-center">Precio</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                    //Lista de productos
+                }
+                {cont.cart.map((carta) => {
+                    return (
+                    <tr key={carta.id}>
+                        <td className="col-sm-8 col-md-6">
+                        <div className="media">
+                            <a className="thumbnail pull-left" href="#">
+                            {" "}
+                            <img
+                                className="media-object imagen-cart"w
+                                src={carta.imagen}
+                            ></img>{" "}
+                            </a>
+                            <div className="media-body">
+                            <h4 className="media-heading">
+                                <a href="#">{carta.nombre}</a>
+                            </h4>
+                            </div>
+                        </div>
+                        </td>
+                        <td className="col-sm-1 col-md-1">
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            value={carta.cantidad}
+                            readOnly={true}
+                        ></input>
+                        </td>
+                        <td className="col-sm-1 col-md-1 text-center">
+                        <strong>{carta.cantidad * carta.precio}€</strong>
+                        </td>
+                        <td> </td>
+                        <td className="col-sm-1 col-md-1">
+                        <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={() => eliminarCarta(carta.id)}
+                        >
+                            <span className="glyphicon glyphicon-remove"></span>{" "}
+                            Eliminar
+                        </button>
+                        </td>
+                    </tr>
+                    );
+                })}
+
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>
+                    <h3>Total</h3>
+                    </td>
+                    <td className="text-right">
+                    <h3>
+                        <strong>
+                        {cont.cart.reduce(
+                            (total, carta) => total + carta.precio,
+                            0
+                        )}
+                        €
+                        </strong>
+                    </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>
+                    <button type="button" className="btn btn-default">
+                        Continue Shopping
+                    </button>
+                    </td>
+                    <td>
+                    <button type="button" className="btn btn-success">
+                        Checkout
+                    </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
             </div>
         </div>
-        ))}
-
-        {cartItems.length !== 0 && (
-        <>
-            <hr></hr>
-            <div className="row">
-                <div className="col-2">Precio de la carta</div>
-                <div className="col-1 text-right">${itemsPrice.toFixed(2)}</div>
-            </div>
-            <div className="row">
-                <div className="col-2">Precio de envio</div>
-                <div className="col-1 text-right">
-                ${shippingPrice.toFixed(2)}
-                </div>
-            </div>
-
-            <div className="row">
-                <div className="col-2">
-                    <strong>Precio total</strong>
-                </div>
-                <div className="col-1 text-right">
-                    <strong>${totalPrice.toFixed(2)}</strong>
-                </div>
-            </div>
-            <hr />
-            <div className="row">
-                <button onClick={() => alert('Implement Checkout!')}>
-                Checkout
-                </button>
-            </div>
-            </>
-        )}
         </div>
-    </aside>
+    ) : (
+        <button
+        onClick={() => navigate("/", { replace: true })}
+        type="button"
+        className="btn btn-default"
+        >
+        Continue Shopping
+        </button>
     );
-}
+};
+
+export default cart;
