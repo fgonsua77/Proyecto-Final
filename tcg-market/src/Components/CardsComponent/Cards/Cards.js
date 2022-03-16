@@ -1,10 +1,8 @@
 import './Cards.css';
 import {useEffect, useState} from "react";
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import CardItemList from "../CardItemList";
 import Pagination from "../../PaginationComponent/Pagination";
-import { useSearchParams } from "react-router-dom";
 const Cards = () => {
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -36,7 +34,7 @@ const Cards = () => {
     const paginate = pageNumber => setCurrentPage(pageNumber);
     return (
         <div className="cards">
-            <div className="searchBar">
+            <div className="searchBar d-flex justify-content-start pl-6">
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Busca por Nombre</Form.Label>

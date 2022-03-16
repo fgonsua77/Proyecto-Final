@@ -1,5 +1,5 @@
-import { createContext, useState } from "react";
-
+import { useState } from "react";
+import { createContext } from "react";
 
 const cartContext = createContext({
     cart: [],
@@ -7,10 +7,8 @@ const cartContext = createContext({
 });
 
 
-const cartContextProvider = ({children}) => {
+const CartContextProvider = ({children}) => {
 
-    // Context
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [cart, setCart] = useState([]);
 
     return (
@@ -20,7 +18,5 @@ const cartContextProvider = ({children}) => {
     );
 }
 
-
-// Exportas context (para usarlo desde otro archivo)
-export default cartContextProvider;
+export default CartContextProvider;
 export { cartContext };

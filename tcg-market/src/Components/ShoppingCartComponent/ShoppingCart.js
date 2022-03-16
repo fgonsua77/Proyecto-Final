@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { cartContext } from "../../Context/CartContext";
 
 const cart = () => {
@@ -23,9 +23,7 @@ const eliminarCarta = (idEliminar) => {
                 <tr>
                     <th>Carta</th>
                     <th>Cantidad</th>
-                    <th className="text-center">Precio</th>
-                    <th> </th>
-                    <th> </th>
+                    <th className="text-center">Precio</th>S
                 </tr>
                 </thead>
                 <tbody>
@@ -37,13 +35,15 @@ const eliminarCarta = (idEliminar) => {
                     <tr key={carta.id}>
                         <td className="col-sm-8 col-md-6">
                         <div className="media">
-                            <a className="thumbnail pull-left" href="#">
-                            {" "}
-                            <img
+                        <Link to={`/card/cardId=${carta.id}`}>
+                        <img
                                 className="media-object imagen-cart"w
                                 src={carta.imagen}
-                            ></img>{" "}
-                            </a>
+                                alt="${carta.imagen}"
+                            ></img>
+                        </Link>
+                            {" "}
+                            {" "}
                             <div className="media-body">
                             <h4 className="media-heading">
                                 <a href="#">{carta.nombre}</a>

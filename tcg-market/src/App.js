@@ -30,14 +30,9 @@ const App = () => {
           <Route path="/signup" element ={<Signup/>} />
           <Route path="/card/:cardId" element={<CardInfo/>} />
           <Route path="/shoppingCart" element={<ShoppingCart/>} />
-          <Route
-                path="/logout" exact component={() => (
-                  <Login message="User Logged Out Successfully."/>
-                )}
-          />
+          <Route path="/logout" element={ <Navigate to='/login' />} />
         </Routes>
         </CartContextProvider>
-       
         </BrowserRouter>
   );
 };
