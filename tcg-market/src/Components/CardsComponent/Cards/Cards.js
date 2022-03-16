@@ -4,19 +4,28 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import CardItemList from "../CardItemList";
 import Pagination from "../../PaginationComponent/Pagination";
+import { useSearchParams } from "react-router-dom";
 const Cards = () => {
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [busqueda] = useState();
+    const [ search, setSearch ] = useState();
+    const [busqueda, setBusqueda] = useState("");
     const [cardsPerPage] = useState(4);
     const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
         setLoading(true)
-        fetch('http://localhost:8080/apicartas/cartas')
+        search === undefined && fetch('http://localhost:8080/apicartas/cartas')
         .then(response => response.json())
         .then(cards => setCards(cards))
         .then(() => setLoading(false));
     }, []);
+    useEffect(() => {
+        setLoading(true)
+        search !== undefined && fetch(`http://localhost:8080/apicartas/cartas/buscarPorNombre/${search}`)
+        .then(response => response.json())
+        .then(cards => setCards(cards))
+        .then(() => setLoading(false));
+    }, [search]);
     if(loading){
         return <h2>Loading....</h2>
     }
@@ -31,11 +40,8 @@ const Cards = () => {
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Busca por Nombre</Form.Label>
-                        <Form.Control type="text" value={busqueda} placeholder="Buscar..."  />
+                        <Form.Control type="text" onChange={event => setBusqueda(event.target.value)} value={busqueda} onKeyPress={event => event.key == 'Enter' && setSearch(busqueda)} placeholder="Buscar..."  />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
                 </Form>
             </div>
             <h1 class="d-flex justify-content-center">Cartas</h1>
