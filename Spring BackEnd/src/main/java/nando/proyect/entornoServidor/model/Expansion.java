@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "expansiones")
+@Table(name = "expansions")
 public class Expansion{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,6 @@ public class Expansion{
     @Column(unique=true)
     public String codigo;
     public String nombre;
-    public Boolean disponible;
     @ManyToOne
     @JoinColumn(name="idjuego")
     public Juego juego;
@@ -40,12 +39,6 @@ public class Expansion{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public Boolean getDisponible() {
-        return disponible;
-    }
-    public void setDisponible(Boolean disponible) {
-        this.disponible = disponible;
-    }
     public Juego getJuego() {
         return juego;
     }
@@ -54,7 +47,7 @@ public class Expansion{
     }
     @Override
     public String toString() {
-        return "Expansion [codigo=" + codigo + ", disponible=" + disponible + ", id=" + id + ", juego=" + juego
+        return "Expansion [codigo=" + codigo + ", id=" + id + ", juego=" + juego
                 + ", nombre=" + nombre + "]";
     }
     

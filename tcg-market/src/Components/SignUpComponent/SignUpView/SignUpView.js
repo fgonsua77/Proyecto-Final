@@ -80,7 +80,7 @@ return (
                     value={user.name}
                     onChange={userChange}
                     className={"bg-white text-dark"}
-                    placeholder="Enter Name"
+                    placeholder="Introduce tu nombre"
                     />
                 </InputGroup>
                 </Form.Group>
@@ -101,7 +101,7 @@ return (
                     value={user.email}
                     onChange={userChange}
                     className={"bg-white text-dark"}
-                    placeholder="Enter Email Address"
+                    placeholder="Introduce Email"
                     />
                 </InputGroup>
                 </Form.Group>
@@ -122,7 +122,7 @@ return (
                     value={user.password}
                     onChange={userChange}
                     className={"bg-white text-dark"}
-                    placeholder="Enter Password"
+                    placeholder="Introduzca la contraseña"
                     />
                 </InputGroup>
                 </Form.Group>

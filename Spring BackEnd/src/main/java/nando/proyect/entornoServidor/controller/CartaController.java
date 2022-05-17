@@ -58,12 +58,9 @@ public class CartaController {
     public String actualizarCarta(Carta carta){
         Carta cartaAModificar = cartaService.encontrarUnaCartaPorId(carta.id);
         cartaAModificar.nombre = carta.nombre;
-        cartaAModificar.texto = carta.texto;
         cartaAModificar.expansion = carta.expansion;
         cartaAModificar.codigo = carta.codigo;
-        cartaAModificar.keywords = carta.keywords;
         cartaAModificar.reprint = carta.reprint;
-        cartaAModificar.precio = carta.precio;
         return "redirect:/cartas/list";
     }
 

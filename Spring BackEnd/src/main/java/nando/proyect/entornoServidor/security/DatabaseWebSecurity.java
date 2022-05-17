@@ -43,7 +43,8 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 											"/apiuser/signup",
 											"/apiuser/search",
 											"/apiuser/login",
-											"/apicartas/cartas/**").permitAll();
+											"/apicartas/cartas/**",
+											"/sale/**").permitAll();
 		http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	@Bean

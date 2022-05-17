@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
-@Table(name = "cartas")
+@Table(name = "cards")
 public class Carta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,14 +16,12 @@ public class Carta {
     @Column(unique=true)
     public String codigo;
     public String nombre;
-    public String texto;
-    public String keywords;
     public Boolean reprint;
-    public Double precio;
     @ManyToOne
     @JoinColumn(name="expansion")
     public Expansion expansion;
     public String imagen;
+    public String rareza;
     public Boolean destacado;
     public Integer getId() {
         return id;
@@ -43,29 +41,8 @@ public class Carta {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public String getTexto() {
-        return texto;
-    }
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
-    public String getKeywords() {
-        return keywords;
-    }
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
-    }
-    public Boolean getReprint() {
-        return reprint;
-    }
     public void setReprint(Boolean reprint) {
         this.reprint = reprint;
-    }
-    public Double getPrecio() {
-        return precio;
-    }
-    public void setPrecio(Double precio) {
-        this.precio = precio;
     }
     public Expansion getExpansion() {
         return expansion;
@@ -80,6 +57,16 @@ public class Carta {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+    
+    public Boolean getReprint() {
+        return reprint;
+    }
+    public String getRareza() {
+        return rareza;
+    }
+    public void setRareza(String rareza) {
+        this.rareza = rareza;
+    }
     public Boolean getDestacado() {
         return destacado;
     }
@@ -89,9 +76,9 @@ public class Carta {
     @Override
     public String toString() {
         return "Carta [codigo=" + codigo + ", destacado=" + destacado + ", expansion=" + expansion + ", id=" + id
-                + ", imagen=" + imagen + ", keywords=" + keywords + ", nombre=" + nombre + ", precio=" + precio
-                + ", reprint=" + reprint + ", texto=" + texto + "]";
+                + ", imagen=" + imagen + ", nombre=" + nombre + ", rareza=" + rareza + ", reprint=" + reprint + "]";
     }
+    
     
     
     

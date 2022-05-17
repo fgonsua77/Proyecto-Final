@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import nando.proyect.entornoServidor.model.Usuarios;
-
 public interface IServiceUsuario {
     Usuarios guardarUsuario(Usuarios user);
     void borrarUsuario(Integer idUser);

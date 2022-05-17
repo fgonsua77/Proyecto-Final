@@ -55,12 +55,12 @@ public class CartaRESTController {
     public Carta actualizarCarta(@RequestBody Carta carta) {
         Carta cartaAModificar = cartaService.encontrarUnaCartaPorId(carta.id);
         cartaAModificar.nombre = carta.nombre;
-        cartaAModificar.texto = carta.texto;
         cartaAModificar.expansion = carta.expansion;
         cartaAModificar.codigo = carta.codigo;
-        cartaAModificar.keywords = carta.keywords;
         cartaAModificar.reprint = carta.reprint;
-        cartaAModificar.precio = carta.precio;
+        cartaAModificar.imagen = carta.imagen;
+        cartaAModificar.rareza = carta.rareza;
+        cartaAModificar.destacado = carta.destacado;
         return cartaService.encontrarUnaCartaPorId(carta.id);
     }
 }

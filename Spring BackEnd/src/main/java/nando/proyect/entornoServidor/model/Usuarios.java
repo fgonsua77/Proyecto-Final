@@ -18,7 +18,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity @Data  @NoArgsConstructor @AllArgsConstructor
-@Table(name="usuarios")
+@Table(name="users")
 public class Usuarios {
 	
 	@Id
@@ -31,7 +31,7 @@ public class Usuarios {
 	private Integer estatus;
 	private Date fechaRegistro;
 	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="UsuarioPerfil",
+	@JoinTable(name="userprofile",
 			joinColumns = @JoinColumn(name="idUsuario"),
 			inverseJoinColumns = @JoinColumn(name="idPerfil")
 			)
