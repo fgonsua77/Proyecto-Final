@@ -2,5 +2,32 @@ p{
     color: #000;
 }
 header{
-    background-color:#00A3CC;
+    background-color:#ffff;
+}
+.dropdown{
+    grid-area: "dropdown";
+}
+.tcgmarket{
+    grid-area: "tcgmarket";
+}
+.login{
+    grid-area: "login";
+}
+.signup{
+    grid-area: "signup";
+}
+.carrito{
+    grid-area: "carrito";
+}
+.header{
+    display: grid;
+    grid-template-areas:
+        'tcgmarket login signup dropdown carrito';
+    gap: 10px;
+    padding: 10px;
+}
+.icon{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
 }

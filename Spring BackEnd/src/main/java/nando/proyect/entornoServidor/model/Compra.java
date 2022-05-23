@@ -25,9 +25,9 @@ public class Compra {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="evaluation", referencedColumnName="id")
     public Evaluacion evaluacion;
-    private Date fechadepago;
-    private Date fechadeenvio;
-    private Date fechadeconfirmación;
+    private Date paymentdate;
+    private Date shipmentdate;
+    private Date confirmationdate;
     private Integer shipmentbill;
     public Integer getId() {
         return id;
@@ -47,23 +47,23 @@ public class Compra {
     public void setEvaluacion(Evaluacion evaluacion) {
         this.evaluacion = evaluacion;
     }
-    public Date getFechadepago() {
-        return fechadepago;
+    public Date getPaymentdate() {
+        return paymentdate;
     }
-    public void setFechadepago(Date fechadepago) {
-        this.fechadepago = fechadepago;
+    public void setPaymentdate(Date paymentdate) {
+        this.paymentdate = paymentdate;
     }
-    public Date getFechadeenvio() {
-        return fechadeenvio;
+    public Date getShipmentdate() {
+        return shipmentdate;
     }
-    public void setFechadeenvio(Date fechadeenvio) {
-        this.fechadeenvio = fechadeenvio;
+    public void setShipmentdate(Date shipmentdate) {
+        this.shipmentdate = shipmentdate;
     }
-    public Date getFechadeconfirmación() {
-        return fechadeconfirmación;
+    public Date getConfirmationdate() {
+        return confirmationdate;
     }
-    public void setFechadeconfirmación(Date fechadeconfirmación) {
-        this.fechadeconfirmación = fechadeconfirmación;
+    public void setConfirmationdate(Date confirmationdate) {
+        this.confirmationdate = confirmationdate;
     }
     public Integer getShipmentbill() {
         return shipmentbill;
@@ -73,10 +73,11 @@ public class Compra {
     }
     @Override
     public String toString() {
-        return "Compra [direccion=" + direccion + ", evaluacion=" + evaluacion + ", fechadeconfirmación="
-                + fechadeconfirmación + ", fechadeenvio=" + fechadeenvio + ", fechadepago=" + fechadepago + ", id=" + id
-                + ", shipmentbill=" + shipmentbill + "]";
+        return "Compra [confirmationdate=" + confirmationdate + ", direccion=" + direccion.getName() + ", evaluacion="
+                + evaluacion.getGeneral() + ", id=" + id + ", paymentdate=" + paymentdate + ", shipmentbill=" + shipmentbill
+                + ", shipmentdate=" + shipmentdate + "]";
     }
+    
     
     
     

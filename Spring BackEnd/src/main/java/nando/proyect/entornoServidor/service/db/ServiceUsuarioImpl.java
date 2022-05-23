@@ -41,12 +41,12 @@ public class ServiceUsuarioImpl implements IServiceUsuario, UserDetailsService {
     public Usuarios editarUsuario(Usuarios user) {
         Usuarios usuarioEditado = new Usuarios();
         usuarioEditado.setId(user.getId());
-        usuarioEditado.setNombre(user.getNombre());
+        usuarioEditado.setName(user.getName());
         usuarioEditado.setEmail(user.getEmail());
         usuarioEditado.setPassword(user.getPassword());
         usuarioEditado.setUsername(user.getUsername());
-        usuarioEditado.setEstatus(user.getEstatus());
-        usuarioEditado.setFechaRegistro(user.getFechaRegistro());
+        usuarioEditado.setStatus(user.getStatus());
+        usuarioEditado.setRegisterdate(user.getRegisterdate());
         return usuarioRepository.save(usuarioEditado);
     }
 
@@ -70,7 +70,7 @@ public class ServiceUsuarioImpl implements IServiceUsuario, UserDetailsService {
     @Override
     public void añadirPerfilAUsuario(String username, String perfilname){
         Usuarios usuario = usuarioRepository.findByUsername(username);
-        Perfil perfil = perfilRepository.findByPerfil(perfilname);
+        Perfil perfil = perfilRepository.findByProfile(perfilname);
         usuario.getPerfiles().add(perfil);
     }
 
@@ -86,7 +86,7 @@ public class ServiceUsuarioImpl implements IServiceUsuario, UserDetailsService {
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         user.getPerfiles().forEach(perfil -> {
-            authorities.add(new SimpleGrantedAuthority(perfil.getPerfil()));
+            authorities.add(new SimpleGrantedAuthority(perfil.getProfile()));
         });
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }

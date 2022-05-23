@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import nando.proyect.entornoServidor.model.Perfil;
 
 public interface PerfilRepository extends JpaRepository<Perfil, Integer> {
-    Perfil findByPerfil(String perfil);
+    Perfil findByProfile(String perfil);
 }
 

@@ -20,18 +20,17 @@ public class Direccion {
     @JoinColumn(name = "iduser")
     private Usuarios usuario;
 
-    private String nombre;
-    private String apellidos;
-    private String calle;
-    private String numero;
-    private String piso;
-    private String puerta;
-    private String codigoPostal;
-    private String ciudad;
-    private String provincia;
-    private String pais;
-    private String comentarios;
-    private Boolean preferida;
+    private String name;
+    private String surname;
+    private String street;
+    private String number;
+    private String floor;
+    private String postalcode;
+    private String city;
+    private String province;
+    private String country;
+    private String comments;
+    private Boolean preferred;
     public Integer getId() {
         return id;
     }
@@ -44,84 +43,80 @@ public class Direccion {
     public void setUsuario(Usuarios usuario) {
         this.usuario = usuario;
     }
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getApellidos() {
-        return apellidos;
+    public String getSurname() {
+        return surname;
     }
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
-    public String getCalle() {
-        return calle;
+    public String getStreet() {
+        return street;
     }
-    public void setCalle(String calle) {
-        this.calle = calle;
+    public void setStreet(String street) {
+        this.street = street;
     }
-    public String getNumero() {
-        return numero;
+    public String getNumber() {
+        return number;
     }
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setNumber(String number) {
+        this.number = number;
     }
-    public String getPiso() {
-        return piso;
+    public String getFloor() {
+        return floor;
     }
-    public void setPiso(String piso) {
-        this.piso = piso;
+    public void setFloor(String floor) {
+        this.floor = floor;
     }
-    public String getPuerta() {
-        return puerta;
+    public String getPostalcode() {
+        return postalcode;
     }
-    public void setPuerta(String puerta) {
-        this.puerta = puerta;
+    public void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
     }
-    public String getCodigoPostal() {
-        return codigoPostal;
+    public String getCity() {
+        return city;
     }
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
+    public void setCity(String city) {
+        this.city = city;
     }
-    public String getCiudad() {
-        return ciudad;
+    public String getProvince() {
+        return province;
     }
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public void setProvince(String province) {
+        this.province = province;
     }
-    public String getProvincia() {
-        return provincia;
+    public String getCountry() {
+        return country;
     }
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
+    public void setCountry(String country) {
+        this.country = country;
     }
-    public String getPais() {
-        return pais;
+    public String getComments() {
+        return comments;
     }
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
-    public String getComentarios() {
-        return comentarios;
+    public Boolean getPreferred() {
+        return preferred;
     }
-    public void setComentarios(String comentarios) {
-        this.comentarios = comentarios;
-    }
-    public Boolean getPreferida() {
-        return preferida;
-    }
-    public void setPreferida(Boolean preferida) {
-        this.preferida = preferida;
+    public void setPreferred(Boolean preferred) {
+        this.preferred = preferred;
     }
     @Override
     public String toString() {
-        return "Direccion [apellidos=" + apellidos + ", calle=" + calle + ", ciudad=" + ciudad + ", codigoPostal="
-                + codigoPostal + ", comentarios=" + comentarios + ", id=" + id + ", nombre=" + nombre + ", numero="
-                + numero + ", pais=" + pais + ", piso=" + piso + ", preferida=" + preferida + ", provincia=" + provincia
-                + ", puerta=" + puerta + ", usuario=" + usuario + "]";
+        return "Direccion [city=" + city + ", comments=" + comments + ", country=" + country + ", floor=" + floor
+                + ", id=" + id + ", name=" + name + ", number=" + number + ", postalcode=" + postalcode + ", preferred="
+                + preferred + ", province=" + province + ", street=" + street + ", surname=" + surname + ", usuario="
+                + usuario.getName() + "]";
     }
+
+    
     
 }

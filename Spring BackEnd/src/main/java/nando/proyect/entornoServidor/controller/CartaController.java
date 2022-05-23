@@ -57,10 +57,14 @@ public class CartaController {
     @PutMapping("/update")
     public String actualizarCarta(Carta carta){
         Carta cartaAModificar = cartaService.encontrarUnaCartaPorId(carta.id);
-        cartaAModificar.nombre = carta.nombre;
-        cartaAModificar.expansion = carta.expansion;
-        cartaAModificar.codigo = carta.codigo;
-        cartaAModificar.reprint = carta.reprint;
+        cartaAModificar.setName(carta.getName());
+        cartaAModificar.setExpansion(carta.getExpansion()) ;
+        cartaAModificar.setCode(carta.getCode());
+        cartaAModificar.setReprint(carta.getReprint());
+        cartaAModificar.setImage(carta.getImage());
+        cartaAModificar.setRarity(carta.getRarity());
+        cartaAModificar.setHighlighted(carta.getHighlighted());
+        cartaService.guardarCarta(cartaAModificar);
         return "redirect:/cartas/list";
     }
 

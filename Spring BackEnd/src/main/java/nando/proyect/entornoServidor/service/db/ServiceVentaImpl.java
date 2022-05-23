@@ -3,6 +3,7 @@ package nando.proyect.entornoServidor.service.db;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import nando.proyect.entornoServidor.model.Venta;
@@ -24,7 +25,10 @@ public class ServiceVentaImpl implements IServiceVenta {
         // TODO Auto-generated method stub
         return ventaRepository.findAll();
     }
-
+    @Override
+    public List<Venta> encontrarTodasFiltradas(Sort sort) {
+        return ventaRepository.findAll(sort);
+    }
     @Override
     public Venta encontrarUnaVentaPorId(Integer id) {
         // TODO Auto-generated method stub
@@ -36,5 +40,4 @@ public class ServiceVentaImpl implements IServiceVenta {
         // TODO Auto-generated method stub
         ventaRepository.save(venta);
     }
-    
 }

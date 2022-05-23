@@ -15,22 +15,22 @@ public class Juego{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    public String nombre;
+    public String name;
     public Integer getId() {
         return id;
     }
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
     @Override
     public String toString() {
-        return "Juego [id=" + id + ", nombre=" + nombre + "]";
+        return "Juego [id=" + id + ", name=" + name + "]";
     }
     
     

@@ -17,13 +17,13 @@ public class Evaluacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    private String comentario;
+    private String comment;
     @Enumerated(EnumType.STRING)
     private General general;
     @Enumerated(EnumType.STRING)
-    private Articulo articulo;
+    private Articulo article;
     @Enumerated(EnumType.STRING)
-    private Empaquetado empaquetado;
+    private Empaquetado packing;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="idpurchase", referencedColumnName="id")
     private Compra compra;
@@ -43,12 +43,6 @@ public class Evaluacion {
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getComentario() {
-        return comentario;
-    }
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
     
     public General getGeneral() {
         return general;
@@ -56,29 +50,36 @@ public class Evaluacion {
     public void setGeneral(General general) {
         this.general = general;
     }
-    public Articulo getArticulo() {
-        return articulo;
-    }
-    public void setArticulo(Articulo articulo) {
-        this.articulo = articulo;
-    }
-    public Empaquetado getEmpaquetado() {
-        return empaquetado;
-    }
-    public void setEmpaquetado(Empaquetado empaquetado) {
-        this.empaquetado = empaquetado;
-    }
     public Compra getCompra() {
         return compra;
     }
     public void setCompra(Compra compra) {
         this.compra = compra;
     }
+    public String getComment() {
+        return comment;
+    }
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+    public Articulo getArticle() {
+        return article;
+    }
+    public void setArticle(Articulo article) {
+        this.article = article;
+    }
+    public Empaquetado getPacking() {
+        return packing;
+    }
+    public void setPacking(Empaquetado packing) {
+        this.packing = packing;
+    }
     @Override
     public String toString() {
-        return "Evaluacion [articulo=" + articulo + ", comentario=" + comentario + ", compra=" + compra
-                + ", empaquetado=" + empaquetado + ", general=" + general + ", id=" + id + "]";
+        return "Evaluacion [article=" + article + ", comment=" + comment + ", compra=" + compra + ", general=" + general
+                + ", id=" + id + ", packing=" + packing + "]";
     }
+    
 
     
 }

@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 @Configuration
 @EnableWebSecurity
 public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
@@ -25,33 +26,40 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetails;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetails).passwordEncoder(bCryptPasswordEncoder);
-		
+
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors();
 		http.csrf().disable();
-		CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-		CustomAuthorizationFilter customAuthorizationFilter = new CustomAuthorizationFilter();
-		customAuthenticationFilter.setFilterProcessesUrl("/apiuser/login");
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeRequests().antMatchers("/",
-											"/apiuser/signup",
-											"/apiuser/search",
-											"/apiuser/login",
-											"/apicartas/cartas/**",
-											"/sale/**").permitAll();
-		http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+		// CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(
+		// 		authenticationManagerBean());
+		// CustomAuthorizationFilter customAuthorizationFilter = new CustomAuthorizationFilter();
+		// customAuthenticationFilter.setFilterProcessesUrl("/apiuser/login");
+		// http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+		// http.authorizeRequests().antMatchers("/",
+		// 		"/apiuser/signup",
+		// 		"/apiuser/search",
+		// 		"/apiuser/login",
+		// 		"/usuarios/getuser/userid={id}",
+		// 		"/apicartas/cartas/**",
+		// 		"/sale/**").permitAll();
+		// http.authorizeRequests().anyRequest().authenticated();
+		// http.addFilter(customAuthenticationFilter);
+		// http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
+
 	@Bean
-	CorsConfigurationSource corsConfigurationSource(){
+	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.addAllowedOrigin("*");
 		configuration.addAllowedHeader("*");
 		configuration.addAllowedMethod("*");
@@ -59,13 +67,17 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
+
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
+
 	@Bean
 	public static PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	} 
-} 
+	}
+
+	
+}

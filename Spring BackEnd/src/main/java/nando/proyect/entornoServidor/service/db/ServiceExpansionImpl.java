@@ -16,5 +16,20 @@ public class ServiceExpansionImpl implements IServiceExpansion  {
     public List<Expansion> encontrarTodasLasExpansiones() {
         return expansionRepository.findAll();
     }
+    @Override
+    public List<Expansion> encontrarExpansionesPorIddeJuego(Integer idJuego) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public Expansion encontrarUnaExpansionPorId(Integer id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public void guardarExpansion(Expansion expansion) {
+        // TODO Auto-generated method stub
+        
+    }
     
 }

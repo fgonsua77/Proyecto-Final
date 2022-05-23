@@ -1,5 +1,6 @@
 package nando.proyect.entornoServidor.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -11,12 +12,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import nando.proyect.entornoServidor.model.Carta;
+import nando.proyect.entornoServidor.model.Expansion;
+import nando.proyect.entornoServidor.model.Juego;
 import nando.proyect.entornoServidor.service.IServiceCarta;
+import nando.proyect.entornoServidor.service.IServiceExpansion;
+import nando.proyect.entornoServidor.service.IServiceJuego;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST})
@@ -25,6 +30,10 @@ import nando.proyect.entornoServidor.service.IServiceCarta;
 public class CartaRESTController {
     @Autowired
     private IServiceCarta cartaService;
+    @Autowired
+    private IServiceExpansion expansionService;
+    @Autowired
+    private IServiceJuego juegoService;
     @GetMapping("/cartas")
     public List<Carta> encontrarTodas() {
         return cartaService.encontrarTodas();
@@ -37,9 +46,26 @@ public class CartaRESTController {
     public List<Carta> encontrarCartasPorLineadeNombre(@PathVariable String lineaNombre) {
         return cartaService.encontrarCartasPorLineadeNombre(lineaNombre);
     }
-    @GetMapping("/cartas/buscarPorJuego/{nombreJuego}")
+    @GetMapping("/cartas/buscarPorJuego/nombre={nombreJuego}")
     public List<Carta> encontrarCartasPorjuego(@PathVariable String nombreJuego) {
-        return cartaService.encontrarCartasPorJuego(nombreJuego);
+        Juego juegoReclamado = juegoService.encontrarJuegoPorNombre(nombreJuego);
+        List<Expansion> expansiones = expansionService.encontrarTodasLasExpansiones();
+        List<Expansion> expansionesJuego = new ArrayList<Expansion>();
+        List<Carta> cartas = cartaService.encontrarTodas();
+        List<Carta> cartasExpansiones = new ArrayList<Carta>();
+        for(int i = 0; i<expansiones.size(); i++) {
+            if(expansiones.get(i).getJuego().getId().equals(juegoReclamado.getId())) {
+                expansionesJuego.add(expansiones.get(i));
+            }
+        }
+        for(int i = 0; i<cartas.size(); i++) {
+            for(int j = 0; j<expansionesJuego.size(); j++) {
+                if(cartas.get(i).getExpansion().getId().equals(expansionesJuego.get(j).getId())) {
+                    cartasExpansiones.add(cartas.get(i));
+                }
+            }
+        }
+        return cartasExpansiones;
     }
     @GetMapping("/cartas/getCarta/cardId={id}")
     public Carta encontrarUnaCartaPorId(@PathVariable("id") Integer id) {
@@ -54,13 +80,14 @@ public class CartaRESTController {
     @PutMapping("/update")
     public Carta actualizarCarta(@RequestBody Carta carta) {
         Carta cartaAModificar = cartaService.encontrarUnaCartaPorId(carta.id);
-        cartaAModificar.nombre = carta.nombre;
-        cartaAModificar.expansion = carta.expansion;
-        cartaAModificar.codigo = carta.codigo;
-        cartaAModificar.reprint = carta.reprint;
-        cartaAModificar.imagen = carta.imagen;
-        cartaAModificar.rareza = carta.rareza;
-        cartaAModificar.destacado = carta.destacado;
+        cartaAModificar.setName(carta.getName());
+        cartaAModificar.setExpansion(carta.getExpansion()) ;
+        cartaAModificar.setCode(carta.getCode());
+        cartaAModificar.setReprint(carta.getReprint());
+        cartaAModificar.setImage(carta.getImage());
+        cartaAModificar.setRarity(carta.getRarity());
+        cartaAModificar.setHighlighted(carta.getHighlighted());
+        cartaService.guardarCarta(cartaAModificar);
         return cartaService.encontrarUnaCartaPorId(carta.id);
     }
 }

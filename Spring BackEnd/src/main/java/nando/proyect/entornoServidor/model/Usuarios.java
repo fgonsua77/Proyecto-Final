@@ -25,15 +25,17 @@ public class Usuarios {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String username;
-	private String nombre;
+	private String name;
+	private String surname;
+	private Date birthdate;
 	private String email;
 	private String password;
-	private Integer estatus;
-	private Date fechaRegistro;
+	private Integer status;
+	private Date registerdate;
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="userprofile",
-			joinColumns = @JoinColumn(name="idUsuario"),
-			inverseJoinColumns = @JoinColumn(name="idPerfil")
+			joinColumns = @JoinColumn(name="idUser"),
+			inverseJoinColumns = @JoinColumn(name="idProfile")
 			)
 	private Collection<Perfil> perfiles;
 
@@ -55,11 +57,11 @@ public class Usuarios {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getEmail() {
 		return email;
@@ -73,25 +75,30 @@ public class Usuarios {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Integer getEstatus() {
-		return estatus;
+	public Integer getStatus() {
+		return status;
 	}
-	public void setEstatus(Integer estatus) {
-		this.estatus = estatus;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
-	public Date getFechaRegistro() {
-		return fechaRegistro;
+	public Date getRegisterdate() {
+		return registerdate;
 	}
-	public void setFechaRegistro(Date fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
+	public void setRegisterdate(Date registerdate) {
+		this.registerdate = registerdate;
 	}
-	@Override
-	public String toString() {
-		return "Usuario [email=" + email + ", estatus=" + estatus + ", fechaRegistro=" + fechaRegistro + ", id=" + id
-				+ ", nombre=" + nombre + ", perfiles=" + perfiles + ", username=" + username
-				+ "]";
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
 	}
-	
+	public Date getBirthdate() {
+		return birthdate;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	public String getSurname() {
+		return surname;
+	}
 	
 	
 

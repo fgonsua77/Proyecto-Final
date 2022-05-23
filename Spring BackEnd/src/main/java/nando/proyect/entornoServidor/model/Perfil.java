@@ -17,7 +17,7 @@ public class Perfil {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String perfil;
+	private String profile;
 	
 	public Integer getId() {
 		return id;
@@ -25,15 +25,15 @@ public class Perfil {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getPerfil() {
-		return perfil;
+	public String getProfile() {
+		return profile;
 	}
-	public void setPerfil(String perfil) {
-		this.perfil = perfil;
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 	@Override
 	public String toString() {
-		return "Perfil [id=" + id + ", perfil=" + perfil + "]";
+		return "profile [id=" + id + ", profile=" + profile + "]";
 	}
 	
 }

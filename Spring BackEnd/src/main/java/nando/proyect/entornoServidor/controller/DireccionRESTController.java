@@ -26,10 +26,10 @@ public class DireccionRESTController {
     public List<Direccion> encontrarTodas() {
         return direccionService.encontrarTodas();
     }
-    @GetMapping("/addresses/userId={id}")
-    public List<Direccion> encontrarDireccionesPorUsuario(@PathVariable Integer idUser) {
-        return direccionService.encontrarDireccionesPorUsuario(idUser);
-    }
+    // @GetMapping("/addresses/userId={id}")
+    // public List<Direccion> encontrarDireccionesPorUsuario(@PathVariable Integer idUser) {
+        
+    // }
     @PostMapping("/save")
     public void guardarDireccion(@RequestBody Direccion direccion) {
         direccionService.guardarDireccion(direccion);
@@ -37,18 +37,17 @@ public class DireccionRESTController {
     @PutMapping("/update")
     public void actualizarDireccion(@RequestBody Direccion direccion) {
         Direccion direccionAActualizar = direccionService.encontrarUnaDireccionPorId(direccion.getId());
-        direccionAActualizar.setCalle(direccion.getCalle());
-        direccionAActualizar.setNumero(direccion.getNumero());
-        direccionAActualizar.setPiso(direccion.getPiso());
-        direccionAActualizar.setPuerta(direccion.getPuerta());
-        direccionAActualizar.setProvincia(direccion.getProvincia());
-        direccionAActualizar.setCodigoPostal(direccion.getCodigoPostal());
-        direccionAActualizar.setPais(direccion.getPais());
-        direccionAActualizar.setComentarios(direccion.getComentarios());
-        direccionAActualizar.setPreferida(direccion.getPreferida());
-        direccionAActualizar.setApellidos(direccion.getApellidos());
-        direccionAActualizar.setNombre(direccion.getNombre());
-        direccionAActualizar.setCiudad(direccion.getCiudad());
+        direccionAActualizar.setStreet(direccion.getStreet());
+        direccionAActualizar.setNumber(direccion.getNumber());
+        direccionAActualizar.setFloor(direccion.getFloor());
+        direccionAActualizar.setProvince(direccion.getProvince());
+        direccionAActualizar.setPostalcode(direccion.getPostalcode());
+        direccionAActualizar.setCountry(direccion.getCountry());
+        direccionAActualizar.setComments(direccion.getComments());
+        direccionAActualizar.setPreferred(direccion.getPreferred());
+        direccionAActualizar.setSurname(direccion.getSurname());
+        direccionAActualizar.setName(direccion.getName());
+        direccionAActualizar.setCity(direccion.getCity());
         direccionService.guardarDireccion(direccionAActualizar);
     }
     @DeleteMapping("/delete")

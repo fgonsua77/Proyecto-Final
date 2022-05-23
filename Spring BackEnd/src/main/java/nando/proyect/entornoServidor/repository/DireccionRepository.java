@@ -10,6 +10,5 @@ import nando.proyect.entornoServidor.model.Direccion;
 public interface DireccionRepository extends JpaRepository<Direccion, Integer> {
     
     Optional<Direccion> findById(Integer id);
-    List<Direccion> findByUsuarioId(Integer id);
     
 }

@@ -8,5 +8,6 @@ public interface IServiceJuego {
     void guardarJuego(Juego juego);
     List<Juego> encontrarTodas();
     void borrarJuego(Juego juego);
+    Juego encontrarJuegoPorNombre(String nombre);
     
 }

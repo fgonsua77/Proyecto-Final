@@ -36,6 +36,10 @@ public class ServiceJuegoImpl implements IServiceJuego{
         // TODO Auto-generated method stub
         juegoRepository.save(juego);
     }
-
+    @Override
+    public Juego encontrarJuegoPorNombre(String nombre) {
+        // TODO Auto-generated method stub
+        return juegoRepository.findByName(nombre);
+    }
     
 }

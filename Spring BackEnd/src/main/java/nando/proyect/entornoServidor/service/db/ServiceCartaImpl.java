@@ -40,22 +40,11 @@ public class ServiceCartaImpl implements IServiceCarta {
     @Override
     public List<Carta> encontrarCartasPorLineadeNombre(String nombre) {
         // TODO Auto-generated method stub
-        return cartaRepository.findByNombreContaining(nombre);
-    }
-    @Override
-    public List<Carta> encontrarCartasPorJuego(String juego) {
-        Juego juegoAEncontrar = juegoRepository.findByNombre(juego);
-        List<Expansion> expansionesDelJuego = expansionRepository.findAllByJuego(juegoAEncontrar);
-        List<Carta> cartasAEnviar = new LinkedList<Carta>();
-        for (Expansion expansion : expansionesDelJuego) {
-            List<Carta> cartasDeLaExpansion = cartaRepository.findAllByExpansion(expansion.id);
-            cartasAEnviar.addAll(cartasDeLaExpansion);
-        }
-        return cartasAEnviar;
+        return cartaRepository.findByNameContaining(nombre);
     }
     @Override
     public List<Carta> encontrarCartasDestacadas() {
         // TODO Auto-generated method stub
-        return cartaRepository.findByDestacado(true);
+        return cartaRepository.findByHighlighted(true);
     }
 }

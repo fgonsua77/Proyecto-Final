@@ -1,0 +1,276 @@
+
+const initialState2 = {
+        country: "",
+        province: "",
+        city: "",
+        street: "",
+        floor: "",
+        number: "",
+        postalcode: "",
+
+    };
+const [address, setAddress] = useState(initialState2);
+const addressChange = (event) => {
+        const { name, placeholder } = event.target;
+        setAddress({ ...address, [name]: placeholder });
+    };
+const saveAddress = () => {
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://localhost:8080/address/save");
+
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = () => console.log(xhr.responseText);
+
+        let data = `{
+                        "name": ${user.name},
+                        "surname": ${user.surname},
+                        "country": ${address.country},
+                        "province": ${address.province},
+                        "city": ${address.city},
+                        "street": ${address.street},
+                        "floor": ${address.floor},
+                        "number": ${address.number},
+                        "postalcode": ${address.postalcode}
+
+                    }`;
+
+        xhr.send(data)
+        .then((response) => {
+            setShow(true);
+            setMessage(response.message);
+            setTimeout(() => {
+                setShow(false);
+            }, 2000);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+
+<div>
+    <div style={{ display: show ? "block" : "none" }}>
+        <MyToast show={show} message={message} type={"success"} />
+    </div>
+    <Row className="justify-content-md-center">
+        <Col xs={5}>
+        <Card className={"border border-dark bg-dark text-white"}>
+            <Card.Header>
+            <FontAwesomeIcon icon={faUserPlus} /> Register
+            </Card.Header>
+            <Card.Body>
+            <Row>
+                <Form.Group as={Col}>
+                <InputGroup>
+                    <InputGroup>
+                    <InputGroup.Text>
+                        <FontAwesomeIcon icon={faUser} />
+                    </InputGroup.Text>
+                    </InputGroup>
+                    <FormControl
+                    autoComplete="off"
+                    type="text"
+                    name="username"
+                    value={user.username}
+                    onChange={userChange}
+                    className={"bg-white text-dark"}
+                    placeholder="Introduce tu nombre de usuario"
+                    />
+                </InputGroup>
+                </Form.Group>
+            </Row>
+            <Form>
+                <Form.Group as={Col}>
+                <InputGroup>
+                    <InputGroup>
+                    <InputGroup.Text>
+                        <FontAwesomeIcon icon={faEnvelope} />
+                    </InputGroup.Text>
+                    </InputGroup>
+                    <FormControl
+                    required
+                    autoComplete="off"
+                    type="text"
+                    name="email"
+                    value={user.email}
+                    onChange={userChange}
+                    className={"bg-white text-dark"}
+                    placeholder="Introduce Email"
+                    />
+                </InputGroup>
+                </Form.Group>
+<div>
+                    <h2>Dirección</h2>
+                    <div class="form-group row">
+                        <label for="calle" class="row row-form-label">Calle</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="calle" placeholder="Nombre" value={address.street} onChange={addressChange} />
+                        </div>
+                        <label for="piso/nºcasa" class="row row-form-label">Número de casa/Piso</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="piso/nºcasa" placeholder="Piso/NºCasa" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="cp" class="row row-form-label">Código Postal</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="cp" placeholder="e.g 15451" />
+                        </div>
+                        <label for="ciudad" class="row row-form-label">Ciudad</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="ciudad" placeholder="Ciudad" />
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="paisSelect">País</label>
+                            <select class="form-select" id="paisSelect">
+                                <option>Alemania</option>
+                                <option>Austria</option>
+                                <option>Bélgica</option>
+                                <option>Bulgaria</option>
+                                <option>Chipre</option>
+                                <option>Croacia</option>
+                                <option>Dinamarca</option>
+                                <option>Eslovaquia</option>
+                                <option>Eslovenia</option>
+                                <option>España</option>
+                                <option>Estonia</option>
+                                <option>Finlandia</option>
+                                <option>Francia</option>
+                                <option>Grecia</option>
+                                <option>Hungría</option>
+                                <option>Irlanda</option>
+                                <option>Italia</option>
+                                <option>Letonia</option>
+                                <option>Lituania</option>
+                                <option>Luxemburgo</option>
+                                <option>Malta</option>
+                                <option>Polonia</option>
+                                <option>Portugal</option>
+                                <option>Países Bajos</option>
+                                <option>República Checa</option>
+                                <option>Rumanía</option>
+                                <option>Suecia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+<div>
+    <div style={{ display: show ? "block" : "none" }}>
+        <MyToast show={show} message={message} type={"success"} />
+    </div>
+    <Row className="justify-content-md-center">
+        <Col xs={5}>
+        <Card className={"border border-dark bg-dark text-white"}>
+            <Card.Header>
+            <FontAwesomeIcon icon={faUserPlus} /> Register
+            </Card.Header>
+            <Card.Body>
+            <Row>
+                <Form.Group as={Col}>
+                <InputGroup>
+                    <InputGroup>
+                    <InputGroup.Text>
+                        <FontAwesomeIcon icon={faUser} />
+                    </InputGroup.Text>
+                    </InputGroup>
+                    <FormControl
+                    autoComplete="off"
+                    type="text"
+                    name="username"
+                    value={user.username}
+                    onChange={userChange}
+                    className={"bg-white text-dark"}
+                    placeholder="Introduce tu nombre de usuario"
+                    />
+                </InputGroup>
+                </Form.Group>
+            </Row>
+            <Form>
+                <Form.Group as={Col}>
+                <InputGroup>
+                    <InputGroup>
+                    <InputGroup.Text>
+                        <FontAwesomeIcon icon={faEnvelope} />
+                    </InputGroup.Text>
+                    </InputGroup>
+                    <FormControl
+                    required
+                    autoComplete="off"
+                    type="text"
+                    name="email"
+                    value={user.email}
+                    onChange={userChange}
+                    className={"bg-white text-dark"}
+                    placeholder="Introduce Email"
+                    />
+                </InputGroup>
+                </Form.Group>
+            </Form>
+            <Form>
+                <Form.Group as={Col}>
+                <InputGroup>
+                    <InputGroup>
+                    <InputGroup.Text>
+                        <FontAwesomeIcon icon={faLock} />
+                    </InputGroup.Text>
+                    </InputGroup>
+                    <FormControl
+                    required
+                    autoComplete="off"
+                    type="password"
+                    name="password"
+                    value={user.password}
+                    onChange={userChange}
+                    className={"bg-white text-dark"}
+                    placeholder="Introduzca la contraseña"
+                    />
+                </InputGroup>
+                </Form.Group>
+            </Form>
+            <Form>
+                <Form.Group as={Col}>
+                <InputGroup>
+                    <InputGroup>
+                    <InputGroup.Text>
+                        <FontAwesomeIcon icon={faUser} />
+                    </InputGroup.Text>
+                    </InputGroup>
+                    <FormControl
+                    autoComplete="off"
+                    type="text"
+                    name="nombre"
+                    value={user.nombre}
+                    onChange={userChange}
+                    className={"bg-white text-dark"}
+                    placeholder="Introduzca nombre"
+                    />
+                </InputGroup>
+                </Form.Group>
+            </Form>
+            </Card.Body>
+            <Card.Footer style={{ textAlign: "right" }}>
+            <Button
+                size="sm"
+                type="button"
+                variant="success"
+                onClick={saveUser}
+                disabled={user.email.length === 0 || user.password.length === 0}
+            >
+                <FontAwesomeIcon icon={faUserPlus} /> Registrate
+            </Button>{" "}
+            <Button
+                size="sm"
+                type="button"
+                variant="info"
+                onClick={resetRegisterForm}
+            >
+                <FontAwesomeIcon icon={faUndo} /> Reset
+            </Button>
+            </Card.Footer>
+        </Card>
+        </Col>
+    </Row>
+    </div>

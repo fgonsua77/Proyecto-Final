@@ -6,9 +6,9 @@ import nando.proyect.entornoServidor.model.Carta;
 
 public interface CartaRepository extends JpaRepository<Carta, Integer> {
     List<Carta> findAllByExpansion(Integer expansion);
-    List<Carta> findByNombreContaining(String parteNombre);
-    List<Carta> findByCodigo(String codigo);
+    List<Carta> findByNameContaining(String parteNombre);
+    List<Carta> findByCode(String codigo);
     List<Carta> findByReprint(String reprint);
-    List<Carta> findByDestacado(Boolean destacado);
+    List<Carta> findByHighlighted(Boolean destacado);
 
 }

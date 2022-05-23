@@ -14,32 +14,32 @@ public class Carta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     @Column(unique=true)
-    public String codigo;
-    public String nombre;
+    public String code;
+    public String name;
     public Boolean reprint;
     @ManyToOne
     @JoinColumn(name="expansion")
     public Expansion expansion;
-    public String imagen;
-    public String rareza;
-    public Boolean destacado;
+    public String image;
+    public String rarity;
+    public Boolean highlighted;
     public Integer getId() {
         return id;
     }
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getCodigo() {
-        return codigo;
+    public String getCode() {
+        return code;
     }
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCode(String code) {
+        this.code = code;
     }
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
     public void setReprint(Boolean reprint) {
         this.reprint = reprint;
@@ -51,32 +51,32 @@ public class Carta {
         this.expansion = expansion;
     }
     
-    public String getImagen() {
-        return imagen;
+    public String getImage() {
+        return image;
     }
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setImage(String image) {
+        this.image = image;
     }
     
     public Boolean getReprint() {
         return reprint;
     }
-    public String getRareza() {
-        return rareza;
+    public String getRarity() {
+        return rarity;
     }
-    public void setRareza(String rareza) {
-        this.rareza = rareza;
+    public void setRarity(String rarity) {
+        this.rarity = rarity;
     }
-    public Boolean getDestacado() {
-        return destacado;
+    public Boolean getHighlighted() {
+        return highlighted;
     }
-    public void setDestacado(Boolean destacado) {
-        this.destacado = destacado;
+    public void setHighlighted(Boolean highlighted) {
+        this.highlighted = highlighted;
     }
     @Override
     public String toString() {
-        return "Carta [codigo=" + codigo + ", destacado=" + destacado + ", expansion=" + expansion + ", id=" + id
-                + ", imagen=" + imagen + ", nombre=" + nombre + ", rareza=" + rareza + ", reprint=" + reprint + "]";
+        return "Carta [code=" + code + ", highlighted=" + highlighted + ", expansion=" + expansion.getName() + ", id=" + id
+                + ", image=" + image + ", name=" + name + ", rarity=" + rarity + ", reprint=" + reprint + "]";
     }
     
     

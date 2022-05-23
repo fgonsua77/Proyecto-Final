@@ -38,11 +38,5 @@ public class ServiceDireccionImpl implements IServiceDireccion {
         direccionRepository.save(direccion);
         
     }
-
-    @Override
-    public List<Direccion> encontrarDireccionesPorUsuario(Integer iduser) {
-        // TODO Auto-generated method stub
-        return direccionRepository.findByUsuarioId(iduser);
-    }
     
 }

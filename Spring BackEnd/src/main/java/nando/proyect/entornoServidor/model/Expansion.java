@@ -15,10 +15,10 @@ public class Expansion{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     @Column(unique=true)
-    public String codigo;
-    public String nombre;
+    public String code;
+    public String name;
     @ManyToOne
-    @JoinColumn(name="idjuego")
+    @JoinColumn(name="idGame")
     public Juego juego;
 
     public Integer getId() {
@@ -27,28 +27,28 @@ public class Expansion{
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getCodigo() {
-        return codigo;
-    }
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    
     public Juego getJuego() {
         return juego;
     }
     public void setJuego(Juego juego) {
         this.juego = juego;
     }
+    public String getCode() {
+        return code;
+    }
+    public void setCode(String code) {
+        this.code = code;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     @Override
     public String toString() {
-        return "Expansion [codigo=" + codigo + ", id=" + id + ", juego=" + juego
-                + ", nombre=" + nombre + "]";
+        return "Expansion [code=" + code + ", id=" + id + ", juego=" + juego.getName() + ", name=" + name + "]";
     }
     
     

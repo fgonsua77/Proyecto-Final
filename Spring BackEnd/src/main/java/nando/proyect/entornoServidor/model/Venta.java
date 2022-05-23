@@ -89,10 +89,17 @@ public class Venta {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
+    
+    public Compra getCompra() {
+        return compra;
+    }
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
     @Override
     public String toString() {
-        return "Venta [amount=" + amount + ", carta=" + carta + ", comments=" + comments + ", id=" + id + ", language="
-                + language + ", price=" + price + ", state=" + state + ", vendedor=" + vendedor + "]";
+        return "Venta [amount=" + amount + ", carta=" + carta.getName() + ", comments=" + comments + ", id=" + id + ", language="
+                + language + ", price=" + price + ", state=" + state + ", vendedor=" + vendedor.getName() + "]";
     }
     
 }

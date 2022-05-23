@@ -9,6 +9,5 @@ public interface IServiceCarta {
     void guardarCarta(Carta carta);
     Carta encontrarUnaCartaPorId(Integer id);
     List<Carta> encontrarCartasPorLineadeNombre(String nombre);
-    List<Carta> encontrarCartasPorJuego(String juego);
     List<Carta> encontrarCartasDestacadas();
 }

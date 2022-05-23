@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +30,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,41 +60,54 @@ public class UsuarioRESTController {
     @PostMapping("/login")
     public ResponseEntity<?> signin(@RequestBody Usuarios usuario, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         System.out.println(usuario);
-        Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
-        String access_token = JWT.create()
-                .withSubject(usuario.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-                .withIssuer(request.getRequestURL().toString())
-                .withClaim("perfiles", true)
-                .sign(algorithm);
-        String refreshToken = JWT.create()
-                .withSubject(usuario.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
-                .withIssuer(request.getRequestURL().toString())
-                .sign(algorithm);
-        Map<String, String> map = new HashMap<>();
-        map.put("access_token", access_token);
-        map.put("refresh_token", refreshToken);
-        response.setContentType("application/json");
-        return ResponseEntity.ok(map);
+        System.out.println(request.getParameter("username"));
+        if(usuario.getPassword() == null || usuario.getUsername() == null) {
+            return ResponseEntity.badRequest().body("El usuario o la contraseña no pueden estar vacíos");
+        }else if(usuarioService.encontrarPorNombreUsuario(usuario.getUsername()) == null){
+            return ResponseEntity.badRequest().body("El usuario no existe");
+        }else if(usuarioService.encontrarPorNombreUsuario(usuario.getUsername()).getPassword().matches(usuario.getPassword())){
+            return ResponseEntity.badRequest().body("La contraseña no es correcta");
+        }else{
+            Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+            String access_token = JWT.create()
+                    .withSubject(usuario.getUsername())
+                    .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                    .withIssuer(request.getRequestURL().toString())
+                    .withClaim("perfiles", true)
+                    .sign(algorithm);
+            String refreshToken = JWT.create()
+                    .withSubject(usuario.getUsername())
+                    .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
+                    .withIssuer(request.getRequestURL().toString())
+                    .sign(algorithm);
+            Map<String, String> map = new HashMap<>();
+            map.put("access_token", access_token);
+            map.put("refresh_token", refreshToken);
+            map.put("user", usuario.getUsername());
+            map.put("id", usuarioService.encontrarPorNombreUsuario(usuario.getUsername()).getId().toString());
+            response.setContentType("application/json");
+            return ResponseEntity.ok(map);
+        }
     }
 	
     @GetMapping("/usuarios")
     public ResponseEntity<List<Usuarios>> encontrarTodas() {
         return ResponseEntity.ok().body(usuarioService.encontrarTodoslosUsuarios());
     }
-
+    @GetMapping("/usuarios/getuser/userid={id}")
+    public Usuarios encontrarUnUsuario(@PathVariable("id") Integer id) {
+        return usuarioService.encontrarUsuarioPorId(id);
+    }
     @PostMapping("/signup")
     public ResponseEntity<Usuarios> guardarUsuario(@RequestBody Usuarios user) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/apiuser/usuarios/{id}").toUriString());
-        System.out.println(user);
             Collection<Perfil> perfiles = new ArrayList<>();
-            perfiles.add(perfilRepository.findByPerfil("USUARIO"));
-            user.setFechaRegistro(new Date());
+            perfiles.add(perfilRepository.findByProfile("USUARIO"));
+            user.setRegisterdate(new Date());
             user.setPerfiles(perfiles);
             String password = user.getPassword();
             user.setPassword(pwEncoder.encode(password));
-            user.setEstatus(1);
+            user.setStatus(1);
         
         return ResponseEntity.created(uri).body(usuarioService.guardarUsuario(user));
     }

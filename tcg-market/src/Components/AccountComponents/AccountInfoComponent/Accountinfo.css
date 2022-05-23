@@ -1,0 +1,29 @@
+.usernameTitle {
+    grid-area: header;
+}
+
+.nameTitle {
+    grid-area: menu;
+}
+
+.emailTitle {
+    grid-area: main;
+}
+
+.name {
+    grid-area: right;
+}
+
+.email {
+    grid-area: footer;
+}
+
+.userInfo {
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'menu menu menu right right right'
+        'main main main footer footer footer';
+    gap: 10px;
+    padding: 10px;
+}
