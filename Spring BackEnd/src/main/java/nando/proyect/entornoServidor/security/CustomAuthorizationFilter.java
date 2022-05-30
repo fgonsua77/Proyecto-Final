@@ -38,8 +38,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         || request.getServletPath().equals("/tokenRefresh/**") 
         || request.getServletPath().contains("/apicartas/cartas")
         || request.getServletPath().equals("/apiuser/signup")
-        || request.getServletPath().contains("/sale/venta/")
-        || request.getServletPath().contains("/apiuser")
+        || request.getServletPath().contains("/sale/ventas/")
+        || request.getServletPath().contains("/expansion")
         ){
             filterChain.doFilter(request, response);
         }else{

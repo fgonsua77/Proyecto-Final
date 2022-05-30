@@ -1,21 +1,24 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { getData, deleteCart } from "../../Context/CartContext";
-import QuantitySelector from './../QuantitySelectorComponent/QuantitySelector';
 
-const cart = () => {
-   const cart = getData();
+import { Link } from 'react-router-dom';
+const cart = (props) => {
+   const {cartItems, onRemove} = props;
+   console.log(cartItems);
+   function borrarElCarrito(carrito){
+      carrito.map(item => {
+         onRemove(item);
+      });
+   }
    return (
-      <div className="cart-container">
-         <div className="cart-header">
+      <div className="cart-container  align-items-center">
+         <div className="cart-header d-flex justify-content-center">
             <h1>Carrito de compras</h1>
          </div>
-         <div className="cart-body">
-            {cart.length > 0 ? (
-               cart.map(sale =>
-                  <div className="cart-body" key={sale.id}>
-                     <h2 className="h4 mb-0">
+         <div className="cart-body d-flex justify-content-center">
+            {cartItems.length > 0 ? (
+               cartItems.map((sale) =>
+                  <div className="card d-flex col-md-3" key={sale.id}>
+                     <h2 className="h4 mb-0 card-header col-md-3">
                         <span>{sale.vendedor.name}</span>
                         <div class="toggler d-lg-none btn btn-sm btn-link">
                            <div class="on">
@@ -28,7 +31,7 @@ const cart = () => {
                            </div>
                         </div>
                      </h2>
-                     <div className="collapsable">
+                     <div className="collapsable card-body ">
                         <div className="row blocks">
                            <div className="col-12 col-lg">
                               <div>
@@ -38,24 +41,32 @@ const cart = () => {
                                  </div>
                                  <div className="d-flex">
                                     <span className="flex-grow-1">Valor del pedido</span>
-                                    <span><span>{sale.price}</span></span>
+                                    <span><span>{sale.price}€</span></span>
                                  </div>
                                  <div className="d-flex">
                                     <span className="flex-grow-1">Gastos de envio</span>
-                                    <span><span>{sale.shipmentbill}</span></span>
+                                    <span><span>{sale.shipmentbill}€</span></span>
                                  </div>
                                  <div className="d-flex">
                                     <span className="flex-grow-1">Total</span>
-                                    <span><span>{(sale.price * sale.amount) + sale.shipmentbill}</span></span>
+                                    <span><span></span></span>
                                  </div>
                               </div>
                            </div>
+                           {/* <div className="col-12 col-lg">
+                              <select class="form-select" aria-label="Elige tu forma de envio">
+                                 <option selected>No Ordinario <span name="shipmentbill">2</span><span>€</span></option>
+                                 <option value="1">One</option>
+                                 <option value="2">Two</option>
+                                 <option value="3">Three</option>
+                              </select>
+                           </div> */}
                         </div>
-                        <div className="action-bar mb-3">
+                        <div className="action-bar ">
                            {/* Aquí programamos los botones para acceder más información del vendedor */}
                         </div>
                         <div className="category-subsection">
-                           <table className="table-striped mb-1">
+                           <table className="table table-striped mb-1">
                               <thead>
                                  <tr>
                                     <th>
@@ -78,45 +89,51 @@ const cart = () => {
                                        <span>{sale.carta.name}</span>
                                     </td>
                                     <td>
-                                       <span>{sale.carta.expansion.code}</span>
-                                       <span>{sale.state}</span>
-                                       <span>{sale.comments}</span>
-                                       <span>{sale.language}</span>
-                                       <span>{sale.description}</span>
+                                       <span className="p-2">{sale.carta.expansion.code}</span>
+                                       <span className="p-2">{sale.state}</span>
+                                       <span className="p-2">{sale.comments}</span>
+                                       <span className="p-2">{sale.language}</span>
+                                       <span className="p-2">{sale.description}</span>
                                     </td>
                                     <td>
-                                       <span>{sale.price}</span>
+                                       <span>{sale.price}€</span>
                                     </td>
                                     <td>
-                                       <span>{sale.amount}</span>
+                                       <span>x{sale.amount}</span>
                                     </td>
                                     <td>
-                                       <button onClick={deleteCart(sale.id)}>Eliminar</button>
+                                       <Link to="/shoppingCart">
+                                          <button onClick={() => onRemove(sale)}>Eliminar</button>
+                                       </Link>
                                     </td>
                                  </tr>
                               </tbody>
                            </table>
                         </div>
                      </div>
-
                   </div>
                )
-
             ) : (
-               <div className="alert alert-info">
+               <div className="alert alert-info d-flex justify-content-center">
                   No hay productos en el carrito
                </div>
             )}
          </div>
-         <div className="cart-footer">
-            <h3>Total: {cart.reduce((total, cart) => total + cart.price * cart.quantity, 0)}</h3>
-            <Link to="/checkout">
-               <button className="btn btn-success">
-                  Comprar
-               </button>
-            </Link>
+         <div className="cart-footer d-flex justify-content-center">
+            <div className="d-flex">
+               <div className="flex-grow-1">
+                  <Link to="/shoppingCart">
+                     <button className="btn btn-primary m-2">
+                        <span>Finalizar compra</span>
+                     </button>
+                     <button className="btn btn-warning m-2" onClick={() => borrarElCarrito(cartItems)}>
+                        <span>Limpiar el carrito</span>
+                     </button>
+                  </Link>
+               </div>
+            </div>
          </div>
-      </div >
+      </div>
    );
 };
 

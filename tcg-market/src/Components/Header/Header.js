@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus, faSignInAlt, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus, faSignInAlt, faSignOutAlt, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { logoutUser } from "../../Services/index";
 import { DropdownButton, Dropdown } from "react-bootstrap";
+import SearchBar from "../SearchBar/SearchBar";
 import './Header.css';
 
 const Header = () => {
@@ -16,8 +17,8 @@ const Header = () => {
     const logout = () => {
         dispatch(logoutUser());
     };
-    const user = localStorage.getItem("user");
 
+    const username = localStorage.getItem("username");
     const guestLinks = (
         <>
             <Nav className="navbar-right row" class="registerLogin">
@@ -33,18 +34,27 @@ const Header = () => {
                     <h2 className="col-md-6">Login</h2>
                 </Link>
             </Nav>
+            <Nav>
+                <Link to={"/shoppingCart"} className="nav-link d-flex col align-items-center">
+                    <FontAwesomeIcon icon={faCartShopping} className="nav-link mr-2" class="icon" />
+                    <h2 className="col-md-6">Carrito</h2>
+                </Link>
+            </Nav>
         </>
     );
     const userLinks = (
         <>
-            <div class="collapse navbar-collapse" id="navbarColor02">
+            <div class="collapse navbar-collapse p-0" id="navbarColor02">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item dropdown" title={user.username}>
+                    <li class="nav-item dropdown" title={username}>
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta</a>
                         <div class="dropdown-menu">
-                            
-                            <Link to={"/account"}>
+
+                            <Link to={`/account/${username}`}>
                                 <a class="dropdown-item">Cuenta</a>
+                            </Link>
+                            <Link to={`/favorites/${username}`}>
+                                <a class="dropdown-item">Favoritos</a>
                             </Link>
                             <a class="dropdown-item" href="#">Mensajes</a>
                             <div class="dropdown-divider"></div>
@@ -54,16 +64,34 @@ const Header = () => {
 
                         </div>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Inicio
-                            <span class="visually-hidden">(current)</span>
-                        </a>
+                    {/* <Dropdown>
+                        <Dropdown.Toggle id="dropdown-basic">
+                            Vender
+                        </Dropdown.Toggle>
+        
+                        <Dropdown.Menu>
+                            <Link to={`/sales/${username}/`}>
+                                <Dropdown.Item>Tus ofertas</Dropdown.Item>
+                            </Link>
+                        </Dropdown.Menu>
+                    </Dropdown> */}
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vender</a>
+                        <div class="dropdown-menu">
+
+                            <Link to={`/sales/${username}`}>
+                                <span class="dropdown-item">Tus ofertas</span>
+                            </Link>
+                            <span class="dropdown-item">Crear ofertas</span>
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Vender</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Comprar</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Comprar</a>
+                        <div class="dropdown-menu">
+                            <Link to={`/purchases/${username}/`}>
+                                <span class="dropdown-item">Tus compras</span>
+                            </Link>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <Link to="/shoppingCart">
@@ -71,24 +99,25 @@ const Header = () => {
                         </Link>
 
                     </li>
-
                 </ul>
             </div>
         </>
     );
     return (
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <div class="container-fluid">
-                    <Link to={auth.isLoggedIn ? "home" : ""} className="navbar-brand">
-                        <h1 class="tcgMarket">TCG Market!</h1>
-                    </Link>
-                    {auth.isLoggedIn ? userLinks : guestLinks}
+        <>
+            <header>
+                <nav class="navbar navbar-expand-lg p-0">
+                    <div class="container-fluid">
+                        <Link to={auth.isLoggedIn ? "home" : ""} className="navbar-brand">
+                            <h1 class="tcgMarket">TCG Market!</h1>
+                        </Link>
+                        {auth.isLoggedIn ? userLinks : guestLinks}
 
-                </div>
-            </nav>
-            
-        </header >
+                    </div>
+                </nav>
+            </header >
+            <SearchBar />
+        </>
     );
 };
 

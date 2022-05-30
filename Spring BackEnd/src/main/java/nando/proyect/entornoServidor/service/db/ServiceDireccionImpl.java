@@ -31,7 +31,6 @@ public class ServiceDireccionImpl implements IServiceDireccion {
         // TODO Auto-generated method stub
         return direccionRepository.findById(id).get();
     }
-
     @Override
     public void guardarDireccion(Direccion direccion) {
         // TODO Auto-generated method stub

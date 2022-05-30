@@ -26,6 +26,12 @@ header{
     gap: 10px;
     padding: 10px;
 }
+.container-fluid{
+    background-color: #00AFB9;
+}
+.h2{
+    color:#F9F9F9;
+}
 .icon{
     width: 30px;
     height: 30px;

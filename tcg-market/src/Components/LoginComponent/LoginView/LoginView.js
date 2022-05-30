@@ -35,7 +35,7 @@ const Login = (props) => {
         dispatch(authenticateUser(user.username, user.password))
             .then((response) => {
                 if (response.status === 200) {
-                    navigate("/home");
+                    navigate("/");
                 }else if(response.status === 401){
                     setError("Invalid username or password");
                 }
@@ -46,6 +46,7 @@ const Login = (props) => {
                 resetLoginForm();
                 setError("Invalid username and password");
             });
+            navigate("/home");
     };
 
     const resetLoginForm = () => {

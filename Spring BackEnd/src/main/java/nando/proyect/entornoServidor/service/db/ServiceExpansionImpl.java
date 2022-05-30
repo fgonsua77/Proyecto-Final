@@ -3,6 +3,7 @@ package nando.proyect.entornoServidor.service.db;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import nando.proyect.entornoServidor.model.Expansion;
@@ -17,19 +18,19 @@ public class ServiceExpansionImpl implements IServiceExpansion  {
         return expansionRepository.findAll();
     }
     @Override
-    public List<Expansion> encontrarExpansionesPorIddeJuego(Integer idJuego) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    @Override
     public Expansion encontrarUnaExpansionPorId(Integer id) {
         // TODO Auto-generated method stub
-        return null;
+        return expansionRepository.findById(id).get();
     }
     @Override
     public void guardarExpansion(Expansion expansion) {
-        // TODO Auto-generated method stub
+        expansionRepository.save(expansion);
         
     }
+    @Override
+    public List<Expansion> encontrarExpansionesPorFechaDeSalida(Sort sort) {
+        return expansionRepository.findAll(sort);
+    }
+    
     
 }

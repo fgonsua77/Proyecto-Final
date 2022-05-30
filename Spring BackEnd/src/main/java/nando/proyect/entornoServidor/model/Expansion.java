@@ -1,4 +1,6 @@
 package nando.proyect.entornoServidor.model;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +22,8 @@ public class Expansion{
     @ManyToOne
     @JoinColumn(name="idGame")
     public Juego juego;
-
+    public String image;
+    public Date releasedate;
     public Integer getId() {
         return id;
     }
@@ -46,10 +49,26 @@ public class Expansion{
     public void setName(String name) {
         this.name = name;
     }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
+    public Date getReleasedate() {
+        return releasedate;
+    }
+    public void setReleasedate(Date releasedate) {
+        this.releasedate = releasedate;
+    }
     @Override
     public String toString() {
-        return "Expansion [code=" + code + ", id=" + id + ", juego=" + juego.getName() + ", name=" + name + "]";
+        return "Expansion [code=" + code + ", id=" + id + ", image=" + image + ", juego=" + juego + ", name=" + name
+                + ", releasedate=" + releasedate + "]";
     }
+    
+    
     
     
 }

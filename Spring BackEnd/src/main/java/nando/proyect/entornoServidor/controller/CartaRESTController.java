@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import nando.proyect.entornoServidor.model.Carta;
 import nando.proyect.entornoServidor.model.Expansion;
 import nando.proyect.entornoServidor.model.Juego;
+import nando.proyect.entornoServidor.model.Usuarios;
 import nando.proyect.entornoServidor.service.IServiceCarta;
 import nando.proyect.entornoServidor.service.IServiceExpansion;
 import nando.proyect.entornoServidor.service.IServiceJuego;
+import nando.proyect.entornoServidor.service.IServiceUsuario;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT})
 
 @RequestMapping("/apicartas")
 public class CartaRESTController {
@@ -34,6 +36,8 @@ public class CartaRESTController {
     private IServiceExpansion expansionService;
     @Autowired
     private IServiceJuego juegoService;
+    @Autowired
+    private IServiceUsuario usuarioService;
     @GetMapping("/cartas")
     public List<Carta> encontrarTodas() {
         return cartaService.encontrarTodas();
@@ -46,8 +50,29 @@ public class CartaRESTController {
     public List<Carta> encontrarCartasPorLineadeNombre(@PathVariable String lineaNombre) {
         return cartaService.encontrarCartasPorLineadeNombre(lineaNombre);
     }
-    @GetMapping("/cartas/buscarPorJuego/nombre={nombreJuego}")
-    public List<Carta> encontrarCartasPorjuego(@PathVariable String nombreJuego) {
+    @GetMapping("/cartas/{nombreJuego}/buscarPorJuego/{lineaNombre}")
+    public List<Carta> encontrarCartasPorjuego(@PathVariable("nombreJuego") String nombreJuego, @PathVariable("lineaNombre") String lineaNombre) {
+        Juego juegoReclamado = juegoService.encontrarJuegoPorNombre(nombreJuego);
+        List<Expansion> expansiones = expansionService.encontrarTodasLasExpansiones();
+        List<Expansion> expansionesJuego = new ArrayList<Expansion>();
+        List<Carta> cartas = cartaService.encontrarCartasPorLineadeNombre(lineaNombre);
+        List<Carta> cartasExpansiones = new ArrayList<Carta>();
+        for(int i = 0; i<expansiones.size(); i++) {
+            if(expansiones.get(i).getJuego().getId().equals(juegoReclamado.getId())) {
+                expansionesJuego.add(expansiones.get(i));
+            }
+        }
+        for(int i = 0; i<cartas.size(); i++) {
+            for(int j = 0; j<expansionesJuego.size(); j++) {
+                if(cartas.get(i).getExpansion().getId().equals(expansionesJuego.get(j).getId())) {
+                    cartasExpansiones.add(cartas.get(i));
+                }
+            }
+        }
+        return cartasExpansiones;
+    }
+    @GetMapping("/cartas/{nombreJuego}/buscarPorJuego")
+    public List<Carta> encontrarTodasLasCartasPorjuego(@PathVariable("nombreJuego") String nombreJuego) {
         Juego juegoReclamado = juegoService.encontrarJuegoPorNombre(nombreJuego);
         List<Expansion> expansiones = expansionService.encontrarTodasLasExpansiones();
         List<Expansion> expansionesJuego = new ArrayList<Expansion>();
@@ -66,6 +91,21 @@ public class CartaRESTController {
             }
         }
         return cartasExpansiones;
+    }
+    @PostMapping("/cartas/addtoFavs/cardId={cardId}&userId={userId}")
+    public void añadirAFavoritos(@PathVariable("cardId") int cardId, @PathVariable("userId") int userId) {
+        usuarioService.añadirCartaFavoritaAlUsuario(userId, cardId);
+    }
+    @GetMapping("/cartas/idExpansion={idExpansion}")
+    public List<Carta> encontrarCartasPorExpansion(@PathVariable("idExpansion") Integer idExpansion) {
+        List<Carta> cartas = cartaService.encontrarTodas();
+        List<Carta> cartasExpansion = new ArrayList<Carta>();
+        for(int i = 0; i<cartas.size(); i++) {
+            if(cartas.get(i).getExpansion().getId().equals(idExpansion)) {
+                cartasExpansion.add(cartas.get(i));
+            }
+        }
+        return cartasExpansion;
     }
     @GetMapping("/cartas/getCarta/cardId={id}")
     public Carta encontrarUnaCartaPorId(@PathVariable("id") Integer id) {

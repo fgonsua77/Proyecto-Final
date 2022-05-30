@@ -27,12 +27,17 @@ const CardItem = ({ carta = {} }) => {
     }, []);
     const userCard = (
         <>
-            <tr> 
-                <td>{carta.expansion.code}</td>
+            <tr>
+                <td>{carta.expansion.juego.name}</td>
                 <td>
-                <Link to={`/card/cardId=${carta.id}`}>
-                    {carta.name}
-                </Link>
+                    <Link to={`/expansions/${carta.expansion.id}`}>
+                        {carta.expansion.code}
+                    </Link>
+                </td>
+                <td>
+                    <Link to={`/card/${carta.id}`}>
+                        {carta.name}
+                    </Link>
                 </td>
                 <td>{carta.code}</td>
                 <td>{totalAmount}</td>

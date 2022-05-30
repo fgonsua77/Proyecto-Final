@@ -11,11 +11,13 @@ export const authenticateUser = (username, password) => async (dispatch) => {
       password: password,
     });
     localStorage.setItem("jwtToken", response.data.access_token);
-    localStorage.setItem("user", response.data.user);
+    localStorage.setItem("username", response.data.username);
     localStorage.setItem("email", response.data.email);
-    localStorage.setItem("nombre", response.data.nombre);
+    localStorage.setItem("name", response.data.name);
+    localStorage.setItem("surname", response.data.surname);
+    localStorage.setItem("birthdate", response.data.birthdate);
     localStorage.setItem("id", response.data.id);
-    dispatch(success({ username: response.data.name, isLoggedIn: true }));
+    dispatch(success({ username: response.data.username, isLoggedIn: true }));
     return Promise.resolve(response.data);
   } catch (error) {
     dispatch(failure());
@@ -35,6 +37,13 @@ export const logoutUser = () => {
   return (dispatch) => {
     dispatch(logoutRequest());
     localStorage.removeItem("jwtToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.removeItem("name");
+    localStorage.removeItem("id");
+    localStorage.removeItem("birthdate");
+    localStorage.removeItem("surname");
     dispatch(success({ username: "", isLoggedIn: false }));
   };
 };

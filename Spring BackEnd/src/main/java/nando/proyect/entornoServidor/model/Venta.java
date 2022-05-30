@@ -98,8 +98,10 @@ public class Venta {
     }
     @Override
     public String toString() {
-        return "Venta [amount=" + amount + ", carta=" + carta.getName() + ", comments=" + comments + ", id=" + id + ", language="
-                + language + ", price=" + price + ", state=" + state + ", vendedor=" + vendedor.getName() + "]";
+        return "Venta [amount=" + amount + ", carta=" + carta + ", comments=" + comments + ", compra=" + compra
+                + ", id=" + id + ", language=" + language + ", price=" + price + ", state=" + state + ", vendedor="
+                + vendedor + "]";
     }
+    
     
 }

@@ -1,5 +1,6 @@
 package nando.proyect.entornoServidor.security;
 
+import java.beans.JavaBean;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,13 +23,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+@JavaBean
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authManager;
     public UserDetailsService userDetailsService;
     public CustomAuthenticationFilter(AuthenticationManager authManager) {
         this.authManager = authManager;
-        this.setAuthenticationManager(authManager);
     }
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {

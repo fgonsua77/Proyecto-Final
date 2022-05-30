@@ -3,7 +3,9 @@ package nando.proyect.entornoServidor.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,8 +17,18 @@ import nando.proyect.entornoServidor.service.IServiceExpansion;
 public class ExpansionRESTController {
     @Autowired
     private IServiceExpansion expansionService;
-    @GetMapping("/all")
+    @GetMapping("/")
     public List<Expansion> encontrarTodas() {
         return expansionService.encontrarTodasLasExpansiones();
+    }
+    @GetMapping("/{id}")
+    public Expansion encontrarPorId(@PathVariable("id") Integer id) {
+        return expansionService.encontrarUnaExpansionPorId(id);
+    }
+    @GetMapping("/last3expansions")
+    public List<Expansion> encontrarUltimas3Expansiones() {
+        Sort sort = Sort.by("releasedate").descending();
+        List<Expansion> expansiones = expansionService.encontrarExpansionesPorFechaDeSalida(sort);
+        return expansiones.subList(0, 3);
     }
 }

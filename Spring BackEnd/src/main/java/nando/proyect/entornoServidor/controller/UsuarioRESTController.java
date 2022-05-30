@@ -40,13 +40,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import nando.proyect.entornoServidor.model.Carta;
 import nando.proyect.entornoServidor.model.Perfil;
 import nando.proyect.entornoServidor.model.Usuarios;
 import nando.proyect.entornoServidor.repository.PerfilRepository;
 import nando.proyect.entornoServidor.service.IServiceUsuario;
 
-@RestController @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.OPTIONS})
+@RestController
+@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000", methods = { RequestMethod.GET, RequestMethod.POST,
+        RequestMethod.OPTIONS })
 @RequestMapping("/apiuser")
 
 public class UsuarioRESTController {
@@ -58,16 +61,18 @@ public class UsuarioRESTController {
     private PasswordEncoder pwEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<?> signin(@RequestBody Usuarios usuario, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        System.out.println(usuario);
+    public ResponseEntity<?> signin(@RequestBody Usuarios usuario, HttpServletRequest request,
+            HttpServletResponse response) throws IOException, ServletException {
         System.out.println(request.getParameter("username"));
-        if(usuario.getPassword() == null || usuario.getUsername() == null) {
+        Usuarios user = usuarioService.encontrarPorNombreUsuario(usuario.getUsername());
+        String username = user.getUsername();
+        String password = user.getPassword();
+        String usuarioPassword = usuario.getPassword();
+        if (usuario.getPassword() == null || usuario.getUsername() == null) {
             return ResponseEntity.badRequest().body("El usuario o la contraseña no pueden estar vacíos");
-        }else if(usuarioService.encontrarPorNombreUsuario(usuario.getUsername()) == null){
+        } else if (user == null) {
             return ResponseEntity.badRequest().body("El usuario no existe");
-        }else if(usuarioService.encontrarPorNombreUsuario(usuario.getUsername()).getPassword().matches(usuario.getPassword())){
-            return ResponseEntity.badRequest().body("La contraseña no es correcta");
-        }else{
+        } else {
             Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
             String access_token = JWT.create()
                     .withSubject(usuario.getUsername())
@@ -83,44 +88,58 @@ public class UsuarioRESTController {
             Map<String, String> map = new HashMap<>();
             map.put("access_token", access_token);
             map.put("refresh_token", refreshToken);
-            map.put("user", usuario.getUsername());
-            map.put("id", usuarioService.encontrarPorNombreUsuario(usuario.getUsername()).getId().toString());
+            map.put("id", user.getId().toString());
+            map.put("username", username);
+            map.put("email", user.getEmail());
+            map.put("name", user.getName());
+            map.put("surname", user.getSurname());
+            map.put("birthdate", user.getBirthdate().toString());
             response.setContentType("application/json");
             return ResponseEntity.ok(map);
         }
     }
-	
+
     @GetMapping("/usuarios")
     public ResponseEntity<List<Usuarios>> encontrarTodas() {
         return ResponseEntity.ok().body(usuarioService.encontrarTodoslosUsuarios());
     }
+
     @GetMapping("/usuarios/getuser/userid={id}")
     public Usuarios encontrarUnUsuario(@PathVariable("id") Integer id) {
         return usuarioService.encontrarUsuarioPorId(id);
     }
+    @GetMapping("/usuarios/favorites/userid={id}")
+    public Collection<Carta> encontrarFavoritos(@PathVariable("id") Integer userId) {
+        Usuarios usuario = usuarioService.encontrarUsuarioPorId(userId);
+        return usuario.getFavorites();
+    }
     @PostMapping("/signup")
     public ResponseEntity<Usuarios> guardarUsuario(@RequestBody Usuarios user) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/apiuser/usuarios/{id}").toUriString());
-            Collection<Perfil> perfiles = new ArrayList<>();
-            perfiles.add(perfilRepository.findByProfile("USUARIO"));
-            user.setRegisterdate(new Date());
-            user.setPerfiles(perfiles);
-            String password = user.getPassword();
-            user.setPassword(pwEncoder.encode(password));
-            user.setStatus(1);
-        
+        URI uri = URI.create(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/apiuser/usuarios/{id}").toUriString());
+        Collection<Perfil> perfiles = new ArrayList<>();
+        perfiles.add(perfilRepository.findByProfile("USUARIO"));
+        user.setRegisterdate(new Date());
+        user.setPerfiles(perfiles);
+        String password = user.getPassword();
+        user.setPassword(pwEncoder.encode(password));
+        user.setStatus(1);
+
         return ResponseEntity.created(uri).body(usuarioService.guardarUsuario(user));
     }
-    @PostMapping("/addRoleToUser")
+
+    /*@PostMapping("/addRoleToUser")
     public ResponseEntity<Usuarios> añadirPerfilAUsuario(@RequestBody PerfilForm form) {
         usuarioService.añadirPerfilAUsuario(form.getUsername(), form.getPerfilname());
         return ResponseEntity.ok().build();
-    }
+    }*/
+
     @PostMapping("/tokenRefresh")
-    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws StreamWriteException, DatabindException, IOException {
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response)
+            throws StreamWriteException, DatabindException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
-        if(authorizationHeader == null || authorizationHeader.startsWith("Bearer ")) {
-            try{
+        if (authorizationHeader == null || authorizationHeader.startsWith("Bearer ")) {
+            try {
                 String token = authorizationHeader.substring("Bearer ".length());
                 Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
                 JWTVerifier verifier = JWT.require(algorithm).build();
@@ -131,19 +150,20 @@ public class UsuarioRESTController {
                 Arrays.stream(perfiles).forEach(perfil -> {
                     authorities.add(new SimpleGrantedAuthority(perfil));
                 });
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null,
+                        authorities);
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-                }catch(Exception e){
-                    response.setHeader("error", e.getMessage());
-                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                    Map<String, String> error = new HashMap<>();
-                    error.put("error", e.getMessage());
-                    response.setContentType("application/json");
-                    new ObjectMapper().writeValue(response.getOutputStream(), error);
-                }
-            }else{
-                    throw new RuntimeException("No hay token de recarga");
+            } catch (Exception e) {
+                response.setHeader("error", e.getMessage());
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                Map<String, String> error = new HashMap<>();
+                error.put("error", e.getMessage());
+                response.setContentType("application/json");
+                new ObjectMapper().writeValue(response.getOutputStream(), error);
             }
+        } else {
+            throw new RuntimeException("No hay token de recarga");
+        }
     }
 
     @Data

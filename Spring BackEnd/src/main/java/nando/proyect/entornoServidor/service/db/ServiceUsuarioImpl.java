@@ -15,9 +15,12 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nando.proyect.entornoServidor.model.Carta;
 import nando.proyect.entornoServidor.model.Perfil;
 import nando.proyect.entornoServidor.model.Usuarios;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import nando.proyect.entornoServidor.repository.CartaRepository;
 import nando.proyect.entornoServidor.repository.PerfilRepository;
 import nando.proyect.entornoServidor.repository.UsuariosRepository;
 import nando.proyect.entornoServidor.service.IServiceUsuario;
@@ -28,6 +31,8 @@ public class ServiceUsuarioImpl implements IServiceUsuario, UserDetailsService {
     private UsuariosRepository usuarioRepository;
     @Autowired
     private PerfilRepository perfilRepository;
+    @Autowired
+    private CartaRepository cartaRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -73,16 +78,21 @@ public class ServiceUsuarioImpl implements IServiceUsuario, UserDetailsService {
         Perfil perfil = perfilRepository.findByProfile(perfilname);
         usuario.getPerfiles().add(perfil);
     }
-
     @Override
-    public UserDetails loadUserByUsernameLogin(String username) throws UsernameNotFoundException {
+    public void añadirCartaFavoritaAlUsuario(Integer idUser, Integer idCarta){
+        Usuarios usuario = usuarioRepository.findById(idUser).get();
+        Carta carta = cartaRepository.findById(idCarta).get();
+        usuario.getFavorites().add(carta);
+    }
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuarios user = usuarioRepository.findByUsername(username);
         System.out.println("user: " + user);
         if (user == null) {
-            log.error("Error en el login: no existe el usuario '" + username + "' en el sistema.");
+            System.out.println("Error en el login: no existe el usuario '" + username + "' en el sistema.");
             throw new UsernameNotFoundException(username);
         }else{
-            log.info("Usuario '" + username + "' autenticado correctamente.");
+        	System.out.println("Usuario '" + username + "' autenticado correctamente.");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         user.getPerfiles().forEach(perfil -> {
@@ -95,12 +105,6 @@ public class ServiceUsuarioImpl implements IServiceUsuario, UserDetailsService {
     public Usuarios encontrarPorNombreUsuario(String username) {
         // TODO Auto-generated method stub
         return usuarioRepository.findByUsername(username);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
-        return null;
     }
     
 }

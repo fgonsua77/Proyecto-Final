@@ -19,8 +19,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
+
 public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetails;
@@ -30,7 +34,6 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetails).passwordEncoder(bCryptPasswordEncoder);
-
 	}
 
 	@Override
@@ -38,19 +41,20 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 		http.cors();
 		http.csrf().disable();
 		// CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(
-		// 		authenticationManagerBean());
+		// authenticationManagerBean());
 		// CustomAuthorizationFilter customAuthorizationFilter = new CustomAuthorizationFilter();
 		// customAuthenticationFilter.setFilterProcessesUrl("/apiuser/login");
 		// http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+		// http.authorizeRequests().anyRequest().permitAll();
 		// http.authorizeRequests().antMatchers("/",
 		// 		"/apiuser/signup",
 		// 		"/apiuser/search",
 		// 		"/apiuser/login",
+		// 		"/apiuser/login",
 		// 		"/usuarios/getuser/userid={id}",
 		// 		"/apicartas/cartas/**",
+		// 		"/expansion/**",
 		// 		"/sale/**").permitAll();
-		// http.authorizeRequests().anyRequest().authenticated();
 		// http.addFilter(customAuthenticationFilter);
 		// http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 	}

@@ -2,36 +2,41 @@ import CardItem from '../CardItem';
 import './CardItemList.css';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Table from 'react-bootstrap/Table';
-import {cartContext} from '../../../Context/CartContext';
-const CardItemList = ({cards = []}) => {
+import { cartContext } from '../../../Context/CartContext';
+const CardItemList = (props) => {
+    const { cards } = props;
+    console.log(cards);
     return (
         <div className="cardItemList d-flex justify-content-center col p-2" class="row">
 
-            <Table>
+            <Table striped bordered hover responsive="xl" className="pt-3">
                 <thead>
                     <tr>
                         <td>
-                            Expansion
+                            <span>Juego</span>
                         </td>
                         <td>
-                            Nombre
+                            <span>Expansion</span>
                         </td>
                         <td>
-                            Número
-                            
+                            <span>Nombre</span> 
                         </td>
                         <td>
-                            Disponible
+                            <span>Número</span>
+
                         </td>
                         <td>
-                            Desde
+                            <span>Disponible</span>
+                        </td>
+                        <td>
+                            <span>Desde</span>
                         </td>
                     </tr>
                 </thead>
                 <tbody>
-                {cards.map(carta => <CardItem key={carta.id} carta={carta}/>)}
+                    {cards.map(carta => <CardItem key={carta.id} carta={carta} />)}
                 </tbody>
-                
+
             </Table>
         </div>
     );

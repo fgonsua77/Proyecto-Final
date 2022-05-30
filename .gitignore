@@ -10,6 +10,7 @@ logs
 **/*.back.*
 
 node_modules
+/tcgmarket/node_modules
 bower_components
 
 *.sublime*

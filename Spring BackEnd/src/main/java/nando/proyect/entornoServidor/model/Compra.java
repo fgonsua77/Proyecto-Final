@@ -1,6 +1,5 @@
 package nando.proyect.entornoServidor.model;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -22,12 +21,10 @@ public class Compra {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="idaddress", referencedColumnName="id")
     public Direccion direccion;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="evaluation", referencedColumnName="id")
-    public Evaluacion evaluacion;
     private Date paymentdate;
     private Date shipmentdate;
     private Date confirmationdate;
+    private Date arrivaldate;
     private Integer shipmentbill;
     public Integer getId() {
         return id;
@@ -40,12 +37,6 @@ public class Compra {
     }
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
-    }
-    public Evaluacion getEvaluacion() {
-        return evaluacion;
-    }
-    public void setEvaluacion(Evaluacion evaluacion) {
-        this.evaluacion = evaluacion;
     }
     public Date getPaymentdate() {
         return paymentdate;
@@ -71,12 +62,21 @@ public class Compra {
     public void setShipmentbill(Integer shipmentbill) {
         this.shipmentbill = shipmentbill;
     }
+    public Date getArrivaldate() {
+        return arrivaldate;
+    }
+    public void setArrivaldate(Date arrivaldate) {
+        this.arrivaldate = arrivaldate;
+    }
     @Override
     public String toString() {
-        return "Compra [confirmationdate=" + confirmationdate + ", direccion=" + direccion.getName() + ", evaluacion="
-                + evaluacion.getGeneral() + ", id=" + id + ", paymentdate=" + paymentdate + ", shipmentbill=" + shipmentbill
+        return "Compra [arrivaldate=" + arrivaldate + ", confirmationdate=" + confirmationdate + ", direccion="
+                + direccion + ", id=" + id + ", paymentdate=" + paymentdate + ", shipmentbill=" + shipmentbill
                 + ", shipmentdate=" + shipmentdate + "]";
     }
+    
+    
+    
     
     
     

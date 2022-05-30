@@ -22,5 +22,6 @@ function deleteCart(i) {
 
 function clearStorage() {
     localStorage.removeItem(carritoCompra)
+    setData();
 }
 module.exports = {getData, setData, updateCart, deleteCart, clearStorage}
