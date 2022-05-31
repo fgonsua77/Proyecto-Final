@@ -16,8 +16,7 @@ const busqueda = () => {
                     <DropdownButton id="dropdown-basic-button" title="Secciones" classname="col">
 
                         <Dropdown.Item>
-
-                            <span className="font-link">Juegos</span>
+                            <Link to="/games/" className="font-link">Juegos</Link>
 
                         </Dropdown.Item>
 

@@ -1,13 +1,6 @@
 /* eslint-disable no-unused-vars */
-import Card from 'react-bootstrap/Card';
-import ListGroupItem from 'react-bootstrap/ListGroupItem';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import cartContext from '../../../Context/CartContext';
-import QuantitySelector from '../../QuantitySelectorComponent/QuantitySelector';
 import './CardItem.css';
 
 const CardItem = ({ carta = {} }) => {

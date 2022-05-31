@@ -1,0 +1,1 @@
+import GameInfo from './GameInfo';
