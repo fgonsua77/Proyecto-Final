@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.font-link {
+  font-family: 'Noto Sans', cursive;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Noto Sans',
     monospace;

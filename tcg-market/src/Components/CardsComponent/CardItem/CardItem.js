@@ -29,19 +29,19 @@ const CardItem = ({ carta = {} }) => {
         <>
             <tr>
                 <td>{carta.expansion.juego.name}</td>
-                <td>
+                <td className="font-link">
                     <Link to={`/expansions/${carta.expansion.id}`}>
                         {carta.expansion.code}
                     </Link>
                 </td>
-                <td>
+                <td className="font-link">
                     <Link to={`/card/${carta.id}`}>
                         {carta.name}
                     </Link>
                 </td>
-                <td>{carta.code}</td>
-                <td>{totalAmount}</td>
-                <td>{sales.price}€</td>
+                <td className="font-link">{carta.code}</td>
+                <td className="font-link">{totalAmount}</td>
+                <td className="font-link">{sales.price}€</td>
             </tr>
 
         </>

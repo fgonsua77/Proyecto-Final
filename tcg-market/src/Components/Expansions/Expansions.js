@@ -27,12 +27,12 @@ const Expansions = () => {
                 <div className="row">
                     <div className="col-12">
                         <Breadcrumb className="d-flex col">
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 <Link to="/home" >
                                     Inicio
                                 </Link>
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 Expansiones
                             </Breadcrumb.Item>
                         </Breadcrumb>
@@ -42,7 +42,7 @@ const Expansions = () => {
             <div className=" p-3 row">
                 <div className="row">
                     <div className="col-12">
-                        <h1>Expansiones</h1>
+                        <h1 className="font-link">Expansiones</h1>
                     </div>
                 </div>
                 <div className="row">

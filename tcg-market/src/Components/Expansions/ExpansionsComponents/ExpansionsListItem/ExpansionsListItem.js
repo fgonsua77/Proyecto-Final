@@ -6,17 +6,17 @@ const ExpansionsListItem = (props) => {
             <tr>
                 <td>
                     <Link to={`/expansions/${expansion.id}`}>
-                        <span>{expansion.name}</span>
+                        <span className="font-link">{expansion.name}</span>
                     </Link>
                 </td>
                 <td>
-                    <span>{expansion.code}</span>
+                    <span className="font-link">{expansion.code}</span>
                 </td>
                 <td>
-                    <span>{expansion.juego.name}</span>
+                    <span className="font-link">{expansion.juego.name}</span>
                 </td>
                 <td>
-                    <span>{expansion.releasedate}</span>
+                    <span className="font-link">{expansion.releasedate}</span>
                 </td>
             </tr>
         </>

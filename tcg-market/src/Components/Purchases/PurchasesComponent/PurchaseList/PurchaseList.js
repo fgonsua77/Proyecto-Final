@@ -12,28 +12,28 @@ const PurchaseList = (props) => {
                 <thead>
                     <tr>
                         <th>
-                            <span>Vendedor</span>
+                            <span className="font-link">Vendedor</span>
                         </th>
                         <th>
-                            <span>Productos</span>
+                            <span className="font-link">Productos</span>
                         </th>
                         <th>
-                            <span>Precio</span>
+                            <span className="font-link">Precio</span>
                         </th>
                         <th>
-                            <span>Gastos de envio</span>
+                            <span className="font-link">Gastos de envio</span>
                         </th>
                         <th>
-                            <span>Fecha de confirmación</span>
+                            <span className="font-link">Fecha de confirmación</span>
                         </th>
                         <th>
-                            <span>Fecha de pago</span>
+                            <span className="font-link">Fecha de pago</span>
                         </th>
                         <th>
-                            <span>Fecha de envio</span>
+                            <span className="font-link">Fecha de envio</span>
                         </th>
                         <th>
-                            <span>Evaluación</span>
+                            <span className="font-link">Evaluación</span>
                         </th>
                     </tr>
                 </thead>

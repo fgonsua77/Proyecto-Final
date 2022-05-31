@@ -26,13 +26,13 @@ const Cards = (props) => {
     const breadCrumps = (
         <>
             <Breadcrumb className="d-flex col">
-                <Breadcrumb.Item >
+                <Breadcrumb.Item className="font-link">
                     <Link to="/home" >
                         Inicio
                     </Link>
 
                 </Breadcrumb.Item>
-                <Breadcrumb.Item active>Productos
+                <Breadcrumb.Item active className="font-link">Productos
                 </Breadcrumb.Item>
             </Breadcrumb>
         </>
@@ -42,7 +42,7 @@ const Cards = (props) => {
         <div className="d-flex justify-content-center row" >
             <div className='col'>
                 {breadCrumps}
-                <h1 class="d-flex justify-content-center">Cartas</h1>
+                <h1 className="font-link d-flex justify-content-center">Cartas</h1>
                 <CardItemList cards={cards}  />
                 
             </div>

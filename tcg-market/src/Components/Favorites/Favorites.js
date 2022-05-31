@@ -20,9 +20,9 @@ const favorites = (props) => {
                     </Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                    <span>Usuario</span>
+                    <span className="font-link">Usuario</span>
                 </Breadcrumb.Item>
-                <Breadcrumb.Item active>Favoritos</Breadcrumb.Item>
+                <Breadcrumb.Item active className="font-link">Favoritos</Breadcrumb.Item>
             </Breadcrumb>
         </>
     );
@@ -33,7 +33,7 @@ const favorites = (props) => {
             <div className="d-flex justify-content-center row">
                 <div className="col">
                     {Breadcrumbs}
-                    <h1>Favoritos</h1>
+                    <h1 className="font-link">Favoritos</h1>
                     <CardItemList cards={favorites} />
                 </div>
             </div>

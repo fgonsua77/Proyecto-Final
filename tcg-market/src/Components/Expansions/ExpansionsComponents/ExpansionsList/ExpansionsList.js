@@ -17,16 +17,16 @@ const ExpansionsList = (props) => {
                 <Table striped bordered hover responsive="xl" className="pt-3">
                     <thead>
                         <tr>
-                            <td>
+                            <td className="font-link">
                                 <span>Nombre</span>
                             </td>
-                            <td>
+                            <td className="font-link">
                                 <span>Código</span>
                             </td>
-                            <td>
+                            <td className="font-link">
                                 <span>Juego</span>
                             </td>
-                            <td>
+                            <td className="font-link">
                                 <span>Fecha de Salida</span>
                             </td>
                         </tr>

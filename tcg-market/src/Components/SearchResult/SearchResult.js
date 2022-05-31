@@ -25,18 +25,18 @@ const Resultado = () => {
     return (
         <div className="container">
             <Breadcrumb>
-                <Breadcrumb.Item>
+                <Breadcrumb.Item className="font-link">
                     <Link to="/home">
                         Inicio
                     </Link>
                 </Breadcrumb.Item>
-                <Breadcrumb.Item active>
+                <Breadcrumb.Item active className="font-link">
                     {currentCards.length} resultados de {search}
                 </Breadcrumb.Item>
 
             </Breadcrumb>
             <div>
-                <h1 className="d-flex justify-content-center">Resultado de tu busqueda!</h1> 
+                <h1 className="font-link d-flex justify-content-center">Resultado de tu busqueda!</h1> 
                 {loading ? <h2>Loading....</h2> : <CardItemList cards={cards} />}
             </div>
             <Pagination

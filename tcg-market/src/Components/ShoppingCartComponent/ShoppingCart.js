@@ -19,7 +19,7 @@ const cart = (props) => {
                cartItems.map((sale) =>
                   <div className="card d-flex col-md-3" key={sale.id}>
                      <h2 className="h4 mb-0 card-header col-md-3">
-                        <span>{sale.vendedor.name}</span>
+                        <span className="font-link">{sale.vendedor.name}</span>
                         <div class="toggler d-lg-none btn btn-sm btn-link">
                            <div class="on">
                               <span class="fonticon-chevron-down">
@@ -70,16 +70,16 @@ const cart = (props) => {
                               <thead>
                                  <tr>
                                     <th>
-                                       <span>Nombre</span>
+                                       <span className="font-link">Nombre</span>
                                     </th>
                                     <th>
-                                       <span>Información</span>
+                                       <span className="font-link">Información</span>
                                     </th>
                                     <th>
-                                       <span>Precio</span>
+                                       <span className="font-link">Precio</span>
                                     </th>
                                     <th>
-                                       <span>Cantidad</span>
+                                       <span className="font-link">Cantidad</span>
                                     </th>
                                  </tr>
                               </thead>
@@ -89,11 +89,11 @@ const cart = (props) => {
                                        <span>{sale.carta.name}</span>
                                     </td>
                                     <td>
-                                       <span className="p-2">{sale.carta.expansion.code}</span>
-                                       <span className="p-2">{sale.state}</span>
-                                       <span className="p-2">{sale.comments}</span>
-                                       <span className="p-2">{sale.language}</span>
-                                       <span className="p-2">{sale.description}</span>
+                                       <span className="font-link p-2">{sale.carta.expansion.code}</span>
+                                       <span className="font-link p-2">{sale.state}</span>
+                                       <span className="font-link p-2">{sale.comments}</span>
+                                       <span className="font-link p-2">{sale.language}</span>
+                                       <span className="font-link p-2">{sale.description}</span>
                                     </td>
                                     <td>
                                        <span>{sale.price}€</span>

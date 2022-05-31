@@ -42,13 +42,13 @@ const CardInfo = (props) => {
     const breadCrumps = (
         <>
             <Breadcrumb>
-                <Breadcrumb.Item >
+                <Breadcrumb.Item className="font-link">
                     <Link to="/home" >
                         Inicio
                     </Link>
 
                 </Breadcrumb.Item>
-                <Breadcrumb.Item>
+                <Breadcrumb.Item className="font-link">
                     <Link to="/cards">
                         Productos
                     </Link>
@@ -62,7 +62,7 @@ const CardInfo = (props) => {
         <>
             <div class="row pt-3">
                 <div className="col-lg-12">
-                    <h1>{carta.name} - {carta.code}</h1>
+                    <h1 className="font-link">{carta.name} - {carta.code}</h1>
                     <Image src={carta.image} height="393px" width="270px" />
 
 
@@ -74,12 +74,12 @@ const CardInfo = (props) => {
                 <Container class="col-lg-12 pt-3">
                     {auth.isLoggedIn ? (<button onClick={() => addToFavorites(cardId, userId)}>Añadir a favoritos</button>) : (
                         <Link to="/login">
-                            <span>
+                            <span className="font-link">
                                 Inicia sesión para añadir a favoritos
                             </span>
                         </Link>
                     )}
-                    <h1>Ofertas</h1>
+                    <h1 className="font-link">Ofertas</h1>
                     <CardSalesComponent sales={sales} onAdd={props.onAdd} cartItems={props.cartItems} modifySales={props.modifySales} />
                 </Container>
             </div>

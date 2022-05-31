@@ -26,22 +26,22 @@ const PurchaseInfo = () => {
                 <div className="row">
                     <div className="col-12">
                         <Breadcrumb className="d-flex col">
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 <Link to="/home" >
                                     Inicio
                                 </Link>
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 <Link to="/account" >
                                     {user}
                                 </Link>
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 <Link to={`/purchases/${user}`} >
                                     Compras
                                 </Link>
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 <span>Compra #</span>{purchase.id}
                             </Breadcrumb.Item>
                         </Breadcrumb>
@@ -49,24 +49,24 @@ const PurchaseInfo = () => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <h1>Compra #{purchase.id}</h1>
+                        <h1 className="font-link">Compra #{purchase.id}</h1>
                     </div>
                 </div>
                 
                 <div className="row">
                     <div className="col-12">
-                        <h3>Total</h3>
+                        <h3 className="font-link">Total</h3>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <h3>Fecha de pago</h3>
+                        <h3 className="font-link">Fecha de pago</h3>
                         <p>{purchase.paymentdate}</p>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <h3>Fecha de envio</h3>
+                        <h3 className="font-link">Fecha de envio</h3>
                         <p>{purchase.shipmentdate}</p>
                     </div>
                 </div>
@@ -81,31 +81,31 @@ const PurchaseInfo = () => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <h3>Productos</h3>
+                        <h3 className="font-link">Productos</h3>
                         <table className="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>
-                                        <span>Vendedor</span>
+                                        <span className="font-link">Vendedor</span>
                                     </th>
                                     <th>
-                                        <span>Producto</span>
+                                        <span className="font-link">Producto</span>
                                     </th>
                                     <th>
-                                        <span>Precio</span>
+                                        <span className="font-link">Precio</span>
                                     </th>
                                     <th>
-                                        <span>Cantidad</span>
+                                        <span className="font-link">Cantidad</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {ventasCompra.map(venta => (
                                     <tr key={venta.id}>
-                                        <td>{venta.vendedor.name}</td>
-                                        <td>{venta.carta.name}</td>
-                                        <td>{venta.price}€</td>
-                                        <td>{venta.amount}</td>
+                                        <td className="font-link">{venta.vendedor.name}</td>
+                                        <td className="font-link">{venta.carta.name}</td>
+                                        <td className="font-link">{venta.price}€</td>
+                                        <td className="font-link">{venta.amount}</td>
                                     </tr>
                                 ))}
                             </tbody>

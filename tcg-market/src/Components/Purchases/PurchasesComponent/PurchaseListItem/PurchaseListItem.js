@@ -20,13 +20,12 @@ const PurchaseListItem = (props) => {
     return (
         <>
             <tr>
-                <td>{totalPrice}</td>
-                <td>{purchase.paymentdate}</td>
-                <td>{purchase.shipmentdate}</td>
-                <td>{purchase.confirmationdate}</td>
+                <td className="font-link">{purchase.paymentdate}</td>
+                <td className="font-link">{purchase.shipmentdate}</td>
+                <td className="font-link">{purchase.confirmationdate}</td>
                 <td>
                     <Link to={`/purchases/${user}/purchaseId=${purchase.id}`}>
-                        <span>Detalles</span>
+                        <span className="font-link">Detalles</span>
                     </Link>
                 </td>
             </tr>

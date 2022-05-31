@@ -50,13 +50,13 @@ const Register = (props) => {
                 <h1 className="center">Formulario de registro</h1>
                 <div className="form-group row mt-3">
                     <div className="col-sm-6">
-                        <label for="nombre" className=" row-form-label">Nombre</label>
+                        <label for="nombre" className="font-link row-form-label">Nombre</label>
                         <input name="name" type="text" className="form-control" id="nombre" placeholder="Nombre"
                             onChange={userChange} />
                     </div>
 
                     <div className="col-sm-6">
-                        <label for="apellidos" className="row-form-label">Apellidos</label>
+                        <label for="apellidos" className="font-link row-form-label">Apellidos</label>
                         <input name="surname" type="text" className="form-control" id="apellidos" placeholder="Apellidos"
                             onChange={userChange} />
                     </div>
@@ -70,14 +70,14 @@ const Register = (props) => {
                 </div>
                 <div className="form-group row mt-3">
                     <div className="col-sm-12">
-                        <label for="email">Dirección de correo</label>
+                        <label for="email" className="font-link">Dirección de correo</label>
                         <input name="email" type="email" className="form-control " id="email" placeholder="example@txgmarket.com"
                             onChange={userChange} />
                     </div>
                 </div>
                 <div className="form-group row mt-3">
                     <div className="col-sm-10">
-                        <label for="username" className="row-form-label">Nombre de usuario y contraseña</label>
+                        <label for="username" className="font-link row-form-label">Nombre de usuario y contraseña</label>
                         <input name="username" type="text" className="form-control" id="username" placeholder="Nombre de usuario"
                             onChange={userChange} />
                     </div>
@@ -85,13 +85,6 @@ const Register = (props) => {
                         <input type="password" name="password" className="form-control" id="password" placeholder="Contraseña"
                             onChange={userChange} />
                     </div>
-                    <div className="col-sm-10">
-                        <input type="password" className="form-control" id="confirmPassword" placeholder="Confirma contraseña" />
-                    </div>
-                </div>
-                <div className="form-group mt-3">
-                    <label for="formFile" className="form-label">Default file input example</label>
-                    <input className="form-control" type="file" id="formFile" />
                 </div>
                 <button
                     type="submit"

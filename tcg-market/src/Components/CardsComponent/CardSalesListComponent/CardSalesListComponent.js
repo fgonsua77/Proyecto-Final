@@ -14,17 +14,17 @@ const CardSalesList = (props) => {
         <Table striped bordered hover responsive="xl" className="pt-3">
             <thead>
                 <tr>
-                    <th>Vendedor</th>
-                    <th>Información del producto</th>
-                    <th>Oferta</th>
-                    <th>Precio</th>
+                    <th className="font-link">Vendedor</th>
+                    <th className="font-link">Información del producto</th>
+                    <th className="font-link">Oferta</th>
+                    <th className="font-link">Precio</th>
                 </tr>
             </thead>
             <tbody>
                 {sales.map(sale => <tr key={sale.id}>
-                    <td>{sale.vendedor.username}</td>
-                    <td>Estado:{sale.state}, Lenguaje: {sale.language}, Comentarios: {sale.comments}</td>
-                    <td>
+                    <td className="font-link">{sale.vendedor.username}</td>
+                    <td className="font-link">Estado:{sale.state}, Lenguaje: {sale.language}, Comentarios: {sale.comments}</td>
+                    <td className="font-link">
                         {sale.amount}
                         {/* <select class="form-select" aria-label="Elige tu forma de envio">
                             {getAmount(sale.amount).map((amount) =>
@@ -32,8 +32,8 @@ const CardSalesList = (props) => {
                             )}
                         </select> */}
                     </td>
-                    <td>{sale.price}€</td>
-                    <td>
+                    <td className="font-link">{sale.price}€</td>
+                    <td className="font-link">
                         <Link to="/shoppingCart">
                             <button onClick={() => addToCartandModify(sales, sale)}>Comprar</button>
                         </Link>
@@ -54,16 +54,8 @@ const CardSalesList = (props) => {
         
 
     const noresult = (
-        <h1 className="pt-3">No hay resultados</h1>
+        <h1 className="font-link pt-3">No hay resultados</h1>
     );
-
-    // function getAmount(amount) {
-    //     const amountArray = [];
-    //     for (let i = 1; i <= amount; i++) {
-    //         amountArray.push(i);
-    //     }
-    //     return amountArray;
-    // }
     return sales.length > 0 ? list : noresult;
 }
 

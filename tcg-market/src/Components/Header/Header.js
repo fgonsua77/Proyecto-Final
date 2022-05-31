@@ -21,45 +21,45 @@ const Header = () => {
     const username = localStorage.getItem("username");
     const guestLinks = (
         <>
-            <Nav className="navbar-right row" class="registerLogin">
+            <Nav className="font-link navbar-right row registerLogin">
 
                 <Link to={"/signup"} className="nav-link d-flex col align-items-center">
                     <FontAwesomeIcon className="nav-link p-1" width="50px" height="50px" icon={faUserPlus} />
-                    <h2 className="col-6-md">Registrate</h2>
+                    <h2 className="font-link col-6-md">Registrate</h2>
                 </Link>
             </Nav>
             <Nav className="registerLogin navbar-right">
                 <Link to={"/login"} className="nav-link d-flex col align-items-center">
-                    <FontAwesomeIcon icon={faSignInAlt} className="nav-link mr-2" class="icon" />
-                    <h2 className="col-md-6">Login</h2>
+                    <FontAwesomeIcon icon={faSignInAlt} className="font-link nav-link mr-2 icon" />
+                    <h2 className="font-link col-md-6">Login</h2>
                 </Link>
             </Nav>
             <Nav>
                 <Link to={"/shoppingCart"} className="nav-link d-flex col align-items-center">
-                    <FontAwesomeIcon icon={faCartShopping} className="nav-link mr-2" class="icon" />
-                    <h2 className="col-md-6">Carrito</h2>
+                    <FontAwesomeIcon icon={faCartShopping} className="font-link nav-link mr-2 icon" />
+                    <h2 className="font-link col-md-6">Carrito</h2>
                 </Link>
             </Nav>
         </>
     );
     const userLinks = (
         <>
-            <div class="collapse navbar-collapse p-0" id="navbarColor02">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item dropdown" title={username}>
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta</a>
-                        <div class="dropdown-menu">
+            <div className="collapse navbar-collapse p-0" id="navbarColor02">
+                <ul className="navbar-nav me-auto">
+                    <li className="nav-item dropdown" title={username}>
+                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta</a>
+                        <div className="dropdown-menu">
 
                             <Link to={`/account/${username}`}>
-                                <a class="dropdown-item">Cuenta</a>
+                                <a className="font-link dropdown-item">Cuenta</a>
                             </Link>
                             <Link to={`/favorites/${username}`}>
-                                <a class="dropdown-item">Favoritos</a>
+                                <a className="font-link dropdown-item">Favoritos</a>
                             </Link>
-                            <a class="dropdown-item" href="#">Mensajes</a>
-                            <div class="dropdown-divider"></div>
+                            <a className="font-link dropdown-item" href="#">Mensajes</a>
+                            <div className="dropdown-divider"></div>
                             <Link to={"/logout"} className="nav-link d-flex justify-content-between" onClick={logout}>
-                                <a class="dropdown-item" href="#">Cerrar sesión</a>
+                                <a className="font-link dropdown-item" href="#">Cerrar sesión</a>
                             </Link>
 
                         </div>
@@ -75,27 +75,27 @@ const Header = () => {
                             </Link>
                         </Dropdown.Menu>
                     </Dropdown> */}
-                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vender</a>
-                        <div class="dropdown-menu">
+                    <li className="nav-item">
+                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vender</a>
+                        <div className="dropdown-menu">
 
                             <Link to={`/sales/${username}`}>
-                                <span class="dropdown-item">Tus ofertas</span>
+                                <span className="font-link dropdown-item">Tus ofertas</span>
                             </Link>
-                            <span class="dropdown-item">Crear ofertas</span>
+                            <span className="font-link dropdown-item">Crear ofertas</span>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Comprar</a>
-                        <div class="dropdown-menu">
+                    <li className="nav-item">
+                        <a className="font-link nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Comprar</a>
+                        <div className="dropdown-menu">
                             <Link to={`/purchases/${username}/`}>
-                                <span class="dropdown-item">Tus compras</span>
+                                <span className="font-link dropdown-item">Tus compras</span>
                             </Link>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                         <Link to="/shoppingCart">
-                            <a class="nav-link">Carrito</a>
+                            <a className="nav-link">Carrito</a>
                         </Link>
 
                     </li>
@@ -106,10 +106,10 @@ const Header = () => {
     return (
         <>
             <header>
-                <nav class="navbar navbar-expand-lg p-0">
-                    <div class="container-fluid">
+                <nav className="navbar navbar-expand-lg p-0">
+                    <div className="container-fluid">
                         <Link to={auth.isLoggedIn ? "home" : ""} className="navbar-brand">
-                            <h1 class="tcgMarket">TCG Market!</h1>
+                            <h1 className="font-link tcgMarket">TCG Market!</h1>
                         </Link>
                         {auth.isLoggedIn ? userLinks : guestLinks}
 

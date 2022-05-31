@@ -17,13 +17,13 @@ const busqueda = () => {
 
                         <Dropdown.Item>
 
-                            <span>Juegos</span>
+                            <span className="font-link">Juegos</span>
 
                         </Dropdown.Item>
 
-                        <Dropdown.Item>
+                        <Dropdown.Item >
                             <Link to={`/expansions`}>
-                                <span>
+                                <span className="font-link">
                                     Expansiones
                                 </span>
                             </Link>
@@ -31,7 +31,7 @@ const busqueda = () => {
                         </Dropdown.Item>
                         <Dropdown.Item>
                             <Link to={`/cards/`}>
-                                <span>Cartas</span>
+                                <span className="font-link">Cartas</span>
                             </Link>
                         </Dropdown.Item>
                     </DropdownButton>

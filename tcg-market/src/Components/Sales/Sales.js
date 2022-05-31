@@ -22,15 +22,15 @@ const Sales = (props) => {
                 <div className="row">
                     <div className="col-12">
                         <Breadcrumb className="d-flex col">
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 <Link to="/home" >
                                     Inicio
                                 </Link>
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 {user}
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item>
+                            <Breadcrumb.Item className="font-link">
                                 Ventas
                             </Breadcrumb.Item>
                         </Breadcrumb>

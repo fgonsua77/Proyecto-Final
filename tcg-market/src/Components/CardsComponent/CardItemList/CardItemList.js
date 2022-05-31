@@ -13,23 +13,23 @@ const CardItemList = (props) => {
                 <thead>
                     <tr>
                         <td>
-                            <span>Juego</span>
+                            <span className="font-link">Juego</span>
                         </td>
                         <td>
-                            <span>Expansion</span>
+                            <span className="font-link">Expansion</span>
                         </td>
                         <td>
-                            <span>Nombre</span> 
+                            <span className="font-link">Nombre</span> 
                         </td>
                         <td>
-                            <span>Número</span>
+                            <span className="font-link">Número</span>
 
                         </td>
                         <td>
-                            <span>Disponible</span>
+                            <span className="font-link">Disponible</span>
                         </td>
                         <td>
-                            <span>Desde</span>
+                            <span className="font-link">Desde</span>
                         </td>
                     </tr>
                 </thead>

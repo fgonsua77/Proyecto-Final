@@ -19,27 +19,27 @@ const SalesList = (props) => {
                     <table className="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Producto a vender</th>
-                                <th scope="col">Precio</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Lenguaje</th>
-                                <th scope="col">Comentarios</th>
-                                <th scope="col">Cantidad</th>
+                                <th scope="col" className="font-link">Producto a vender</th>
+                                <th scope="col" className="font-link">Precio</th>
+                                <th scope="col" className="font-link">Estado</th>
+                                <th scope="col" className="font-link">Lenguaje</th>
+                                <th scope="col" className="font-link">Comentarios</th>
+                                <th scope="col" className="font-link">Cantidad</th>
                             </tr>
                         </thead>
                         <tbody>
                             {ventasUsuario.map(venta => (
                                 <tr key={venta.id}>
-                                    <td>
+                                    <td className="font-link">
                                         <Link to={`/card/${venta.carta.id}`}>
                                             {venta.carta.name}
                                         </Link>
                                     </td>
-                                    <td>{venta.price}</td>
-                                    <td>{venta.state}</td>
-                                    <td>{venta.language}</td>
-                                    <td>{venta.comments}</td>
-                                    <td>{venta.amount}</td>
+                                    <td className="font-link">{venta.price}</td>
+                                    <td className="font-link">{venta.state}</td>
+                                    <td className="font-link">{venta.language}</td>
+                                    <td className="font-link">{venta.comments}</td>
+                                    <td className="font-link">{venta.amount}</td>
                                 </tr>
                             ))}
                         </tbody>

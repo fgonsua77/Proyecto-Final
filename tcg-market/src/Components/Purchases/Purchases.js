@@ -30,17 +30,17 @@ const Purchases = (props) => {
                 <div className="row">
                     <div className="col-12">
                         <Breadcrumb className="d-flex col">
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 <Link to="/home" >
                                     Inicio
                                 </Link>
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 <Link to="/account" >
                                     {user}
                                 </Link>
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item >
+                            <Breadcrumb.Item className="font-link">
                                 {currentelements.length}Compras
                             </Breadcrumb.Item>
                         </Breadcrumb>
