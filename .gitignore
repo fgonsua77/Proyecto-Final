@@ -9,8 +9,8 @@ logs
 **/*.backup.*
 **/*.back.*
 
-node_modules
-/tcgmarket/node_modules
+node_modules/
+tcg-market/node_modules/
 bower_components
 
 *.sublime*
@@ -45,3 +45,5 @@ sketch
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,react
+node_modules/
+node_modules
