@@ -24,7 +24,7 @@ const ExpansionInfo = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
-                        <h1><span>{expansion.code} - </span>{expansion.name}</h1>
+                        <h1 className="font-link"><span>{expansion.code} - </span>{expansion.name}</h1>
                     </div>
                 </div>
                 <div className="row">
@@ -34,17 +34,17 @@ const ExpansionInfo = () => {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <h1>Fecha de salida</h1>
+                        <h1 className="font-link">Fecha de salida</h1>
                         <p>{expansion.releasedate}</p>
                     </div>
                     <div className="col-md-12">
-                        <h1>Descripción de la expansion</h1>
+                        <h1 className="font-link">Descripción de la expansion</h1>
                         {/* <p>{expansion.description}</p> */}
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <h1>Cartas de la expansion</h1>
+                        <h1 className="font-link">Cartas de la expansion</h1>
                         <CardItemList cards={cartasExpansion} />
                     </div>
                 </div>

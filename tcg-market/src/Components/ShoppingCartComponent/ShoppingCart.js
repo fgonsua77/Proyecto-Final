@@ -96,10 +96,10 @@ const cart = (props) => {
                                        <span className="font-link p-2">{sale.description}</span>
                                     </td>
                                     <td>
-                                       <span>{sale.price}€</span>
+                                       <span className="font-link">{sale.price}€</span>
                                     </td>
                                     <td>
-                                       <span>x{sale.amount}</span>
+                                       <span className="font-link">x{sale.amount}</span>
                                     </td>
                                     <td>
                                        <Link to="/shoppingCart">
@@ -115,7 +115,7 @@ const cart = (props) => {
                )
             ) : (
                <div className="alert alert-info d-flex justify-content-center">
-                  No hay productos en el carrito
+                  <span className="font-link">No hay productos en el carrito</span>
                </div>
             )}
          </div>
@@ -124,10 +124,10 @@ const cart = (props) => {
                <div className="flex-grow-1">
                   <Link to="/shoppingCart">
                      <button className="btn btn-primary m-2">
-                        <span>Finalizar compra</span>
+                        <span className="font-link">Finalizar compra</span>
                      </button>
                      <button className="btn btn-warning m-2" onClick={() => borrarElCarrito(cartItems)}>
-                        <span>Limpiar el carrito</span>
+                        <span className="font-link">Limpiar el carrito</span>
                      </button>
                   </Link>
                </div>
