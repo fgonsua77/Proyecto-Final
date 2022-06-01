@@ -42,7 +42,7 @@ const Register = (props) => {
             });
     };
     return (
-        <form data-bitwarden-watching="1" className="d-flex justify-content-center mt-3">
+        <form data-bitwarden-watching="1" className="d-flex justify-content-center mt-3" onSubmit={() => saveUser()}>
             <div style={{ display: show ? "block" : "none" }}>
                 <MyToast show={show} message={message} type={"success"} />
             </div>
@@ -88,9 +88,7 @@ const Register = (props) => {
                 </div>
                 <button
                     type="submit"
-                    className="btn btn-primary mt-3"
-                    onClick={saveUser}
-                >Submit</button>
+                    className="btn btn-primary mt-3">Submit</button>
             </fieldset>
         </form>
     );

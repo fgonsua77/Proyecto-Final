@@ -9,12 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import nando.proyect.entornoServidor.model.Venta;
+import nando.proyect.entornoServidor.service.IServiceCarta;
+import nando.proyect.entornoServidor.service.IServiceUsuario;
 import nando.proyect.entornoServidor.service.IServiceVenta;
 
 @RestController
@@ -22,7 +25,10 @@ import nando.proyect.entornoServidor.service.IServiceVenta;
 public class VentaRESTController {
     @Autowired
     private IServiceVenta ventaService;
-
+    @Autowired
+    private IServiceUsuario usuarioService;
+    @Autowired
+    private IServiceCarta cartaService;
     @GetMapping("/ventas")
     public List<Venta> encontrarTodas() {
         return ventaService.encontrarTodas();
@@ -143,7 +149,24 @@ public class VentaRESTController {
     public void saveSale(@RequestBody Venta venta) {
         ventaService.guardarVenta(venta);
     }
-
+    @PostMapping("/save/idseller={idseller}&idcard={idcard}&amount={amount}&price={price}&language={language}&comments={comments}&state={state}")
+    public void saveSaleWithParameters(@PathVariable("idseller") Integer idseller, 
+    @PathVariable("idcard") Integer idcard, 
+    @PathVariable("amount") Integer amount,
+    @PathVariable("price") Integer price, 
+    @PathVariable("language") String language, 
+    @PathVariable("comments") String comments, 
+    @PathVariable("state") String state) {
+        Venta venta = new Venta();
+        venta.setAmount(amount);
+        venta.setPrice(price);
+        venta.setLanguage(language);
+        venta.setComments(comments);
+        venta.setState(state);
+        venta.setVendedor(usuarioService.encontrarUsuarioPorId(idseller));
+        venta.setCarta(cartaService.encontrarUnaCartaPorId(idcard));
+        ventaService.guardarVenta(venta);
+    }
     @Transactional
     @PutMapping("/update")
     public Venta updateSale(@RequestBody Venta venta) {

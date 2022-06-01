@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Pagination from '../../../PaginationComponent/Pagination';
-
+import { useState } from "react";
 const SalesList = (props) => {
-    const { ventasUsuario, user } = props;
-
+    const { ventasUsuario, username } = props;
+    
     const [elementsPerPage] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastElement = currentPage * elementsPerPage;
     const indexOfFirstElement = indexOfLastElement - elementsPerPage;
-    const currentelements = elements.slice(indexOfFirstElement, indexOfLastElement);
+    const currentelements = ventasUsuario.slice(indexOfFirstElement, indexOfLastElement);
     const paginate = pageNumber => setCurrentPage(pageNumber);
     return (
         <>
             <div className="container">
                 <div className="row">
-                    <h1>Ventas de {user}</h1>
+                    <h1>Ventas de {username}</h1>
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -46,12 +46,6 @@ const SalesList = (props) => {
                     </table>
                 </div>
                 <div>
-                    <Link to="/">
-                        <Button variant="primary">
-                            Crear nueva venta
-                        </Button>
-                    </Link>
-
                 </div>
             </div>
             <Pagination

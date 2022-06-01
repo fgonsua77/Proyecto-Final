@@ -28,19 +28,10 @@ public class Venta {
     @JoinColumn(name="idpurchase", referencedColumnName="id")
     private Compra compra;
     private Integer price;
-    @Enumerated(EnumType.STRING)
-    private State state;
+    private String state;
     private String comments;
-    @Enumerated(EnumType.STRING)
-    private Language language;
+    private String language;
     private Integer amount;
-    
-    private enum State {
-        NEAR_MINT, EXCELLENT, GOOD, BAD
-    }
-    private enum Language{
-        SPANISH, GERMAN, ENGLISH, ITALIAN, FRENCH
-    }
     public Integer getId() {
         return id;
     }
@@ -65,10 +56,10 @@ public class Venta {
     public void setPrice(Integer price) {
         this.price = price;
     }
-    public State getState() {
+    public String getState() {
         return state;
     }
-    public void setState(State state) {
+    public void setState(String state) {
         this.state = state;
     }
     public String getComments() {
@@ -77,10 +68,10 @@ public class Venta {
     public void setComments(String comments) {
         this.comments = comments;
     }
-    public Language getLanguage() {
+    public String getLanguage() {
         return language;
     }
-    public void setLanguage(Language language) {
+    public void setLanguage(String language) {
         this.language = language;
     }
     public Integer getAmount() {

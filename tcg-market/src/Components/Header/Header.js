@@ -82,7 +82,9 @@ const Header = () => {
                             <Link to={`/sales/${username}`}>
                                 <span className="font-link dropdown-item">Tus ofertas</span>
                             </Link>
+                            <Link to={`/sales/${username}/add`}>
                             <span className="font-link dropdown-item">Crear ofertas</span>
+                            </Link>
                         </div>
                     </li>
                     <li className="nav-item">
