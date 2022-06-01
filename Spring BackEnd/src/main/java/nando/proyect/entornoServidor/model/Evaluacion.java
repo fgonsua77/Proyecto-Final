@@ -18,25 +18,13 @@ public class Evaluacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     private String comment;
-    @Enumerated(EnumType.STRING)
-    private General general;
-    @Enumerated(EnumType.STRING)
-    private Articulo article;
-    @Enumerated(EnumType.STRING)
-    private Empaquetado packing;
+    private String general;
+    private String article;
+    private String packing;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="idpurchase", referencedColumnName="id")
     private Compra compra;
 
-    public enum Empaquetado {
-        EXCELLENT, GREAT, GOOD, BAD;
-    }
-    public enum General {
-        EXCELLENT, GREAT, GOOD, BAD;
-    }
-    public enum Articulo {
-        EXCELLENT, GREAT, GOOD, BAD;
-    }
     public Integer getId() {
         return id;
     }
@@ -44,10 +32,10 @@ public class Evaluacion {
         this.id = id;
     }
     
-    public General getGeneral() {
+    public String getGeneral() {
         return general;
     }
-    public void setGeneral(General general) {
+    public void setGeneral(String general) {
         this.general = general;
     }
     public Compra getCompra() {
@@ -62,16 +50,16 @@ public class Evaluacion {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    public Articulo getArticle() {
+    public String getArticle() {
         return article;
     }
-    public void setArticle(Articulo article) {
+    public void setArticle(String article) {
         this.article = article;
     }
-    public Empaquetado getPacking() {
+    public String getPacking() {
         return packing;
     }
-    public void setPacking(Empaquetado packing) {
+    public void setPacking(String packing) {
         this.packing = packing;
     }
     @Override
@@ -79,6 +67,7 @@ public class Evaluacion {
         return "Evaluacion [article=" + article + ", comment=" + comment + ", compra=" + compra + ", general=" + general
                 + ", id=" + id + ", packing=" + packing + "]";
     }
+    
     
 
     

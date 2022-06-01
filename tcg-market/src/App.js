@@ -19,9 +19,10 @@ import Footer from './Components/Footer';
 import Purchases from './Components/Purchases/Purchases';
 import PurchaseInfo from './Components/Purchases/PurchasesComponent/PurchaseInfo/PurchaseInfo';
 import Sales from './Components/Sales/Sales';
+import SalesCreate from './Components/Sales/SalesComponents/SalesCreate/SalesCreate';
 
 const App = () => {
- 
+
   const [cartItems, setCartItems] = useState([]);
   const [sales, setSales] = useState([]);
   useEffect(() => {
@@ -67,13 +68,13 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/card/:cardId" element={<CardInfo onAdd={onAdd} ventas={sales}  />} />
+        <Route path="/card/:cardId" element={<CardInfo onAdd={onAdd} ventas={sales} />} />
         <Route path="/cards/" element={<Cards />} />
         <Route path="/cards/search/:search" element={<SearchResult />} />
         <Route path="/expansions/" element={<Expansions />} />
         <Route path="/expansions/:expansionId" element={<ExpansionInfo />} />
         <Route path="/games/" element={<Games />} />
-        <Route path="/games/:gameId" element={<GameInfo />}/>
+        <Route path="/games/:gameId" element={<GameInfo />} />
         <Route path="/shoppingCart" element={<ShoppingCart cartItems={cartItems}
           onRemove={onRemove} />} />
         <Route path="/logout" element={<Navigate to='/login' />} />
@@ -82,6 +83,7 @@ const App = () => {
         <Route path="/purchases/:user" element={<Purchases userId={userId} />} />
         <Route path="/purchases/:user/purchaseId=:purchaseId" element={<PurchaseInfo />} />
         <Route path="/sales/:user" element={<Sales userId={userId} />} />
+        <Route path="/sales/:user/add" element={<SalesCreate />} />
       </Routes>
       <footer>
         <Footer />

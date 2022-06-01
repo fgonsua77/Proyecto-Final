@@ -16,21 +16,26 @@ const AccountInfo = (props) => {
             .then(console.log(user));
     }, []);
     return (
-        <div className="d-flex row justify-content-center">
-            
-            <div className="d-flex col" class="userInfo" >
-                <h4 className="font-link usernameTitle">{user.username}</h4>
-                <Col>
-                    <h5 className="font-link nameTitle">Nombre</h5>
-                    <h5 className="font-link emailTitle">Correo Electrónico</h5>
-                </Col>
-                <Col>
-                    <h5 className="font-link name">{user.name}</h5>
-                    <h5 className="font-link email">{user.email}</h5>
-                </Col>
-
+        <>
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-6">
+                    </div>
+                    <div className="col-6">
+                        <h4 className="font-link usernameTitle">{user.username}</h4>
+                        <Col>
+                            <h5 className="font-link nameTitle">Nombre</h5>
+                            <h5 className="font-link emailTitle">Correo Electrónico</h5>
+                        </Col>
+                        <Col>
+                            <h5 className="font-link name">{user.name}</h5>
+                            <h5 className="font-link email">{user.email}</h5>
+                        </Col>
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
+
 
 
 

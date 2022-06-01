@@ -38,9 +38,17 @@ const Sales = (props) => {
                 </div>
             </div>
             <div className="container">
+
+                <div className="row">
+                    <div className="col-12 p-5">
+                        <SalesList ventasUsuario={ventasUsuario} username={user} />
+                    </div>
+                </div>
                 <div className="row">
                     <div className="col-12">
-                        <SalesList ventasUsuario={ventasUsuario} user={user} />
+                        <Link to={`/sales/${user}/add`}>
+                            <Button className="font-link" variant="primary">Crear una nueva venta</Button>
+                        </Link>
                     </div>
                 </div>
             </div>
