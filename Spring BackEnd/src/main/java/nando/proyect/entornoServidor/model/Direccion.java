@@ -16,10 +16,10 @@ public class Direccion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "iduser")
     private Usuarios usuario;
-
+    private String addressname;
     private String name;
     private String surname;
     private String street;
@@ -42,6 +42,12 @@ public class Direccion {
     }
     public void setUsuario(Usuarios usuario) {
         this.usuario = usuario;
+    }
+    public String getAddressname() {
+        return addressname;
+    }
+    public void setAddressname(String addressname) {
+        this.addressname = addressname;
     }
     public String getName() {
         return name;
@@ -111,11 +117,12 @@ public class Direccion {
     }
     @Override
     public String toString() {
-        return "Direccion [city=" + city + ", comments=" + comments + ", country=" + country + ", floor=" + floor
-                + ", id=" + id + ", name=" + name + ", number=" + number + ", postalcode=" + postalcode + ", preferred="
-                + preferred + ", province=" + province + ", street=" + street + ", surname=" + surname + ", usuario="
-                + usuario.getName() + "]";
+        return "Direccion [addressname=" + addressname + ", city=" + city + ", comments=" + comments + ", country="
+                + country + ", floor=" + floor + ", id=" + id + ", name=" + name + ", number=" + number
+                + ", postalcode=" + postalcode + ", preferred=" + preferred + ", province=" + province + ", street="
+                + street + ", surname=" + surname + ", usuario=" + usuario + "]";
     }
+    
 
     
     

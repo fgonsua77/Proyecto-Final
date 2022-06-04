@@ -2,28 +2,41 @@ import './CardInfo.css';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Image from 'react-bootstrap/Image';
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import {Image, Breadcrumb, Row, Container } from 'react-bootstrap';
 import CardSalesComponent from '../CardSalesListComponent';
 
 import axios from 'axios';
 const CardInfo = (props) => {
-    console.log(props.ventas, props.modifySales);
     const auth = useSelector((state) => state.auth);
-    const [quantity, setQuantity] = useState(1);
     const { cardId } = useParams();
     const [carta, setCarta] = useState({});
-    const [itemSales, setItemSales] = useState([]);
     const [sales, setSales] = useState([]);
     const userId = localStorage.getItem('id');
+    
     useEffect(() => {
         fetch(`http://localhost:8080/apicartas/cartas/getCarta/cardId=${cardId}`)
             .then(response => response.json())
             .then(carta => setCarta(carta))
             .then(console.log(carta));
     }, []);
+    useEffect(() => {
+        fetch(`http://localhost:8080/sale/ventas/ventasSinComprar/carta/cardId=${cardId}`)
+            .then(response => response.json())
+            .then(sales => setSales(sales))
+            .then(console.log(sales));
+
+            setSales(
+                sales.map(sale => ({
+                    ...sale,
+                    "direccion": {
+                        "id": "",
+                    },
+                    "envio": {
+                        "id": "",
+                    }
+                })))
+    }, []);
+    console.log(sales);
     async function addToFavorites(idCarta, idUsuario) {
 
         try {
@@ -37,8 +50,6 @@ const CardInfo = (props) => {
             }
         }
     };
-
-    console.log("Estas son las ventas de la carta: ", itemSales);
     const breadCrumps = (
         <>
             <Breadcrumb>
@@ -80,7 +91,7 @@ const CardInfo = (props) => {
                         </Link>
                     )}
                     <h1 className="font-link">Ofertas</h1>
-                    <CardSalesComponent sales={sales} onAdd={props.onAdd} cartItems={props.cartItems} modifySales={props.modifySales} />
+                    <CardSalesComponent sales={sales} onAdd={props.onAdd} cartItems={props.cartItems} modifySales={props.modifySales} setSales={setSales} />
                 </Container>
             </div>
 

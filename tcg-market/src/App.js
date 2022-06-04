@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import CartContext from './Context/CartContext';
 import Header from './Components/Header';
 import Cards from './Components/Cards';
 import CardInfo from './Components/CardsComponent/CardInfoComponent';
@@ -12,12 +13,15 @@ import Login from './Components/LoginComponent/LoginView';
 import Signup from './Components/SignUpComponent/SignUpView';
 import ShoppingCart from './Components/ShoppingCartComponent/ShoppingCart';
 import Home from './Components/Home';
-import AccountInfo from './Components/AccountComponents/AccountInfoComponent/AccountInfo';
+import Account from './Components/Account/Account';
+import AccountAddressInfo from './Components/AccountComponents/AccountAddress/AccountAddressInfo/AccountAddressInfo';
+import AccountAddressCreate from './Components/AccountComponents/AccountAddress/AccountAddressCreate/AccountAddressCreate';
 import Favorites from './Components/Favorites/Favorites';
 import SearchResult from './Components/SearchResult';
 import Footer from './Components/Footer';
 import Purchases from './Components/Purchases/Purchases';
 import PurchaseInfo from './Components/Purchases/PurchasesComponent/PurchaseInfo/PurchaseInfo';
+import PurchaseGateway from './Components/PurchaseGateway/PurchaseGateway';
 import Sales from './Components/Sales/Sales';
 import SalesCreate from './Components/Sales/SalesComponents/SalesCreate/SalesCreate';
 
@@ -76,12 +80,15 @@ const App = () => {
         <Route path="/games/" element={<Games />} />
         <Route path="/games/:gameId" element={<GameInfo />} />
         <Route path="/shoppingCart" element={<ShoppingCart cartItems={cartItems}
-          onRemove={onRemove} />} />
+          onRemove={onRemove} clearStorage={CartContext.clearStorage} />} />
         <Route path="/logout" element={<Navigate to='/login' />} />
-        <Route path="/account/:user" element={<AccountInfo />} />
+        <Route path="/account/:user" element={<Account />} />
+        <Route path="/account/address=:addressname" element={<AccountAddressInfo />} />
+        <Route path="/account/:user/createAddress" element={<AccountAddressCreate />} />
         <Route path="/favorites/:user" element={<Favorites />} />
         <Route path="/purchases/:user" element={<Purchases userId={userId} />} />
         <Route path="/purchases/:user/purchaseId=:purchaseId" element={<PurchaseInfo />} />
+        <Route path="/purchases/:user/gateway" element={<PurchaseGateway cartItems={cartItems} />} />
         <Route path="/sales/:user" element={<Sales userId={userId} />} />
         <Route path="/sales/:user/add" element={<SalesCreate />} />
       </Routes>

@@ -1,6 +1,7 @@
 package nando.proyect.entornoServidor.model;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ public class Expansion{
     @Column(unique=true)
     public String code;
     public String name;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="idGame")
     public Juego juego;
     public String image;

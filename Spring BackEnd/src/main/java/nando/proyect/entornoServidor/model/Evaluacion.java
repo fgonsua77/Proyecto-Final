@@ -21,9 +21,6 @@ public class Evaluacion {
     private String general;
     private String article;
     private String packing;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="idpurchase", referencedColumnName="id")
-    private Compra compra;
 
     public Integer getId() {
         return id;
@@ -37,12 +34,6 @@ public class Evaluacion {
     }
     public void setGeneral(String general) {
         this.general = general;
-    }
-    public Compra getCompra() {
-        return compra;
-    }
-    public void setCompra(Compra compra) {
-        this.compra = compra;
     }
     public String getComment() {
         return comment;
@@ -61,11 +52,6 @@ public class Evaluacion {
     }
     public void setPacking(String packing) {
         this.packing = packing;
-    }
-    @Override
-    public String toString() {
-        return "Evaluacion [article=" + article + ", comment=" + comment + ", compra=" + compra + ", general=" + general
-                + ", id=" + id + ", packing=" + packing + "]";
     }
     
     

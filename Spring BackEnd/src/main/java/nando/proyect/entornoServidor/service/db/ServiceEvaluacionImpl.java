@@ -6,18 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import nando.proyect.entornoServidor.model.Evaluacion;
-import nando.proyect.entornoServidor.repository.CompraRepository;
 import nando.proyect.entornoServidor.repository.EvaluacionRepository;
-import nando.proyect.entornoServidor.repository.VentaRepository;
 import nando.proyect.entornoServidor.service.IServiceEvaluacion;
 @Service
 public class ServiceEvaluacionImpl implements IServiceEvaluacion {
     @Autowired
     private EvaluacionRepository evaluacionRepository;
-    @Autowired
-    private CompraRepository compraRepository;
-    @Autowired
-    private VentaRepository ventaRepository;
     @Override
     public void borrarEvaluacion(Evaluacion evaluacion) {
         // TODO Auto-generated method stub

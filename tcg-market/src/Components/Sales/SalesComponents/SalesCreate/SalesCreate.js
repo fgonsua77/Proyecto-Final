@@ -10,31 +10,52 @@ const SalesCreate = () => {
     const [cards, setCards] = useState([]);
     const [sale, setSale] = useState(
         {
-            idseller: userId,
-            idcard:1,
-            price: "",
-            state:"NEAR_MINT",
-            comments: "",
-            amount: "",
-            language: "SPANISH",
-            idpurchase: null
+            "vendedor":
+            {
+                "id": userId,
+            },
+            "carta":
+            {
+                "id": '',
+            },
+            "price": "",
+            "state": "NEAR_MINT",
+            "comments": "",
+            "amount": "",
+            "language": "SPANISH",
+            "envio":{
+                "id": "",
+            },
+            "direccion":{
+                "id": "",
+            }
         }
     );
-    async function saveSaleNormal (event) {
-        const peticion = axios.post(`http://localhost:8080/sale/save/idseller=${userId}&idcard=${sale.idcard}&amount=${sale.amount}&price=${sale.price}&language=${sale.language}&comments=${sale.comments}&state=${sale.state}`)
+    function saveSale(event) {
+        event.preventDefault();
+        const peticion = axios.post(`http://localhost:8080/sale/save`, sale)
             .then(response => {
                 console.log(response);
                 navigate(`/sales/${username}`);
-            })
+            }
+            )
             .catch(err => console.log(err));
     }
     function handleChange(evt) {
         const value = evt.target.value;
         setSale({
-          ...sale,
-          [evt.target.name]: value
+            ...sale,
+            [evt.target.name]: value
         });
-      }
+    }
+    function handleChangeObject(evt) {
+        setSale({
+            ...sale,
+            [evt.target.name]:{
+                id:evt.target.value
+            }
+        });
+    }
     useEffect(() => {
         fetch(`http://localhost:8080/apicartas/cartas`)
             .then(response => response.json())
@@ -70,9 +91,9 @@ const SalesCreate = () => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <Form onSubmit={() => saveSaleNormal(event)}>
+                        <Form onSubmit={() => saveSale(event)}>
                             <h3 className='font-link pt-3'>Selecciona la carta a vender!</h3>
-                            <Form.Select onChange={handleChange} name="idcard" value={parseInt(sale.idcard,)}>
+                            <Form.Select onChange={handleChangeObject} name="carta" value={sale.carta.id}>
                                 {cards.map(card => (
                                     <option key={card.id} value={card.id}>{card.name} - {card.code} / {card.expansion.code}</option>
                                 ))}

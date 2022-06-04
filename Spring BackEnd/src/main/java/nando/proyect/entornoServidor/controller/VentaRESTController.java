@@ -39,7 +39,7 @@ public class VentaRESTController {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
         for (Venta venta : ventas){
-            if(venta.getCompra() == null){
+            if(venta.getConfirmationdate() == null){
                 ventasSinComprar.add(venta);
             }
         }
@@ -56,7 +56,7 @@ public class VentaRESTController {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasFiltradas = new ArrayList<Venta>();
         for (Venta venta : ventas) {
-            if ((venta.getVendedor().getId().equals(idUser)) && (venta.getCompra() == null)) {
+            if ((venta.getVendedor().getId().equals(idUser))) {
                 ventasFiltradas.add(venta);
             }
         }
@@ -80,7 +80,7 @@ public class VentaRESTController {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
         for (int i = 0; i < ventas.size(); i++) {
-            if (ventas.get(i).getCompra() == null && ventas.get(i).getCarta().getId() == idCarta) {
+            if (ventas.get(i).getConfirmationdate() == null && ventas.get(i).getCarta().getId() == idCarta) {
                 ventasSinComprar.add(ventas.get(i));
             }
         }
@@ -95,7 +95,7 @@ public class VentaRESTController {
         System.out.println(ventas.get(0).getCarta());
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
         for (int i = 0; i < ventas.size(); i++) {
-            if (ventas.get(i).getCompra() == null && ventas.get(i).getCarta().getId().equals(idCarta)) {
+            if (ventas.get(i).getPaymentdate() == null && ventas.get(i).getCarta().getId().equals(idCarta)) {
                 ventasSinComprar.add(ventas.get(i));
             }
         }
@@ -107,30 +107,12 @@ public class VentaRESTController {
         }
     }
 
-    @GetMapping("/ventas/{compraId}")
-    public List<Venta> encontrarVentasPorCompra(@PathVariable("compraId") Integer idCompra) {
-        List<Venta> ventas = ventaService.encontrarTodas();
-        List<Venta> ventasCompra = new ArrayList<Venta>();
-        System.out.println(ventas);
-        System.out.println(idCompra);
-        for (int i = 0; i < ventas.size(); i++) {
-            if ((ventas.get(i).getCompra() != null) && ventas.get(i).getCompra().getId().equals(idCompra)) {
-                System.out.println(ventas.get(i));
-                System.out.println(ventas.get(i).getCompra());
-                System.out.println(ventas.get(i).getCompra().getId());
-                ventasCompra.add(ventas.get(i));
-            }
-        }
-        System.out.println(ventasCompra);
-        return ventasCompra;
-    }
-
     @GetMapping("/ventas/total/cardId={id}")
     public Integer encontrarTotalVentasPorCarta(@PathVariable("id") Integer idCarta) {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
         for (int i = 0; i < ventas.size(); i++) {
-            if (ventas.get(i).getCompra() == null && ventas.get(i).getCarta().getId().equals(idCarta)) {
+            if (ventas.get(i).getPaymentdate() == null && ventas.get(i).getCarta().getId().equals(idCarta)) {
                 ventasSinComprar.add(ventas.get(i));
             }
         }
@@ -145,9 +127,16 @@ public class VentaRESTController {
         }
     }
 
-    @DeleteMapping("/save")
+    @PostMapping("/save")
     public void saveSale(@RequestBody Venta venta) {
         ventaService.guardarVenta(venta);
+    }
+
+    @PostMapping("/saveVentas")
+    public void saveSale(@RequestBody List<Venta> ventas) {
+        for (Venta venta : ventas) {
+            ventaService.guardarVenta(venta);
+        }
     }
     @PostMapping("/save/idseller={idseller}&idcard={idcard}&amount={amount}&price={price}&language={language}&comments={comments}&state={state}")
     public void saveSaleWithParameters(@PathVariable("idseller") Integer idseller, 

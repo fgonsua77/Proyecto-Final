@@ -10,7 +10,13 @@ function setData() {
 
 function updateCart(product) {
     const cart = JSON.parse(localStorage.getItem(carritoCompra))
-    cart.push(product)
+    const idProduct = cart.length - 1;
+    cart.push({
+        idProduct: {
+            product
+        },
+    }
+    )
     localStorage.setItem(carritoCompra, JSON.stringify(cart))
 }
 
@@ -24,4 +30,4 @@ function clearStorage() {
     localStorage.removeItem(carritoCompra)
     setData();
 }
-module.exports = {getData, setData, updateCart, deleteCart, clearStorage}
+module.exports = { getData, setData, updateCart, deleteCart, clearStorage }

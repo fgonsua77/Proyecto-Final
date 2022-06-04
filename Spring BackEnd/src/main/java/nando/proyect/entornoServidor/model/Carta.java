@@ -1,4 +1,5 @@
 package nando.proyect.entornoServidor.model;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ public class Carta {
     public String code;
     public String name;
     public Boolean reprint;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="expansion")
     public Expansion expansion;
     public String image;

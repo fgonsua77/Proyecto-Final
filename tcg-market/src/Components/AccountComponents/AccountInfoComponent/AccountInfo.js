@@ -5,40 +5,38 @@ import Col from 'react-bootstrap/Col';
 import './Accountinfo.css';
 
 const AccountInfo = (props) => {
-    const dispatch = useDispatch();
-    const auth = useSelector((state) => state.auth);
-    const [user, setUser] = useState({});
-    const userId = localStorage.getItem("id");
-    useEffect(() => {
-        fetch(`http://localhost:8080/apiuser/usuarios/getuser/userid=${userId}`)
-            .then((response) => response.json())
-            .then((user) => setUser(user))
-            .then(console.log(user));
-    }, []);
+    const {user} = props;
     return (
         <>
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-6">
+            <div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h1 className="font-link">{user.username}</h1>
+                        </div>
                     </div>
-                    <div className="col-6">
-                        <h4 className="font-link usernameTitle">{user.username}</h4>
-                        <Col>
-                            <h5 className="font-link nameTitle">Nombre</h5>
-                            <h5 className="font-link emailTitle">Correo Electrónico</h5>
-                        </Col>
-                        <Col>
-                            <h5 className="font-link name">{user.name}</h5>
-                            <h5 className="font-link email">{user.email}</h5>
-                        </Col>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h2>Nombre : {user.name}</h2>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h2>Apellido : {user.surname}</h2>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h2>Email : {user.email}</h2>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h2>Fecha de registro : {user.registerdate}</h2>
+                        </div>
                     </div>
                 </div>
             </div>
-        </>
-
-
-
-
-    );
-}
-export default AccountInfo;
+        </>);
+};
+            export default AccountInfo;

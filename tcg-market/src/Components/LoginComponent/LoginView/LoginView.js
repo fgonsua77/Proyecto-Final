@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -36,7 +36,7 @@ const Login = (props) => {
             .then((response) => {
                 if (response.status === 200) {
                     navigate("/");
-                }else if(response.status === 401){
+                } else if (response.status === 401) {
                     setError("Invalid username or password");
                 }
             })
@@ -46,7 +46,7 @@ const Login = (props) => {
                 resetLoginForm();
                 setError("Invalid username and password");
             });
-            navigate("/home");
+        navigate("/home");
     };
 
     const resetLoginForm = () => {
@@ -135,6 +135,10 @@ const Login = (props) => {
                         </Button>
                     </Card.Footer>
                 </Card>
+                <Link to={`/signup`}>
+                    <p className="font-link">¿No estas registrado? ¡Registrate!</p>
+                </Link>
+
             </Col>
         </Row>
     );
