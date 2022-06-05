@@ -4,15 +4,14 @@ import { Form, Breadcrumb, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-const SalesCreate = () => {
-    const userId = localStorage.getItem('id');
-    const username = useParams();
+const SalesCreate = (props) => {
+    const {user} = props;
     const [cards, setCards] = useState([]);
     const [sale, setSale] = useState(
         {
             "vendedor":
             {
-                "id": userId,
+                "id": user.id,
             },
             "carta":
             {
@@ -23,12 +22,8 @@ const SalesCreate = () => {
             "comments": "",
             "amount": "",
             "language": "SPANISH",
-            "envio":{
-                "id": "",
-            },
-            "direccion":{
-                "id": "",
-            }
+            "envio":null,
+            "direccion":null,
         }
     );
     function saveSale(event) {
@@ -36,7 +31,7 @@ const SalesCreate = () => {
         const peticion = axios.post(`http://localhost:8080/sale/save`, sale)
             .then(response => {
                 console.log(response);
-                navigate(`/sales/${username}`);
+                navigate(`/sales/${user.username}`);
             }
             )
             .catch(err => console.log(err));
@@ -74,7 +69,7 @@ const SalesCreate = () => {
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="font-link">
-                                <Link to={`/sales/${username}`}>
+                                <Link to={`/sales/${user.username}`}>
                                     Ventas
                                 </Link>
                             </Breadcrumb.Item>

@@ -1,8 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
 import { Breadcrumb, Button } from "react-bootstrap";
 import { useState, useEffect } from 'react';
-const AccountAddressInfo = () => {
-    const username = localStorage.getItem('username');
+const AccountAddressInfo = (props) => {
+    const {user} = props;
     const idAddress = useParams().addressname;
     const [address, setAddress] = useState({});
     console.log(username, idAddress);
@@ -25,8 +25,8 @@ const AccountAddressInfo = () => {
                             </Breadcrumb.Item>
 
                             <Breadcrumb.Item>
-                                <Link to={`/account/${username}`}>
-                                    {username}
+                                <Link to={`/account/${user.username}`}>
+                                    {user.username}
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item active>

@@ -24,18 +24,21 @@ import PurchaseInfo from './Components/Purchases/PurchasesComponent/PurchaseInfo
 import PurchaseGateway from './Components/PurchaseGateway/PurchaseGateway';
 import Sales from './Components/Sales/Sales';
 import SalesCreate from './Components/Sales/SalesComponents/SalesCreate/SalesCreate';
+import { parseJwt } from './Services';
 
 const App = () => {
 
   const [cartItems, setCartItems] = useState([]);
-  const [sales, setSales] = useState([]);
+  const [user, setUser] = useState({});
+  const [JWT, setJWT] = useState(parseJwt(localStorage.getItem('jwtToken')));
+  console.log();
   useEffect(() => {
-    fetch('http://localhost:8080/sale/ventasSinComprar')
+    fetch(`http://localhost:8080/apiuser/usuarios/getuser/email=${JWT.sub}`)
       .then(response => response.json())
-      .then(sales => setSales(sales))
+      .then(user => setUser(user))
+      .catch(error => console.log(error));
   }, []);
-  console.log("Estas son las ventas sin comprar para probar: ", sales);
-  const userId = localStorage.getItem('id');
+  console.log(user);
   const onAdd = (product) => {
     console.log(product);
     const exist = cartItems.find((x) => x.id === product.id);
@@ -65,14 +68,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <header>
-        <Header />
+        <Header user = {user}/>
       </header>
       <Routes>
         <Route path="/" element={<Navigate to='/home' />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/card/:cardId" element={<CardInfo onAdd={onAdd} ventas={sales} />} />
+        <Route path="/card/:cardId" element={<CardInfo onAdd={onAdd} user={user}/>} />
         <Route path="/cards/" element={<Cards />} />
         <Route path="/cards/search/:search" element={<SearchResult />} />
         <Route path="/expansions/" element={<Expansions />} />
@@ -82,15 +85,15 @@ const App = () => {
         <Route path="/shoppingCart" element={<ShoppingCart cartItems={cartItems}
           onRemove={onRemove} clearStorage={CartContext.clearStorage} />} />
         <Route path="/logout" element={<Navigate to='/login' />} />
-        <Route path="/account/:user" element={<Account />} />
-        <Route path="/account/address=:addressname" element={<AccountAddressInfo />} />
-        <Route path="/account/:user/createAddress" element={<AccountAddressCreate />} />
-        <Route path="/favorites/:user" element={<Favorites />} />
-        <Route path="/purchases/:user" element={<Purchases userId={userId} />} />
+        <Route path="/account/:user" element={<Account user={user} />} />
+        <Route path="/account/address=:addressname" element={<AccountAddressInfo user={user} />} />
+        <Route path="/account/:user/createAddress" element={<AccountAddressCreate user={user} />} />
+        <Route path="/favorites/:user" element={<Favorites user={user} />} />
+        <Route path="/purchases/:user" element={<Purchases user={user} />} />
         <Route path="/purchases/:user/purchaseId=:purchaseId" element={<PurchaseInfo />} />
-        <Route path="/purchases/:user/gateway" element={<PurchaseGateway cartItems={cartItems} />} />
-        <Route path="/sales/:user" element={<Sales userId={userId} />} />
-        <Route path="/sales/:user/add" element={<SalesCreate />} />
+        <Route path="/purchases/:user/gateway" element={<PurchaseGateway cartItems={cartItems} user={user} />} />
+        <Route path="/sales/:user" element={<Sales user={user} />} />
+        <Route path="/sales/:user/add" element={<SalesCreate user={user} />} />
       </Routes>
       <footer>
         <Footer />

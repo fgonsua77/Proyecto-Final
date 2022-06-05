@@ -1,20 +1,26 @@
 package nando.proyect.entornoServidor.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import nando.proyect.entornoServidor.model.Venta;
 import nando.proyect.entornoServidor.service.IServiceCarta;
 import nando.proyect.entornoServidor.service.IServiceUsuario;
@@ -22,6 +28,8 @@ import nando.proyect.entornoServidor.service.IServiceVenta;
 
 @RestController
 @RequestMapping("/sale")
+
+@CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT})
 public class VentaRESTController {
     @Autowired
     private IServiceVenta ventaService;
@@ -74,7 +82,17 @@ public class VentaRESTController {
         }
         return ventasSinComprar;
     }
-
+    @GetMapping("/compras/userId={idUser}")
+    public List<Venta> encontrarVentasCompradas(@PathVariable("idUser") Integer idUser) {
+        List<Venta> ventas = ventaService.encontrarTodas();
+        List<Venta> ventasFiltradas = new ArrayList<Venta>();
+        for (Venta venta : ventas) {
+            if ((venta.getDireccion().getUsuario().getId().equals(idUser)) && (venta.getConfirmationdate() != null) && (venta.getDireccion() != null)) {
+                ventasFiltradas.add(venta);
+            }
+        }
+        return ventasFiltradas;
+    }
     @GetMapping("/ventas/ventasSinComprar/carta/cardId={id}")
     public List<Venta> encontrarVentasSinComprarPorCarta(@PathVariable("id") Integer idCarta) {
         List<Venta> ventas = ventaService.encontrarTodas();
@@ -169,5 +187,11 @@ public class VentaRESTController {
         ventaService.guardarVenta(venta);
         return ventaService.encontrarUnaVentaPorId(venta.getId());
     }
+
+    @InitBinder
+	public void initBinder(WebDataBinder webDataBinder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
 
 }

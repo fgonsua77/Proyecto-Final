@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "sales")
 public class Venta {
@@ -41,10 +43,15 @@ public class Venta {
     private String comments;
     private String language;
     private Integer amount;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date paymentdate;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date shipmentdate;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date arrivaldate;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date confirmationdate;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private String shipmentcode;
     
     public Integer getId() {

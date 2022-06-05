@@ -15,4 +15,5 @@ public interface IServiceUsuario {
     void añadirCartaFavoritaAlUsuario(Integer idUser, Integer idCarta);
     public UserDetails loadUserByUsername(String username);
     Usuarios encontrarPorNombreUsuario(String username);
+    Usuarios encontrarUsuarioPorEmail(String email);
 }

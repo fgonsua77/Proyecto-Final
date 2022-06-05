@@ -2,6 +2,7 @@ package nando.proyect.entornoServidor.controller;
 
 import java.io.IOException;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,13 +24,16 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -108,10 +112,31 @@ public class UsuarioRESTController {
     public Usuarios encontrarUnUsuario(@PathVariable("id") Integer id) {
         return usuarioService.encontrarUsuarioPorId(id);
     }
+    @GetMapping("/usuarios/getuser/email={email}")
+    public Usuarios encontrarUnUsuarioPorEmail(@PathVariable("email") String email) {
+        return usuarioService.encontrarUsuarioPorEmail(email);
+    }
+    @GetMapping("/usuarios/getuser/username={username}")
+    public Usuarios encontrarUnUsuarioPorNombreUsuario(@PathVariable("username") String username) {
+        return usuarioService.encontrarPorNombreUsuario(username);
+    }
     @GetMapping("/usuarios/favorites/userid={id}")
     public Collection<Carta> encontrarFavoritos(@PathVariable("id") Integer userId) {
         Usuarios usuario = usuarioService.encontrarUsuarioPorId(userId);
         return usuario.getFavorites();
+    }
+    @GetMapping("/vendedores")
+    public ResponseEntity<List<Usuarios>> encontrarTodosLosVendedores() {
+        List<Usuarios> vendedores = usuarioService.encontrarTodoslosUsuarios();
+        List<Usuarios> vendedoresFinal = new ArrayList<>();
+        for (Usuarios vendedor : vendedores) {
+            for(Perfil perfil : vendedor.getPerfiles()) {
+                if(perfil.getId() == 4) {
+                    vendedoresFinal.add(vendedor);
+                }
+            }
+        }
+        return ResponseEntity.ok().body(vendedoresFinal);
     }
     @PostMapping("/signup")
     public ResponseEntity<Usuarios> guardarUsuario(@RequestBody Usuarios user) {
@@ -171,4 +196,9 @@ public class UsuarioRESTController {
         private String username;
         private String perfilname;
     }
+    @InitBinder
+	public void initBinder(WebDataBinder webDataBinder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
 }

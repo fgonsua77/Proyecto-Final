@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
 import PurchaseListItem from "../PurchaseListItem/PurchaseListItem";
 
 const PurchaseList = (props) => {
@@ -8,7 +9,7 @@ const PurchaseList = (props) => {
 
     return (
         
-            <div className="table table-bordered table-striped" >
+            <Table table-striped >
                 <thead>
                     <tr>
                         <th>
@@ -43,7 +44,7 @@ const PurchaseList = (props) => {
                     ))}
                 </tbody>
 
-            </div>
+            </Table>
     );
 }
 

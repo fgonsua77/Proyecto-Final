@@ -6,13 +6,12 @@ import PurchaseList from "./PurchasesComponent/PurchaseList/PurchaseList";
 import Pagination from "../PaginationComponent/Pagination";
 
 const Purchases = (props) => {
-    const { user } = useParams();
-    const userId = localStorage.getItem("id");
+    const { user } = props;
     const [purchases, setPurchases] = useState([]);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:8080/purchases/idUser=${userId}`)
+        fetch(`http://localhost:8080/sale/compras/idUser=${user.id}`)
             .then(response => response.json())
             .then(purchases => setPurchases(purchases))
             .then(() => setLoading(false));
@@ -36,12 +35,12 @@ const Purchases = (props) => {
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="font-link">
-                                <Link to="/account" >
-                                    {user}
+                                <Link to={`/account/${user.username}`} >
+                                    {user.username}
                                 </Link>
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item className="font-link">
-                                {currentelements.length}Compras
+                            <Breadcrumb.Item active className="font-link">
+                                {currentelements.length} Compras
                             </Breadcrumb.Item>
                         </Breadcrumb>
                     </div>
@@ -55,7 +54,7 @@ const Purchases = (props) => {
             <div className="container">
                 {breadCrumps}
                 <div className="row">
-                    <PurchaseList purchases={purchases} user={user} />
+                    <PurchaseList purchases={purchases} user={user}/>
                 </div>
             </div>
 

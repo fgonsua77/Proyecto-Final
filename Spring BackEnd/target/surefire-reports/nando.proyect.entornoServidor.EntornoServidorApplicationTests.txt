@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: nando.proyect.entornoServidor.EntornoServidorApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.773 s - in nando.proyect.entornoServidor.EntornoServidorApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.746 s - in nando.proyect.entornoServidor.EntornoServidorApplicationTests

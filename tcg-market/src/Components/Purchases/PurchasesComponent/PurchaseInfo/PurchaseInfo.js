@@ -10,15 +10,9 @@ const PurchaseInfo = () => {
     const [purchase, setPurchase] = useState({});
     const [ventasCompra, setVentasCompra] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:8080/purchases/${purchaseId}`)
+        fetch(`http://localhost:8080/sale/saleId=${purchaseId}`)
             .then(response => response.json())
             .then(purchase => setPurchase(purchase))
-    }, []);
-    console.log(purchase);
-    useEffect(() => {
-        fetch(`http://localhost:8080/sale/ventas/${purchaseId}`)
-            .then(response => response.json())
-            .then(ventasCompra => setVentasCompra(ventasCompra))
     }, []);
     return (
         <>

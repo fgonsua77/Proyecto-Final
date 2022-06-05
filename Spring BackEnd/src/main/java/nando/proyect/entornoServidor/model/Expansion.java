@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "expansions")
 public class Expansion{
@@ -24,6 +26,7 @@ public class Expansion{
     @JoinColumn(name="idGame")
     public Juego juego;
     public String image;
+    @JsonFormat(pattern="dd-MM-yyyy")
     public Date releasedate;
     public Integer getId() {
         return id;

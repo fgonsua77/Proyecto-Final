@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Form, Breadcrumb, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 
 
-const AccountAddressCreate = () => {
-    const userid = localStorage.getItem("id");
-    const username = localStorage.getItem("username");
+const AccountAddressCreate = (props) => {
+    const {user} = props;
     const initialState = {
-        iduser: userid,
+        iduser: user.id,
         addressname: "",
         name: "",
         surname: "",
@@ -58,8 +57,8 @@ const AccountAddressCreate = () => {
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item>
-                                <Link to={`/account/${username}`}>
-                                    {username}
+                                <Link to={`/account/${user.username}`}>
+                                    {user.username}
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item active>

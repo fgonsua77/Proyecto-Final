@@ -18,7 +18,7 @@ const Login = (props) => {
     const [show, setShow] = useState(true);
     const navigate = useNavigate();
     const initialState = {
-        username: "",
+        usernameOrEmail: "",
         password: "",
     };
 
@@ -32,7 +32,7 @@ const Login = (props) => {
     const dispatch = useDispatch();
 
     const validateUser = () => {
-        dispatch(authenticateUser(user.username, user.password))
+        dispatch(authenticateUser(user.usernameOrEmail, user.password))
             .then((response) => {
                 if (response.status === 200) {
                     navigate("/");
@@ -83,8 +83,8 @@ const Login = (props) => {
                                         required
                                         autoComplete="off"
                                         type="text"
-                                        name="username"
-                                        value={user.username}
+                                        name="usernameOrEmail"
+                                        value={user.usernameOrEmail}
                                         onChange={credentialChange}
                                         className={"bg-dark text-white"}
                                         placeholder="Introduce tu nombre de usuario"
@@ -120,7 +120,7 @@ const Login = (props) => {
                             type="button"
                             variant="success"
                             onClick={validateUser}
-                            disabled={user.username.length === 0 || user.password.length === 0}
+                            disabled={user.usernameOrEmail.length === 0 || user.password.length === 0}
                         >
                             <FontAwesomeIcon icon={faSignInAlt} /> Login
                         </Button>{" "}
@@ -129,7 +129,7 @@ const Login = (props) => {
                             type="button"
                             variant="info"
                             onClick={resetLoginForm}
-                            disabled={user.username.length === 0 && user.password.length === 0}
+                            disabled={user.usernameOrEmail.length === 0 && user.password.length === 0}
                         >
                             <FontAwesomeIcon icon={faUndo} /> Reset
                         </Button>

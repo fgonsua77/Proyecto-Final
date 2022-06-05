@@ -4,11 +4,11 @@ import { Breadcrumb, Button, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 const PurchaseGateway = (props) => {
-    const { cartItems } = props;
+    const { cartItems, user } = props;
     const [sales, setSales] = useState(cartItems);
     const [shipments, setShipments] = useState([]);
     const [addresses, setAddresses] = useState([]);
-    const userId = localStorage.getItem("id");
+  
     function totalPrice(price, amount) {
         return (price * amount);
     }
@@ -23,7 +23,7 @@ const PurchaseGateway = (props) => {
                     "id": "",
                 },
                 "comprador":{
-                    "id": userId,
+                    "id": user.id,
                 }
             })))
         console.log(sales);
@@ -44,7 +44,7 @@ const PurchaseGateway = (props) => {
             .then(shipments => setShipments(shipments))
     }, []);
     useEffect(() => {
-        fetch(`http://localhost:8080/address/addresses/userId=${userId}`)
+        fetch(`http://localhost:8080/address/addresses/userId=${user.id}`)
             .then(response => response.json())
             .then(addresses => setAddresses(addresses))
     }, []);

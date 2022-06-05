@@ -106,5 +106,12 @@ public class ServiceUsuarioImpl implements IServiceUsuario, UserDetailsService {
         // TODO Auto-generated method stub
         return usuarioRepository.findByUsername(username);
     }
+
+    @Override
+    public Usuarios encontrarUsuarioPorEmail(String email) {
+        // TODO Auto-generated method stub
+        return usuarioRepository.findByEmail(email);
+    }
+    
     
 }

@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,10 +33,12 @@ public class Usuarios {
 	private String username;
 	private String name;
 	private String surname;
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date birthdate;
 	private String email;
 	private String password;
 	private Integer status;
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date registerdate;
 	@ManyToMany
 	@JoinTable(name = "favorites", joinColumns = @JoinColumn(name = "idUser"), inverseJoinColumns = @JoinColumn(name = "idCarta"))

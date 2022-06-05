@@ -6,19 +6,18 @@ import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faSignInAlt, faSignOutAlt, faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { logoutUser } from "../../Services/index";
+import { logoutUser, parseJwt } from "../../Services/index";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import SearchBar from "../SearchBar/SearchBar";
 import './Header.css';
 
-const Header = () => {
+const Header = (props) => {
+    const {user} = props;
     const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const logout = () => {
         dispatch(logoutUser());
     };
-
-    const username = localStorage.getItem("username");
     const guestLinks = (
         <>
             <Nav className="font-link navbar-right row registerLogin">
@@ -46,14 +45,14 @@ const Header = () => {
         <>
             <div className="collapse navbar-collapse p-0" id="navbarColor02">
                 <ul className="navbar-nav me-auto">
-                    <li className="nav-item dropdown" title={username}>
+                    <li className="nav-item dropdown" title={user.username}>
                         <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta</a>
                         <div className="dropdown-menu">
 
-                            <Link to={`/account/${username}`}>
+                            <Link to={`/account/${user.username}`}>
                                 <a className="font-link dropdown-item">Cuenta</a>
                             </Link>
-                            <Link to={`/favorites/${username}`}>
+                            <Link to={`/favorites/${user.username}`}>
                                 <a className="font-link dropdown-item">Favoritos</a>
                             </Link>
                             <a className="font-link dropdown-item" href="#">Mensajes</a>
@@ -70,7 +69,7 @@ const Header = () => {
                         </Dropdown.Toggle>
         
                         <Dropdown.Menu> 
-                            <Link to={`/sales/${username}/`}>
+                            <Link to={`/sales/${user.username}/`}>
                                 <Dropdown.Item>Tus ofertas</Dropdown.Item>
                             </Link>
                         </Dropdown.Menu>
@@ -78,10 +77,10 @@ const Header = () => {
                     <li className="nav-item">
                         <a className="nav-link dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#test1" aria-controls="test1" role="button" aria-haspopup="true" aria-expanded="false">Vender</a>
                         <div className="dropdown-menu" id="test1">
-                            <Link to={`/sales/${username}`}>
+                            <Link to={`/sales/${user.username}`}>
                                 <span className="font-link dropdown-item">Tus ofertas</span>
                             </Link>
-                            <Link to={`/sales/${username}/add`}>
+                            <Link to={`/sales/${user.username}/add`}>
                             <span className="font-link dropdown-item">Crear ofertas</span>
                             </Link>
                         </div>
@@ -89,7 +88,7 @@ const Header = () => {
                     <li className="nav-item">
                         <a className="font-link nav-link dropdown-toggle" data-bs-toggle="collapse"  data-bs-target="#test2" role="button" aria-haspopup="true" aria-expanded="false">Comprar</a>
                         <div className="dropdown-menu" id="test2">
-                            <Link to={`/purchases/${username}/`}>
+                            <Link to={`/purchases/${user.username}/`}>
                                 <span className="font-link dropdown-item">Tus compras</span>
                             </Link>
                         </div>

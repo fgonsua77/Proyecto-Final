@@ -1,23 +1,40 @@
 import * as AT from "./authTypes";
 import axios from "axios";
 
-const AUTH_URL = "http://localhost:8080/apiuser/login";
+// const AUTH_URL = "http://localhost:8080/apiuser/login";
+const AUTH_URL = "http://localhost:8080/api/auth/iniciarSesion";
 
+// export const authenticateUser = (username, password) => async (dispatch) => {
+//   dispatch(loginRequest());
+//   try {
+//     const response = await axios.post(AUTH_URL, {
+//       username: username,
+//       password: password,
+//     });
+//     localStorage.setItem("jwtToken", response.data.access_token);
+//     localStorage.setItem("username", response.data.username);
+//     localStorage.setItem("email", response.data.email);
+//     localStorage.setItem("name", response.data.name);
+//     localStorage.setItem("surname", response.data.surname);
+//     localStorage.setItem("birthdate", response.data.birthdate);
+//     localStorage.setItem("id", response.data.id);
+//     dispatch(success({ username: response.data.username, isLoggedIn: true }));
+//     return Promise.resolve(response.data);
+//   } catch (error) {
+//     dispatch(failure());
+//     return Promise.reject(error);
+//   }
+// };
 export const authenticateUser = (username, password) => async (dispatch) => {
   dispatch(loginRequest());
   try {
+    localStorage.clear();
     const response = await axios.post(AUTH_URL, {
-      username: username,
+      usernameOrEmail: username,
       password: password,
     });
-    localStorage.setItem("jwtToken", response.data.access_token);
-    localStorage.setItem("username", response.data.username);
-    localStorage.setItem("email", response.data.email);
-    localStorage.setItem("name", response.data.name);
-    localStorage.setItem("surname", response.data.surname);
-    localStorage.setItem("birthdate", response.data.birthdate);
-    localStorage.setItem("id", response.data.id);
-    dispatch(success({ username: response.data.username, isLoggedIn: true }));
+    localStorage.setItem("jwtToken", response.data.tokenDeAcceso);
+    dispatch(success({ username: response.data.email, isLoggedIn: true, jwtToken: response.data.tokenDeAcceso}));
     return Promise.resolve(response.data);
   } catch (error) {
     dispatch(failure());
@@ -36,15 +53,8 @@ export function parseJwt (token) {
 export const logoutUser = () => {
   return (dispatch) => {
     dispatch(logoutRequest());
-    localStorage.removeItem("jwtToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("username");
-    localStorage.removeItem("email");
-    localStorage.removeItem("name");
-    localStorage.removeItem("id");
-    localStorage.removeItem("birthdate");
-    localStorage.removeItem("surname");
-    dispatch(success({ username: "", isLoggedIn: false }));
+    localStorage.clear();
+    dispatch(success({ usernameOrEmail: "", isLoggedIn: false }));
   };
 };
 

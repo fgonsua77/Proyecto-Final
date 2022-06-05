@@ -1,16 +1,10 @@
-import { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import CardItemList from "../CardsComponent/CardItemList/CardItemList";
 
 const favorites = (props) => {
-    const userId = localStorage.getItem('id');
-    const [favorites, setFavorites] = useState([]);
-    useEffect(() => {
-        fetch(`http://localhost:8080/apiuser/usuarios/favorites/userid=${userId}`)
-            .then(response => response.json())
-            .then(favorites => setFavorites(favorites));
-    }, []);
+   const {user} = props;
     const Breadcrumbs = (
         <>
             <Breadcrumb>
@@ -34,7 +28,7 @@ const favorites = (props) => {
                 <div className="col">
                     {Breadcrumbs}
                     <h1 className="font-link">Favoritos</h1>
-                    <CardItemList cards={favorites} />
+                    <CardItemList cards={user.favorites} />
                 </div>
             </div>
         </>

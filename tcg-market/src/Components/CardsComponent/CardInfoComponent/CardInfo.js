@@ -11,7 +11,7 @@ const CardInfo = (props) => {
     const { cardId } = useParams();
     const [carta, setCarta] = useState({});
     const [sales, setSales] = useState([]);
-    const userId = localStorage.getItem('id');
+    const {user} = props;
     
     useEffect(() => {
         fetch(`http://localhost:8080/apicartas/cartas/getCarta/cardId=${cardId}`)
@@ -83,7 +83,7 @@ const CardInfo = (props) => {
             <div class="row pt-3">
 
                 <Container class="col-lg-12 pt-3">
-                    {auth.isLoggedIn ? (<button onClick={() => addToFavorites(cardId, userId)}>Añadir a favoritos</button>) : (
+                    {auth.isLoggedIn ? (<button onClick={() => addToFavorites(cardId, user.id)}>Añadir a favoritos</button>) : (
                         <Link to="/login">
                             <span className="font-link">
                                 Inicia sesión para añadir a favoritos

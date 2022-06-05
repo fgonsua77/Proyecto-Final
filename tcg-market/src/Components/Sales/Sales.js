@@ -6,12 +6,10 @@ import SalesList from "./SalesComponents/SalesList/SalesList";
 import SalesContext from "../../Context/SalesContext";
 
 const Sales = (props) => {
-    const { user } = useParams();
-    const { userId } = props;
-    console.log(userId, user);
+    const {user} = props;
     const [ventasUsuario, setVentasUsuario] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:8080/sale/ventas/userId=${userId}`)
+        fetch(`http://localhost:8080/sale/ventas/userId=${user.id}`)
             .then(response => response.json())
             .then(ventasUsuario => setVentasUsuario(ventasUsuario))
     }, []);
@@ -28,7 +26,9 @@ const Sales = (props) => {
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="font-link">
-                                {user}
+                                <Link to={`/account/${user.username}`} >
+                                {user.username}
+                                </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="font-link">
                                 Ventas
@@ -41,12 +41,12 @@ const Sales = (props) => {
 
                 <div className="row">
                     <div className="col-12 p-5">
-                        <SalesList ventasUsuario={ventasUsuario} username={user} />
+                        <SalesList ventasUsuario={ventasUsuario} username={user.username} />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <Link to={`/sales/${user}/add`}>
+                        <Link to={`/sales/${user.username}/add`}>
                             <Button className="font-link" variant="primary">Crear una nueva venta</Button>
                         </Link>
                     </div>
