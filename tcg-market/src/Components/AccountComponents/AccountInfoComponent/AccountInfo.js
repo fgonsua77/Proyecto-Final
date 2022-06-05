@@ -8,32 +8,16 @@ const AccountInfo = (props) => {
     const {user} = props;
     return (
         <>
-            <div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <h1 className="font-link">{user.username}</h1>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <h2>Nombre : {user.name}</h2>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <h2>Apellido : {user.surname}</h2>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <h2>Email : {user.email}</h2>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <h2>Fecha de registro : {user.registerdate}</h2>
-                        </div>
+            <div className="card"> 
+                <div className="card-header">
+                    <h3 class="card-title">{user.username}</h3>
+                </div>
+                <div className="container card-body">
+                    <h4 class="card-title">Nombre : {user.name}</h4>
+                    <h4 class="card-title mb-3 ">Apellido : {user.surname}</h4>
+                    <div class="card-subtitle text-muted">
+                        <h5>Email : {user.email}</h5>
+                        <h5>Fecha de registro : {user.registerdate}</h5>
                     </div>
                 </div>
             </div>

@@ -44,11 +44,11 @@ const cart = (props) => {
       </div>
    )
    return (
-      <div className="cart-container  align-items-center">
-         <div className="cart-header d-flex justify-content-center">
+      <div className="cart-container align-items-center">
+         <div className="cart-header d-flex justify-content-center ">
             <h1>Carrito de compras</h1>
          </div>
-         <div className="cart-body d-flex justify-content-center">
+         <div className="cart-body d-flex flex-column justify-content-center align-items-center">
             {cartItems.length > 0 ? (
                cartItems.map((sale) =>
                   <ProductTemplate sale={sale} onRemove={onRemove}/>

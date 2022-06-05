@@ -8,19 +8,9 @@ const ProductTemplate = (props) => {
     }
     return (
         <>
-            <div className="card d-flex col-md-3" key={sale.id}>
-                <h2 className="h4 mb-0 card-header col-md-3">
+            <div className="card d-flex col-md-3 mb-3" key={sale.id}>
+                <h2 className="h4 mb-0 card-header">
                     <span className="font-link">{sale.vendedor.name}</span>
-                    <div class="toggler d-lg-none btn btn-sm btn-link">
-                        <div class="on">
-                            <span class="fonticon-chevron-down">
-                            </span>
-                        </div>
-                        <div class="off">
-                            <span class="fonticon-chevron-left">
-                            </span>
-                        </div>
-                    </div>
                 </h2>
                 <div className="collapsable card-body ">
                     <div className="row blocks">
@@ -40,14 +30,6 @@ const ProductTemplate = (props) => {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="col-12 col-lg">
-                              <select class="form-select" aria-label="Elige tu forma de envio">
-                                 <option selected>No Ordinario <span name="shipmentbill">2</span><span>€</span></option>
-                                 <option value="1">One</option>
-                                 <option value="2">Two</option>
-                                 <option value="3">Three</option>
-                              </select>
-                           </div> */}
                     </div>
                     <div className="action-bar row">
                         <Col>
@@ -55,11 +37,6 @@ const ProductTemplate = (props) => {
                                 Ver más productos de este vendedor
                             </Link>
                         </Col>
-                        {/* <Col>
-                            <Link to={``}>
-
-                            </Link>
-                        </Col> */}
                     </div>
                     <div className="category-subsection">
                         <table className="table table-striped mb-1">

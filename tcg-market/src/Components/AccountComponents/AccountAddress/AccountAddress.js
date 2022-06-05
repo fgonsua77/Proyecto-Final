@@ -13,27 +13,27 @@ const AccountAddress = (props) => {
     console.log(addresses);
     return (
         <>
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-12 p-5">
-                        <h1>Direcciones</h1>
-                        
-                        <ListGroup className="p-5">
-                            {addresses.map(address => (
+            {/* -- */}
+
+            <div className="card">
+                <div className="card-header">
+                    <h1>Direcciones</h1>
+                </div>
+                <div className="card-body m-3">
+                    <ListGroup>
+                        {addresses.map(address => (
+                            <ListGroup.Item key={address.id}>
                                 <Link to={`/account/address=${address.id}`}>
-                                    <ListGroup.Item key={address.id}>
-                                        {console.log(address.id)}
-                                        {address.addressname}
-                                    </ListGroup.Item>
+                                    {address.addressname}
                                 </Link>
-                            ))}
-                        </ListGroup>
-                        <Link to={`/account/${username}/createAddress`}>
-                            <Button variant="primary">
-                                Crear nueva dirección
-                            </Button>
-                        </Link>
-                    </div>
+                            </ListGroup.Item>
+                        ))}
+                    </ListGroup>
+                    <Link to={`/account/${username}/createAddress`}>
+                        <Button className="mt-3" variant="success">
+                            Crear nueva dirección
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </>

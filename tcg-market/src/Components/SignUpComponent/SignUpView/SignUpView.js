@@ -46,7 +46,7 @@ const Register = (props) => {
             <div style={{ display: show ? "block" : "none" }}>
                 <MyToast show={show} message={message} type={"success"} />
             </div>
-            <fieldset>
+            <fieldset className="card p-4">
                 <h1 className="center">Formulario de registro</h1>
                 <div className="form-group row mt-3">
                     <div className="col-sm-6">
@@ -76,7 +76,7 @@ const Register = (props) => {
                     </div>
                 </div>
                 <div className="form-group row mt-3">
-                    <div className="col-sm-10">
+                    <div className="col-sm-10 mb-2">
                         <label for="username" className="font-link row-form-label">Nombre de usuario y contraseña</label>
                         <input name="username" type="text" className="form-control" id="username" placeholder="Nombre de usuario"
                             onChange={userChange} />
@@ -88,7 +88,7 @@ const Register = (props) => {
                 </div>
                 <button
                     type="submit"
-                    className="btn btn-primary mt-3">Submit</button>
+                    className="btn btn-primary mt-3">Registrarse</button>
             </fieldset>
         </form>
     );

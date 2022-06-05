@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import AccountAddress from '../AccountComponents/AccountAddress/AccountAddress';
 import AccountInfo from '../AccountComponents/AccountInfoComponent/AccountInfo';
 import { useState, useEffect } from 'react';
-import { Breadcrumb, Button } from "react-bootstrap";
+import { Breadcrumb} from "react-bootstrap";
 const Account = () => {
     const username = localStorage.getItem('username');
     const [user, setUser] = useState({});
@@ -30,14 +30,16 @@ const Account = () => {
                             </Breadcrumb.Item>
                         </Breadcrumb>
                     </div>
-                    <div className="row justify-content-center">
-                        <div className="col-12 p-5">
-                            <AccountInfo user={user} />
+                    <div>
+                        <div className="row justify-content-center">
+                            <div className="col-12 p-5">
+                                <AccountInfo user={user} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="row justify-content-center">
-                        <div className="col-12 p-5">
-                            <AccountAddress iduser={userId} />
+                        <div className="row justify-content-center">
+                            <div className="col-12 p-5">
+                                <AccountAddress iduser={userId} />
+                            </div>
                         </div>
                     </div>
                 </div>

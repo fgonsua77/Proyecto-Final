@@ -69,16 +69,15 @@ const Header = () => {
                             Vender
                         </Dropdown.Toggle>
         
-                        <Dropdown.Menu>
+                        <Dropdown.Menu> 
                             <Link to={`/sales/${username}/`}>
                                 <Dropdown.Item>Tus ofertas</Dropdown.Item>
                             </Link>
                         </Dropdown.Menu>
                     </Dropdown> */}
                     <li className="nav-item">
-                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vender</a>
-                        <div className="dropdown-menu">
-
+                        <a className="nav-link dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#test1" aria-controls="test1" role="button" aria-haspopup="true" aria-expanded="false">Vender</a>
+                        <div className="dropdown-menu" id="test1">
                             <Link to={`/sales/${username}`}>
                                 <span className="font-link dropdown-item">Tus ofertas</span>
                             </Link>
@@ -88,8 +87,8 @@ const Header = () => {
                         </div>
                     </li>
                     <li className="nav-item">
-                        <a className="font-link nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Comprar</a>
-                        <div className="dropdown-menu">
+                        <a className="font-link nav-link dropdown-toggle" data-bs-toggle="collapse"  data-bs-target="#test2" role="button" aria-haspopup="true" aria-expanded="false">Comprar</a>
+                        <div className="dropdown-menu" id="test2">
                             <Link to={`/purchases/${username}/`}>
                                 <span className="font-link dropdown-item">Tus compras</span>
                             </Link>
