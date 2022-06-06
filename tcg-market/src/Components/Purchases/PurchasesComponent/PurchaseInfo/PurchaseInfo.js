@@ -4,8 +4,8 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 
 const PurchaseInfo = (props) => {
-    const {user} = props;
-    console.log(user);
+    const username = props;
+    console.log(username);
     const {purchaseId}  = useParams(1);
     const [purchase, setPurchase] = useState({});
     useEffect(() => {
@@ -25,12 +25,12 @@ const PurchaseInfo = (props) => {
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="font-link">
-                                <Link to={`/account/${user}`}>
-                                    {user.username}
+                                <Link to={`/account/${username}`}>
+                                    {username}
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="font-link">
-                                <Link to={`/purchases/${user}`} >
+                                <Link to={`/purchases/${username}`} >
                                     Compras
                                 </Link>
                             </Breadcrumb.Item>

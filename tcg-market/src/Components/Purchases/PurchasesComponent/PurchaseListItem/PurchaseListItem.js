@@ -1,7 +1,7 @@
 import {  Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 const PurchaseListItem = (props) => {
-    const { purchase, user } = props;
+    const { purchase, username } = props;
     return (
         <>
             <tr>
@@ -9,7 +9,7 @@ const PurchaseListItem = (props) => {
                 <td className="font-link">{purchase.shipmentdate}</td>
                 <td className="font-link">{purchase.confirmationdate}</td>
                 <td>
-                    <Link to={`/purchases/${user}/purchaseId=${purchase.id}`}>
+                    <Link to={`/purchases/${username}/purchaseId=${purchase.id}`}>
                         <span className="font-link">Detalles</span>
                     </Link>
                 </td>

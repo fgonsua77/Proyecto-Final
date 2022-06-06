@@ -6,15 +6,13 @@ import PurchaseList from "./PurchasesComponent/PurchaseList/PurchaseList";
 import Pagination from "../PaginationComponent/Pagination";
 
 const Purchases = (props) => {
-    const { user } = props;
+    const {user} = useParams();
     console.log(user);
     const [purchases, setPurchases] = useState([]);
     useEffect(() => {
-        setLoading(true);
-        fetch(`http://localhost:8080/sale/compras/username=${user}`)
+        fetch(`http://localhost:8080/sale/compras/user=${user}`)
             .then(response => response.json())
             .then(purchases => setPurchases(purchases))
-            .then(() => setLoading(false));
     }, []);
     const [elementsPerPage] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
@@ -53,7 +51,7 @@ const Purchases = (props) => {
             <div className="container">
                 {breadCrumps}
                 <div className="row">
-                    <PurchaseList purchases={purchases} user={user}/>
+                    <PurchaseList purchases={purchases} username={user}/>
                 </div>
             </div>
 

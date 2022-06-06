@@ -2,8 +2,8 @@ import { Card } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 const SellerInfo = (props) => {
+    const {id, username} = useParams();
     const {user} = props;
-    const id = useParams().id;
     const [seller, setSeller] = useState([]);
     const [ventaMenor, setVentaMenor] = useState([]);
     const [ventasListadas, setVentasListadas] = useState([]);
@@ -17,25 +17,25 @@ const SellerInfo = (props) => {
     // console.log(seller);
     // console.log(seller.id);
     useEffect(() => {
-        fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${user}`)
+        fetch(`http://localhost:8080/apiuser/usuarios/getuser/userid=${id}`)
             .then(response => response.json())
             .then(seller => setSeller(seller))
             .catch(error => console.log(error));
     }  , []);
     useEffect(() => {
-        fetch(`http://localhost:8080/sale/ventas/preciomenor/username=${user}`)
+        fetch(`http://localhost:8080/sale/ventas/preciomenor/username=${username}`)
             .then((response) => response.json())
             .then((ventaMenor) => setVentaMenor(ventaMenor))
             .catch(error => console.log(error));
     }, []);
-    // useEffect(() => {
-    //     fetch(`http://localhost:8080/sale/totalVentasCompletadas/userId=${id}`)
-    //         .then((response) => response.json())
-    //         .then((ventasCompletadas) => setVentasCompletadas(ventasCompletadas))
-    //         .catch(error => console.log(error));
-    // }, []);
     useEffect(() => {
-        fetch(`http://localhost:8080/sale/ventasTotalesSinComprar/username=${user}`)
+        fetch(`http://localhost:8080/sale/totalVentasCompletadas/username=${username}`)
+            .then((response) => response.json())
+            .then((ventasCompletadas) => setVentasCompletadas(ventasCompletadas))
+            .catch(error => console.log(error));
+    }, []);
+    useEffect(() => {
+        fetch(`http://localhost:8080/sale/ventasTotalesSinComprar/username=${username}`)
             .then((response) => response.json())
             .then((ventasListadas) => setVentasListadas(ventasListadas))
             .catch(error => console.log(error));
@@ -61,8 +61,8 @@ const SellerInfo = (props) => {
                                 {ventaMenor ? <img src={ventaMenor.carta.image} alt={ventaMenor.carta.name} /> : <span>No hay ventas</span>}
                             </Card.Img> */}
                             <Card.Text>
-                                <Link to={`/sales/${seller.username}`}>
-                                <span className="font-link">{ventasListadas} ventas listadas</span>
+                                <Link to={`/sales/${username}`}>
+                                    <span className="font-link">{ventasListadas} ventas listadas</span>
                                 </Link>
                             </Card.Text>
                         </Card>

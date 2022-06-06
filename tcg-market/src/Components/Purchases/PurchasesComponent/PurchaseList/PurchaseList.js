@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import PurchaseListItem from "../PurchaseListItem/PurchaseListItem";
 
 const PurchaseList = (props) => {
-    const { purchases, user } = props;
+    const { purchases, username } = props;
     const [loading, setLoading] = useState(false);
 
     return (
@@ -39,7 +39,7 @@ const PurchaseList = (props) => {
                 </thead>
                 <tbody>
                     {purchases.map(purchase => (
-                        <PurchaseListItem key={purchase.id} purchase={purchase} user={user} />
+                        <PurchaseListItem key={purchase.id} purchase={purchase} username={username} />
                     ))}
                 </tbody>
 

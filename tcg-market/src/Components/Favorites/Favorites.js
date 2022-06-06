@@ -4,7 +4,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import CardItemList from "../CardsComponent/CardItemList/CardItemList";
 import { useEffect, useState } from "react";
 const favorites = (props) => {
-   const {user} = props;
+   const user = props;
    const [usuario, setUsuario] = useState([]);
    useEffect(() => {
        fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${user}`)

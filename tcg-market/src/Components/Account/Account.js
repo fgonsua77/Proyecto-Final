@@ -1,12 +1,13 @@
 
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import AccountAddress from '../AccountComponents/AccountAddress/AccountAddress';
 import AccountInfo from '../AccountComponents/AccountInfoComponent/AccountInfo';
 import AccountCredit from '../AccountComponents/AccountCredit/AccountCredit';
 import { useState, useEffect } from 'react';
 import { Breadcrumb} from "react-bootstrap";
 const Account = (props) => {
-    const {user} = props;
+    const {user} = useParams();
+    console.log(user);
     const [usuario, setUsuario] = useState({});
     useEffect(() => {
         fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${user}`)

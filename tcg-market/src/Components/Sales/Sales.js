@@ -6,12 +6,18 @@ import SalesList from "./SalesComponents/SalesList/SalesList";
 import SalesContext from "../../Context/SalesContext";
 
 const Sales = (props) => {
-    const username = useParams().user
+    const {username} = useParams();
     const [ventasUsuario, setVentasUsuario] = useState([]);
     useEffect(() => {
         fetch(`http://localhost:8080/sale/ventasSinComprar/username=${username}`)
             .then(response => response.json())
             .then(ventasUsuario => setVentasUsuario(ventasUsuario))
+    }, []);
+    const [usuario, setUsuario] = useState({});
+    useEffect(() => {
+        fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${username}`)
+            .then((response) => response.json())
+            .then((usuario) => setUsuario(usuario))
     }, []);
 
     return (
@@ -44,7 +50,7 @@ const Sales = (props) => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <Link to={`/sales/${username}/add`}>
+                        <Link to={`/sales/${usuario.id}/add`}>
                             <Button className="font-link" variant="primary">Crear una nueva venta</Button>
                         </Link>
                     </div>

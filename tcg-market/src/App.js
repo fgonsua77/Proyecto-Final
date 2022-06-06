@@ -60,14 +60,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <header>
-        <Header user={user} cartLength={cartItems.length} />
+        <Header username={user} cartLength={cartItems.length} />
       </header>
       <Routes>
         <Route path="/" element={<Navigate to='/home' />} />
-        <Route path="/home" element={<Home user={user} />} />
+        <Route path="/home" element={<Home username={user} />} />
         <Route path="/login" element={<Login usuario={user} setUsuario={setUser}/>} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/card/:cardId" element={<CardInfo onAdd={onAdd} user={user} cartItems={cartItems} />} />
+        <Route path="/card/:cardId" element={<CardInfo onAdd={onAdd} username={user} cartItems={cartItems} />} />
         <Route path="/cards/" element={<Cards />} />
         <Route path="/cards/search/:search" element={<SearchResult />} />
         <Route path="/expansions/" element={<Expansions />} />
@@ -77,17 +77,17 @@ const App = () => {
         <Route path="/shoppingCart" element={<ShoppingCart cartItems={cartItems}
           onRemove={onRemove} clearStorage={CartContext.clearStorage} />} />
         <Route path="/logout" element={<Navigate to='/login' />} />
-        <Route path="/account/:user" element={<Account user={user} />} />
-        <Route path="/account/address=:addressname" element={<AccountAddressInfo user={user} />} />
-        <Route path="/account/:user/:userId/createAddress" element={<AccountAddressCreate user={user} />} />
-        <Route path="/favorites/:user" element={<Favorites user={user} />} />
-        <Route path="/purchases/:user" element={<Purchases user={user} />} />
-        <Route path="/purchases/:user/purchaseId=:purchaseId" element={<PurchaseInfo user={user} />} />
-        <Route path="/purchases/:user/gateway" element={<PurchaseGateway cartItems={cartItems} user={user} />} />
+        <Route path="/account/:user" element={<Account username={user} />} />
+        <Route path="/account/address=:addressname" element={<AccountAddressInfo username={user} />} />
+        <Route path="/account/:user/:userId/createAddress" element={<AccountAddressCreate username={user} />} />
+        <Route path="/favorites/:user" element={<Favorites username={user} />} />
+        <Route path="/purchases/:user" element={<Purchases username={user} />} />
+        <Route path="/purchases/:user/purchaseId=:purchaseId" element={<PurchaseInfo username={user} />} />
+        <Route path="/purchases/:user/gateway" element={<PurchaseGateway cartItems={cartItems} username={user} />} />
         <Route path="/sales/:username" element={<Sales />} />
-        <Route path="/sales/:username/add" element={<SalesCreate user={user} />} />
-        <Route path="/sellers" element={<Seller/>} />
-        <Route path="/sellers/:id" element={<SellerInfo user={user}/>} />
+        <Route path="/sales/:username/add" element={<SalesCreate username={user} />} />
+        <Route path="/sellers" element={<Seller username={user}/>} />
+        <Route path="/sellers/:id/:username" element={<SellerInfo username={user}/>} />
       </Routes>
       <footer>
         <Footer />

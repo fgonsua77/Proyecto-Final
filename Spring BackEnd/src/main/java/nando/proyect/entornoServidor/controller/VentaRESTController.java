@@ -21,21 +21,22 @@ import nando.proyect.entornoServidor.service.IServiceVenta;
 @RestController
 @RequestMapping("/sale")
 
-@CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = "http://localhost:3000", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
 public class VentaRESTController {
     @Autowired
     private IServiceVenta ventaService;
+
     @GetMapping("/ventas")
     public List<Venta> encontrarTodas() {
         return ventaService.encontrarTodas();
     }
 
     @GetMapping("/ventasSinComprar")
-    public List<Venta> encontrarTodasLasVentasSinComprar(){
+    public List<Venta> encontrarTodasLasVentasSinComprar() {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
-        for (Venta venta : ventas){
-            if(venta.getComprador() == null){
+        for (Venta venta : ventas) {
+            if (venta.getComprador() == null) {
                 ventasSinComprar.add(venta);
             }
         }
@@ -43,14 +44,14 @@ public class VentaRESTController {
     }
 
     @GetMapping("/compras/username={username}")
-    public List<Venta> encontrarComprasPorUsuario(@PathVariable("username") String username){
+    public List<Venta> encontrarComprasPorUsuario(@PathVariable("username") String username) {
         System.out.println(username);
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasFiltradas = new ArrayList<Venta>();
         for (Venta venta : ventas) {
             System.out.println(venta);
-            if(venta.getComprador() != null){
-                if(venta.getComprador().getUsername() == username){
+            if (venta.getComprador() != null) {
+                if (venta.getComprador().getUsername().equals(username)) {
                     ventasFiltradas.add(venta);
                 }
             }
@@ -68,7 +69,7 @@ public class VentaRESTController {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasFiltradas = new ArrayList<Venta>();
         for (Venta venta : ventas) {
-            if ((venta.getVendedor().getId().equals(username))) {
+            if ((venta.getVendedor().getUsername().equals(username))) {
                 ventasFiltradas.add(venta);
             }
         }
@@ -80,64 +81,77 @@ public class VentaRESTController {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
         for (int i = 0; i < ventas.size(); i++) {
-            if (ventas.get(i).getCarta().getId() == idCarta) {
+            if (ventas.get(i).getCarta().getId().equals(idCarta)) {
                 ventasSinComprar.add(ventas.get(i));
             }
         }
         return ventasSinComprar;
     }
+
     @GetMapping("/ventasCompletadas/username={username}")
     public List<Venta> encontrarVentasCompletadas(@PathVariable("username") String username) {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasFiltradas = new ArrayList<Venta>();
         for (Venta venta : ventas) {
-            if ((venta.getDireccion().getUsuario().getUsername().equals(username)) && (venta.getConfirmationdate() != null) && (venta.getDireccion() != null)) {
+            if ((venta.getVendedor().getUsername().equals(username)) && (venta.getConfirmationdate() != null)
+                    && (venta.getDireccion() != null)) {
                 ventasFiltradas.add(venta);
             }
         }
         return ventasFiltradas;
     }
+
     @GetMapping("/totalVentasCompletadas/username={username}")
     public Integer encontrarTotalVentasCompletadas(@PathVariable("username") String username) {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasFiltradas = new ArrayList<Venta>();
         for (Venta venta : ventas) {
-            if ((venta.getDireccion().getUsuario().getUsername().equals(username)) && (venta.getConfirmationdate() != null) && (venta.getDireccion() != null)) {
+            if ((venta.getDireccion().getUsuario().getUsername().equals(username))
+                    && (venta.getConfirmationdate() != null) && (venta.getDireccion() != null)) {
                 ventasFiltradas.add(venta);
             }
         }
         return ventasFiltradas.size();
     }
+
     @GetMapping("/ventasSinComprar/carta/cardId={id}")
     public List<Venta> encontrarVentasSinComprarPorCarta(@PathVariable("id") Integer idCarta) {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
         for (int i = 0; i < ventas.size(); i++) {
-            if (ventas.get(i).getConfirmationdate() == null && ventas.get(i).getCarta().getId() == idCarta) {
+            if (ventas.get(i).getConfirmationdate() == null  && ventas.get(i).getCarta().getId().equals(idCarta)) {
                 ventasSinComprar.add(ventas.get(i));
             }
         }
         return ventasSinComprar;
     }
+
     @GetMapping("/ventasSinComprar/username={username}")
     public List<Venta> encontrarVentasSinComprarPorUsuario(@PathVariable("username") String username) {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
         for (int i = 0; i < ventas.size(); i++) {
-            if (ventas.get(i).getConfirmationdate() == null && ventas.get(i).getVendedor().getUsername() == username) {
-                ventasSinComprar.add(ventas.get(i));
+            if (ventas.get(i).getVendedor().getUsername().equals(username)) {
+                if (ventas.get(i).getComprador() == null) {
+                    ventasSinComprar.add(ventas.get(i));
+                }
             }
+
         }
         return ventasSinComprar;
     }
+
     @GetMapping("/ventasTotalesSinComprar/username={username}")
     public Integer encontrarTotalVentasSinComprarPorUsuario(@PathVariable("username") String username) {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
         for (int i = 0; i < ventas.size(); i++) {
-            if (ventas.get(i).getConfirmationdate() == null && ventas.get(i).getVendedor().getUsername() == username) {
-                ventasSinComprar.add(ventas.get(i));
+            if(ventas.get(i).getComprador() == null){
+                if (ventas.get(i).getVendedor().getUsername().equals(username)) {
+                    ventasSinComprar.add(ventas.get(i));
+                }
             }
+            
         }
         Integer total = ventasSinComprar.size();
         return total;
@@ -162,8 +176,9 @@ public class VentaRESTController {
             return null;
         }
     }
+
     @GetMapping("/ventas/preciomenor/username={username}")
-    public Venta encontrarLaVentaMenor(@PathVariable("username") Integer username) {
+    public Venta encontrarLaVentaMenor(@PathVariable("username") String username) {
         Sort sort = Sort.by("price").ascending();
         List<Venta> ventas = ventaService.encontrarTodasFiltradas(sort);
         List<Venta> ventasDelUsuario = new ArrayList<Venta>();
@@ -207,6 +222,7 @@ public class VentaRESTController {
             ventaService.guardarVenta(venta);
         }
     }
+
     @Transactional
     @PutMapping("/update")
     public Venta updateSale(@RequestBody Venta venta) {

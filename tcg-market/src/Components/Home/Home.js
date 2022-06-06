@@ -7,7 +7,7 @@ import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Home = (props) => {
-    const { user } = props;
+    const {user} = props;
     const [cards, setCards] = useState([]);
     const [expansions, setExpansions] = useState([]);
     const [loading, setLoading] = useState(false);

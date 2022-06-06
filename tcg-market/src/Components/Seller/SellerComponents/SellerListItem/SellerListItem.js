@@ -14,7 +14,7 @@ const SellerListItem = (props) => {
         <>
             <tr>
                 <td>
-                    <Link to={`/sellers/${seller.id}`}>
+                    <Link to={`/sellers/${seller.id}/${seller.username}`}>
                         {seller.username}
                     </Link>
                 </td>

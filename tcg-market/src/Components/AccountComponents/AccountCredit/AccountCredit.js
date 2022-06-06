@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 const AccountCredit = (props) => {
     return (
         <>
-
             <div className="card">
                 <div className="card-header">
                     <h1>Crédito</h1>

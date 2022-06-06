@@ -12,9 +12,9 @@ const CardInfo = (props) => {
     const [carta, setCarta] = useState({});
     const [sales, setSales] = useState([]);
     const [usuario, setUsuario] = useState([]);
-    const { user } = props;
+    const {username} = props;
     useEffect(() => {
-        fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${user}`)
+        fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${username}`)
             .then((response) => response.json())
             .then((usuario) => setUsuario(usuario))
     }, []);
@@ -51,7 +51,7 @@ const CardInfo = (props) => {
                 'error'
             )
         } else {
-            const response = axios.post(`http://localhost:8080/apicartas/cartas/addtoFavs/cardId=${idCarta}&username=${user}`)
+            const response = axios.post(`http://localhost:8080/apicartas/cartas/addtoFavs/cardId=${idCarta}&username=${username}`)
             Swal.fire(
                 'Se ha añadido el producto a favoritos',
                 'Siga navegando!',
