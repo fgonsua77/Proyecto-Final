@@ -9,4 +9,5 @@ public interface IServiceDireccion {
     void guardarDireccion(Direccion direccion);
     List<Direccion> encontrarTodas();
     void borrarDireccion(Direccion direccion);
+    void borrarDireccionPorId(Integer id);
 }

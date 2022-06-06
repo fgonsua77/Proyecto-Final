@@ -17,12 +17,13 @@ const Header = (props) => {
     const logout = () => {
         dispatch(logoutUser());
     };
-    const [usuario, setUsuario] = useState({});
+    const [usuario, setUsuario] = useState([]);
     useEffect(() => {
         fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${username}`)
             .then((response) => response.json())
             .then((usuario) => setUsuario(usuario))
     }, []);
+    console.log(usuario);
     const guestLinks = (
         <>
             <Nav className="font-link navbar-right row registerLogin">

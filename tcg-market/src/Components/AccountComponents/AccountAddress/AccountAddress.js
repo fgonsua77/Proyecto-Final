@@ -1,8 +1,10 @@
 import { ListGroup, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "axios";
 const AccountAddress = (props) => {
-    const {username, id} = props;
+    const { username, id } = props;
     console.log(props);
     const [addresses, setAddresses] = useState([]);
     useEffect(() => {
@@ -10,6 +12,36 @@ const AccountAddress = (props) => {
             .then((response) => response.json())
             .then((addresses) => setAddresses(addresses))
     }, []);
+
+    function deleteDirection(idAddress) {
+        Swal.fire({
+            title: '¿Estas segur@ de borrar esta dirección?',
+            text: "No podrás revertir esta operación",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const response = axios.delete(`http://localhost:8080/address/delete/${idAddress}`);
+                if (response.status === 200) {
+                    Swal.fire(
+                        'Borrada!',
+                        'Tu dirección ha sido eliminada.',
+                        'success'
+                    )
+                } else {
+                    Swal.fire(
+                        'Error!',
+                        'No se ha podido borrar la dirección.',
+                        'error'
+                    )
+                }
+            }
+        })
+    }
+
     return (
         <>
 
@@ -21,9 +53,16 @@ const AccountAddress = (props) => {
                     <ListGroup>
                         {addresses.map(address => (
                             <ListGroup.Item key={address.id}>
-                                <Link to={`/account/${username}/address=${address.id}`}>
-                                    {address.addressname}
-                                </Link>
+                                <div className="row">
+                                    <div className="col-6-md">
+                                        <Link to={`/account/${username}/address=${address.id}`}>
+                                            {address.addressname}
+                                        </Link>
+                                    </div>
+                                    <div className="col-6-md">
+                                        <Button variant="danger" onClick={() => { deleteDirection(address.id) }}>Eliminar</Button>
+                                    </div>
+                                </div>
                             </ListGroup.Item>
                         ))}
                     </ListGroup>

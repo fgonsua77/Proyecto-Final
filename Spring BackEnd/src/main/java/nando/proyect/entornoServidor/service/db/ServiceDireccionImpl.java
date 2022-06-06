@@ -37,5 +37,10 @@ public class ServiceDireccionImpl implements IServiceDireccion {
         direccionRepository.save(direccion);
         
     }
+    @Override
+    public void borrarDireccionPorId(Integer id) {
+        direccionRepository.deleteById(id);
+        
+    }
     
 }

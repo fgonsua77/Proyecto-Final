@@ -21,7 +21,7 @@ import nando.proyect.entornoServidor.service.IServiceUsuario;
 
 @RestController
 @RequestMapping("/address")
-@CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = "http://localhost:3000", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class DireccionRESTController {
     @Autowired
     private IServiceUsuario serviceUsuario;
@@ -99,8 +99,8 @@ public class DireccionRESTController {
         direccionAActualizar.setCity(direccion.getCity());
         direccionService.guardarDireccion(direccionAActualizar);
     }
-    @DeleteMapping("/delete")
-    public void borrarDireccion(@RequestBody Direccion direccion) {
-        direccionService.borrarDireccion(direccion);
+    @DeleteMapping("/delete/addressId={id}")
+    public void borrarDireccionPorIdDeDireccion(@PathVariable("id") Integer id) {
+        direccionService.borrarDireccionPorId(id);
     }
 }
