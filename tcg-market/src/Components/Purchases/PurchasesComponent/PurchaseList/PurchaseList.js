@@ -4,7 +4,6 @@ import PurchaseListItem from "../PurchaseListItem/PurchaseListItem";
 
 const PurchaseList = (props) => {
     const { purchases, user } = props;
-    console.log(purchases);
     const [loading, setLoading] = useState(false);
 
     return (

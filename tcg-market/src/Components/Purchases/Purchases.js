@@ -7,15 +7,14 @@ import Pagination from "../PaginationComponent/Pagination";
 
 const Purchases = (props) => {
     const { user } = props;
+    console.log(user);
     const [purchases, setPurchases] = useState([]);
-    const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:8080/sale/compras/idUser=${user.id}`)
+        fetch(`http://localhost:8080/sale/compras/username=${user}`)
             .then(response => response.json())
             .then(purchases => setPurchases(purchases))
             .then(() => setLoading(false));
-        console.log(purchases);
     }, []);
     const [elementsPerPage] = useState(20);
     const [currentPage, setCurrentPage] = useState(1);
@@ -35,8 +34,8 @@ const Purchases = (props) => {
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="font-link">
-                                <Link to={`/account/${user.username}`} >
-                                    {user.username}
+                                <Link to={`/account/${user}`} >
+                                    {user}
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item active className="font-link">

@@ -2,13 +2,11 @@ package nando.proyect.entornoServidor.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +19,10 @@ public class Evaluacion {
     private String general;
     private String article;
     private String packing;
+    
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="idpurchase", referencedColumnName="id")
+    private Venta venta;
 
     public Integer getId() {
         return id;
@@ -52,6 +54,17 @@ public class Evaluacion {
     }
     public void setPacking(String packing) {
         this.packing = packing;
+    }
+    public Venta getVenta() {
+        return venta;
+    }
+    public void setVenta(Venta venta) {
+        this.venta = venta;
+    }
+    @Override
+    public String toString() {
+        return "Evaluacion [article=" + article + ", comment=" + comment + ", general=" + general + ", id=" + id
+                + ", packing=" + packing + ", venta=" + venta + "]";
     }
     
     

@@ -8,6 +8,7 @@ import 'bootstrap/dist/js/bootstrap.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

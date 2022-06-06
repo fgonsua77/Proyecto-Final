@@ -1,8 +1,9 @@
 
 import './Accountinfo.css';
-
+import {useEffect, useState} from 'react';
 const AccountInfo = (props) => {
-    const {user} = props;
+    const user = props;
+
     return (
         <>
             <div className="card"> 

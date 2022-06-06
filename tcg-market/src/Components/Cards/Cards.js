@@ -44,7 +44,6 @@ const Cards = (props) => {
                 {breadCrumps}
                 <h1 className="font-link d-flex justify-content-center">Cartas</h1>
                 <CardItemList cards={cards}  />
-                
             </div>
 
 

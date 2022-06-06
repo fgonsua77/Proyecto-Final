@@ -3,38 +3,78 @@ import axios from 'axios';
 import { Form, Breadcrumb, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 const SalesCreate = (props) => {
     const {user} = props;
+    console.log(user);
+    useEffect
+    (() => {
+        fetch(`http://localhost:8080/apiuser/getuser/username=${user}`)
+            .then((response) => response.json())
+            .then((usuario) => setUsuario(usuario))
+    }, []);
+    const [usuario, setUsuario] = useState([]);
     const [cards, setCards] = useState([]);
-    const [sale, setSale] = useState(
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+    const initialState = {
+        "vendedor":
         {
-            "vendedor":
-            {
-                "id": user.id,
-            },
-            "carta":
-            {
-                "id": '',
-            },
-            "price": "",
-            "state": "NEAR_MINT",
-            "comments": "",
-            "amount": "",
-            "language": "SPANISH",
-            "envio":null,
-            "direccion":null,
-        }
-    );
+            "id": `${usuario.id}`,
+        },
+        "carta":
+        {
+            "id": '',
+        },
+        "price": "",
+        "state": "NEAR_MINT",
+        "comments": "",
+        "amount": "",
+        "language": "SPANISH",
+        "envio":null,
+        "direccion":null,
+    };
+      
+    const [sale, setSale] = useState(initialState);
     function saveSale(event) {
         event.preventDefault();
-        const peticion = axios.post(`http://localhost:8080/sale/save`, sale)
+        swalWithBootstrapButtons.fire({
+            title: '¿Estas seguro que quieres guardar la venta?',
+            text: "Tendrás que borrarla si te equivocas",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, creala!',
+            cancelButtonText: 'No, cancela',
+          }).then((result) => {
+            if (result.isConfirmed) {
+                const peticion = axios.post(`http://localhost:8080/sale/save`, sale)
             .then(response => {
-                console.log(response);
-                navigate(`/sales/${user.username}`);
+                swalWithBootstrapButtons.fire(
+                    'Has creado una venta!',
+                    'Puedes consultarla en tu perfil!',
+                    'success'
+                  )
+                  setSale(initialState);
             }
             )
             .catch(err => console.log(err));
+              
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelada',
+                'Puedes volver a crear una cuando quieras',
+                'error'
+              )
+            }
+          })
     }
     function handleChange(evt) {
         const value = evt.target.value;

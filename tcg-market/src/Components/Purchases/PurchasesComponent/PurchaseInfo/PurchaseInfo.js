@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 
-const PurchaseInfo = () => {
-    const {purchaseId}  = useParams(0);
-    const {user} = useParams(1);
-    console.log(useParams());
+const PurchaseInfo = (props) => {
+    const {user} = props;
+    console.log(user);
+    const {purchaseId}  = useParams(1);
     const [purchase, setPurchase] = useState({});
-    const [ventasCompra, setVentasCompra] = useState([]);
     useEffect(() => {
         fetch(`http://localhost:8080/sale/saleId=${purchaseId}`)
             .then(response => response.json())
@@ -26,8 +25,8 @@ const PurchaseInfo = () => {
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="font-link">
-                                <Link to="/account" >
-                                    {user}
+                                <Link to={`/account/${user}`}>
+                                    {user.username}
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="font-link">
@@ -64,18 +63,10 @@ const PurchaseInfo = () => {
                         <p>{purchase.shipmentdate}</p>
                     </div>
                 </div>
+               
                 <div className="row">
                     <div className="col-12">
-                    <div className="row">
-                    <div className="col-12">
-                        
-                    </div>
-                </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12">
-                        <h3 className="font-link">Productos</h3>
+                        <h3 className="font-link">Producto</h3>
                         <table className="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -94,14 +85,12 @@ const PurchaseInfo = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {ventasCompra.map(venta => (
-                                    <tr key={venta.id}>
-                                        <td className="font-link">{venta.vendedor.name}</td>
-                                        <td className="font-link">{venta.carta.name}</td>
-                                        <td className="font-link">{venta.price}€</td>
-                                        <td className="font-link">{venta.amount}</td>
+                                    <tr >
+                                        <td className="font-link">{purchase.vendedor.username}</td>
+                                        <td className="font-link">{purchase.carta.name}</td>
+                                        <td className="font-link">{purchase.price}€</td>
+                                        <td className="font-link">{purchase.amount}</td>
                                     </tr>
-                                ))}
                             </tbody>
                         </table>
                     </div>

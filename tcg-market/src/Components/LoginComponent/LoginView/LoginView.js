@@ -11,9 +11,12 @@ import Alert from 'react-bootstrap/Alert';
 import FormControl from 'react-bootstrap/FormControl';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faEnvelope, faLock, faUndo } from "@fortawesome/free-solid-svg-icons";
-import { authenticateUser } from "../../../Services/index";
+import { authenticateUser, parseJwt } from "../../../Services/index";
+import Swal from 'sweetalert2';
+
 
 const Login = (props) => {
+    const { usuario, setUsuario } = props;
     const [error, setError] = useState();
     const [show, setShow] = useState(true);
     const navigate = useNavigate();
@@ -34,19 +37,25 @@ const Login = (props) => {
     const validateUser = () => {
         dispatch(authenticateUser(user.usernameOrEmail, user.password))
             .then((response) => {
-                if (response.status === 200) {
-                    navigate("/");
-                } else if (response.status === 401) {
-                    setError("Invalid username or password");
-                }
+                console.log();
+                setUsuario(parseJwt(localStorage.getItem("jwtToken")).sub);
+                Swal.fire(
+                    'Has iniciado sesión correctamente',
+                    'Paselo bien',
+                    'success'
+                )
+                setUser(initialState);
             })
             .catch((error) => {
                 console.log(error.message);
                 setShow(true);
                 resetLoginForm();
-                setError("Invalid username and password");
+                Swal.fire(
+                    'Las credenciales son incorrectas',
+                    'Intentalo de nuevo',
+                    'error'
+                )
             });
-        navigate("/home");
     };
 
     const resetLoginForm = () => {
@@ -56,16 +65,6 @@ const Login = (props) => {
     return (
         <Row className="d-flex justify-content-md-center">
             <Col xs={5}>
-                {show && props.message && (
-                    <Alert variant="success" onClose={() => setShow(false)} dismissible>
-                        {props.message}
-                    </Alert>
-                )}
-                {show && error && (
-                    <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-                        {error}
-                    </Alert>
-                )}
                 <Card className={"border border-dark  text-dark"}>
                     <Card.Header>
                         <FontAwesomeIcon icon={faSignInAlt} /> Login

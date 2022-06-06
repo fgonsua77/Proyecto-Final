@@ -44,7 +44,7 @@ const PurchaseGateway = (props) => {
             .then(shipments => setShipments(shipments))
     }, []);
     useEffect(() => {
-        fetch(`http://localhost:8080/address/addresses/userId=${user.id}`)
+        fetch(`http://localhost:8080/address/addresses/username=${user}`)
             .then(response => response.json())
             .then(addresses => setAddresses(addresses))
     }, []);

@@ -50,9 +50,4 @@ public class ExpansionRESTController {
         }
         return expansionesJuego;
     }
-    @InitBinder
-	public void initBinder(WebDataBinder webDataBinder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-	}
 }

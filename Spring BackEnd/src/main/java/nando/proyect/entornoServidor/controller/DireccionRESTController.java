@@ -36,12 +36,12 @@ public class DireccionRESTController {
     public Direccion encontrarUnaDireccionPorId(@PathVariable("id") Integer id) {
         return direccionService.encontrarUnaDireccionPorId(id);
     }
-    @GetMapping("/addresses/userId={id}")
-    public List<Direccion> encontrarDireccionesPorUsuario(@PathVariable("id") Integer idUser) {
+    @GetMapping("/addresses/username={username}")
+    public List<Direccion> encontrarDireccionesPorUsuario(@PathVariable("username") String username) {
         List<Direccion> direcciones = direccionService.encontrarTodas();
         List<Direccion> direccionesPorUsuario = new ArrayList<>();
         for (Direccion direccion : direcciones) {
-            if (direccion.getUsuario().getId() == idUser) {
+            if (direccion.getUsuario().getUsername() == username) {
                 direccionesPorUsuario.add(direccion);
             }
         }

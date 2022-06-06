@@ -1,7 +1,6 @@
 package nando.proyect.entornoServidor.seguridad;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
 		Usuarios usuario = usuarioRepositorio.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
 	
-		return new User(usuario.getEmail(), usuario.getPassword(), mapearRoles(usuario.getPerfiles()));
+		return new User(usuario.getUsername(), usuario.getPassword(), mapearRoles(usuario.getPerfiles()));
 	}
 
 	private Collection<? extends GrantedAuthority> mapearRoles(Collection<Perfil> perfiles){

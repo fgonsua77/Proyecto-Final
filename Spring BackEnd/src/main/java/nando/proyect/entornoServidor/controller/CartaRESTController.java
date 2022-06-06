@@ -6,7 +6,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -95,9 +94,10 @@ public class CartaRESTController {
         }
         return cartasExpansiones;
     }
-    @PostMapping("/cartas/addtoFavs/cardId={cardId}&userId={userId}")
-    public void añadirAFavoritos(@PathVariable("cardId") int cardId, @PathVariable("userId") int userId) {
-        usuarioService.añadirCartaFavoritaAlUsuario(userId, cardId);
+    @PostMapping("/cartas/addtoFavs/cardId={cardId}&username={username}")
+    public void añadirAFavoritos(@PathVariable("cardId") int cardId, @PathVariable("username") String username) {
+        Usuarios usuario = usuarioService.encontrarPorNombreUsuario(username);
+        usuarioService.añadirCartaFavoritaAlUsuario(usuario.getId(), cardId);
     }
     @GetMapping("/cartas/idExpansion={idExpansion}")
     public List<Carta> encontrarCartasPorExpansion(@PathVariable("idExpansion") Integer idExpansion) {

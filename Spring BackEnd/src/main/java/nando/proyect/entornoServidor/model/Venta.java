@@ -30,9 +30,6 @@ public class Venta {
     @JoinColumn(name="idcard", referencedColumnName="id")
     private Carta carta;
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="idevaluation", referencedColumnName="id")
-    private Evaluacion evaluacion;
-    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="idshipment", referencedColumnName="id")
     private Envio envio;
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -102,12 +99,6 @@ public class Venta {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
-    public Evaluacion getEvaluacion() {
-        return evaluacion;
-    }
-    public void setEvaluacion(Evaluacion evaluacion) {
-        this.evaluacion = evaluacion;
-    }
     public Envio getEnvio() {
         return envio;
     }
@@ -150,14 +141,21 @@ public class Venta {
     public void setShipmentcode(String shipmentcode) {
         this.shipmentcode = shipmentcode;
     }
+    public Usuarios getComprador() {
+        return comprador;
+    }
+    public void setComprador(Usuarios comprador) {
+        this.comprador = comprador;
+    }
     @Override
     public String toString() {
         return "Venta [amount=" + amount + ", arrivaldate=" + arrivaldate + ", carta=" + carta + ", comments="
-                + comments + ", confirmationdate=" + confirmationdate + ", direccion=" + direccion + ", envio=" + envio
-                + ", evaluacion=" + evaluacion + ", id=" + id + ", language=" + language + ", paymentdate="
+                + comments + ", comprador=" + comprador + ", confirmationdate=" + confirmationdate + ", direccion="
+                + direccion + ", envio=" + envio + ", id=" + id + ", language=" + language + ", paymentdate="
                 + paymentdate + ", price=" + price + ", shipmentcode=" + shipmentcode + ", shipmentdate=" + shipmentdate
                 + ", state=" + state + ", vendedor=" + vendedor + "]";
     }
+    
     
     
     

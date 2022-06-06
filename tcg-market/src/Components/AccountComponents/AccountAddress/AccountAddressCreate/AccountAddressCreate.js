@@ -1,25 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Breadcrumb, Button } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-
-
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const AccountAddressCreate = (props) => {
-    const {user} = props;
+    let {user, userId} = useParams();
+    console.log(user, userId);
     const initialState = {
-        iduser: user.id,
-        addressname: "",
-        name: "",
-        surname: "",
-        street: "",
-        floor: "",
-        postalcode: "",
-        city: "",
-        country: "",
-        province: "",
-        number: "",
-        comments: "",
-        preferred: false
+        "usuario": {
+            "id":`${userId}`,
+        },
+        "addressname": "",
+        "name": "",
+        "surname": "",
+        "street": "",
+        "floor": "",
+        "postalcode": "",
+        "city": "",
+        "country": "",
+        "province": "",
+        "number": "",
+        "comments": "",
+        "preferred": false
     };
     const [addressToCreate, setAddressToCreate] = useState(
         initialState);
@@ -31,6 +34,49 @@ const AccountAddressCreate = (props) => {
             [event.target.name]: value
         });
     }
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+    function saveAddress(event) {
+        event.preventDefault();
+        swalWithBootstrapButtons.fire({
+            title: '¿Estas seguro que quieres guardar la dirección?',
+            text: "Tendrás que borrarla si te equivocas",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, creala!',
+            cancelButtonText: 'No, cancela.',
+          }).then((result) => {
+            if (result.isConfirmed) {
+                const peticion = axios.post(`http://localhost:8080/address/save`, addressToCreate)
+            .then(response => {
+                swalWithBootstrapButtons.fire(
+                    'Has creado una dirección!',
+                    'Puedes consultarla en tu perfil!',
+                    'success'
+                  )
+                  setAddressToCreate(initialState);
+            }
+            )
+            .catch(err => console.log(err));
+              
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelada',
+                'Puedes volver a crear una cuando quieras',
+                'error'
+              )
+            }
+          })
+    }
+    
 
     function createAddress(event, AddressToCreate) {
         event.preventDefault();
@@ -57,8 +103,8 @@ const AccountAddressCreate = (props) => {
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item>
-                                <Link to={`/account/${user.username}`}>
-                                    {user.username}
+                                <Link to={`/account/${user}`}>
+                                    {user}
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item active>
@@ -75,7 +121,7 @@ const AccountAddressCreate = (props) => {
                     </div>
                     <div className="row justify-content-center">
                         <div className="col-12">
-                            <Form onSubmit={() => createAddress(event, addressToCreate)}>
+                            <Form onSubmit={() => saveAddress(event)}>
                                 <Form.Group className="mb-3">
                                     <Form.Label>Nombre de la dirección</Form.Label>
                                     <Form.Control type="text" name="addressname" onChange={handleChange} value={addressToCreate.addressname} />

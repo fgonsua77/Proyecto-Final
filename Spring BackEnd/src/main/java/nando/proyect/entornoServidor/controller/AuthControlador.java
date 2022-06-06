@@ -1,10 +1,10 @@
 package nando.proyect.entornoServidor.controller;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,7 +58,6 @@ public class AuthControlador {
 		
 		//obtenemos el token del jwtTokenProvider
 		String token = jwtTokenProvider.generarToken(authentication);
-		
 		return ResponseEntity.ok(new JWTAuthResponseDTO(token));
 	}
 	

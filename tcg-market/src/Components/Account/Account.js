@@ -7,7 +7,13 @@ import { useState, useEffect } from 'react';
 import { Breadcrumb} from "react-bootstrap";
 const Account = (props) => {
     const {user} = props;
-    
+    const [usuario, setUsuario] = useState({});
+    useEffect(() => {
+        fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${user}`)
+            .then((response) => response.json())
+            .then((usuario) => setUsuario(usuario))
+    }, []);
+    console.log(usuario);
     return (
         <>
             <div className="container">
@@ -20,24 +26,24 @@ const Account = (props) => {
                             </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item active>
-                                {user.username}
+                                {user}
                             </Breadcrumb.Item>
                         </Breadcrumb>
                     </div>
                     <div>
                         <div className="row justify-content-center">
                             <div className="col-12 p-5">
-                                <AccountInfo user={user} />
+                                <AccountInfo usuario={usuario} />
                             </div>
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-12 p-5">
-                                <AccountAddress user={user} />
+                                <AccountAddress usuario={usuario} />
                             </div>
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-12 p-5">
-                                <AccountCredit credit={user.credit} />
+                                <AccountCredit usuario={usuario} />
                             </div>
                         </div>
                     </div>

@@ -4,16 +4,16 @@ import CardItemList from "../CardsComponent/CardItemList";
 import Pagination from "../PaginationComponent/Pagination";
 import { useSelector } from 'react-redux';
 import { Carousel } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
-    const { game } = props;
+    const { user } = props;
     const [cards, setCards] = useState([]);
     const [expansions, setExpansions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [cardsPerPage, setCardsPerPage] = useState(4);
     const [currentPage, setCurrentPage] = useState(1);
     const auth = useSelector((state) => state.auth);
-    const user = localStorage.getItem('user');
     useEffect(() => {
         setLoading(true)
         fetch(`http://localhost:8080/apicartas/cartas/destacadas`)
@@ -84,11 +84,14 @@ const Home = (props) => {
         <Carousel className="carousel">
             {expansions.map(expansion => (
                 <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src={expansion.image}
-                        alt={expansion.name}
-                    />
+                    <Link to={`/expansions/${expansion.id}`}>
+                        <img
+                            className="d-block w-100"
+                            src={expansion.image}
+                            alt={expansion.name}
+                        />
+                    </Link>
+
                 </Carousel.Item>
             ))}
         </Carousel>

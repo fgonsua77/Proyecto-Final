@@ -25,8 +25,8 @@ const AccountAddressInfo = (props) => {
                             </Breadcrumb.Item>
 
                             <Breadcrumb.Item>
-                                <Link to={`/account/${user.username}`}>
-                                    {user.username}
+                                <Link to={`/account/${user}`}>
+                                    {user}
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item active>

@@ -2,16 +2,12 @@ package nando.proyect.entornoServidor.seguridad;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import nando.proyect.entornoServidor.excepciones.WebAppException;
-import nando.proyect.entornoServidor.service.IServiceUsuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -46,24 +42,8 @@ public class JwtTokenProvider {
 	}
 	
 	public boolean validarToken(String token) {
-		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
 			return true;
-		}catch (SignatureException ex) {
-			throw new WebAppException(HttpStatus.BAD_REQUEST,"Firma JWT no valida");
-		}
-		catch (MalformedJwtException ex) {
-			throw new WebAppException(HttpStatus.BAD_REQUEST,"Token JWT no valida");
-		}
-		catch (ExpiredJwtException ex) {
-			throw new WebAppException(HttpStatus.BAD_REQUEST,"Token JWT caducado");
-		}
-		catch (UnsupportedJwtException ex) {
-			throw new WebAppException(HttpStatus.BAD_REQUEST,"Token JWT no compatible");
-		}
-		catch (IllegalArgumentException ex) {
-			throw new WebAppException(HttpStatus.BAD_REQUEST,"La cadena claims JWT esta vacia");
-		}
 	}
 }
 

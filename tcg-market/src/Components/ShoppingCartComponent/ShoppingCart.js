@@ -7,7 +7,7 @@ const cart = (props) => {
    const auth = useSelector((state) => state.auth);
    const dispatch = useDispatch();
    const { cartItems, onRemove, clearStorage } = props;
-   const username = localStorage.getItem('username');
+   const {user} = props;
    console.log(cartItems);
    function borrarElCarrito(carrito) {
       carrito.map(item => {
@@ -19,7 +19,7 @@ const cart = (props) => {
          <div className="d-flex">
             <div className="flex-grow-1">
                <Link to="/shoppingCart">
-               <Link to={`/purchases/${username}/gateway`}>
+               <Link to={`/purchases/${user}/gateway`}>
                   <button className="btn btn-primary m-2">
                     
                      <span className="font-link">Finalizar compra</span>

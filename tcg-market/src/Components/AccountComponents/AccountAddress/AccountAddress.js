@@ -2,13 +2,13 @@ import { ListGroup, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 const AccountAddress = (props) => {
-    const {user} = props;
+    const {usuario} = props;
+    console.log(usuario);
     const [addresses, setAddresses] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:8080/address/addresses/userId=${user.id}`)
+        fetch(`http://localhost:8080/address/addresses/username=${usuario.username}`)
             .then((response) => response.json())
             .then((addresses) => setAddresses(addresses))
-            .then(console.log(addresses));
     }, []);
     return (
         <>
@@ -27,7 +27,7 @@ const AccountAddress = (props) => {
                             </ListGroup.Item>
                         ))}
                     </ListGroup>
-                    <Link to={`/account/${user.username}/createAddress`}>
+                    <Link to={`/account/${usuario.username}/${usuario.id}/createAddress`}>
                         <Button className="mt-3" variant="success">
                             Crear nueva dirección
                         </Button>

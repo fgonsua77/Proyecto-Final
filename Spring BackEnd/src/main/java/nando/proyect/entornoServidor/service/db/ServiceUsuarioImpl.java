@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import nando.proyect.entornoServidor.model.Carta;
 import nando.proyect.entornoServidor.model.Perfil;
 import nando.proyect.entornoServidor.model.Usuarios;
@@ -25,7 +24,7 @@ import nando.proyect.entornoServidor.repository.PerfilRepository;
 import nando.proyect.entornoServidor.repository.UsuariosRepository;
 import nando.proyect.entornoServidor.service.IServiceUsuario;
 
-@Service @Transactional @Slf4j @RequiredArgsConstructor
+@Service @Transactional @RequiredArgsConstructor
 public class ServiceUsuarioImpl implements IServiceUsuario, UserDetailsService {
     @Autowired
     private UsuariosRepository usuarioRepository;

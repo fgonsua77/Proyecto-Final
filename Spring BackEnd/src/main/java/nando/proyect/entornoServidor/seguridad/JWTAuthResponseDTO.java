@@ -8,7 +8,7 @@ public class JWTAuthResponseDTO {
 	public JWTAuthResponseDTO(String tokenDeAcceso) {
 		super();
 		this.tokenDeAcceso = tokenDeAcceso;
-	}
+		}
 
 	public JWTAuthResponseDTO(String tokenDeAcceso, String tipoDeToken) {
 		super();
@@ -31,5 +31,6 @@ public class JWTAuthResponseDTO {
 	public void setTipoDeToken(String tipoDeToken) {
 		this.tipoDeToken = tipoDeToken;
 	}
+	
 
 }

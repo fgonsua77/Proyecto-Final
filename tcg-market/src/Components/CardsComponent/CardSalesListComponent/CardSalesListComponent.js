@@ -1,13 +1,13 @@
 
 
 import React from "react";
-import {Table, Button} from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Swal from 'sweetalert2';
 const CardSalesList = (props) => {
-    const { onAdd, sales, modifySales, cartItems, setSales } = props;
-    const [actualAmount, setActualAmount] = useState("");
+    const { onAdd, sales, cartItems } = props;
     const auth = useSelector((state) => state.auth);
     const list = (
 
@@ -22,7 +22,7 @@ const CardSalesList = (props) => {
             </thead>
             <tbody>
                 {sales.map(sale => <tr key={sale.id}>
-                    <td className="font-link">{sale.vendedor.username}</td>
+                    <td className="font-link"> <Link to={`/sellers/${sale.vendedor.id}`}>{sale.vendedor.username}</Link></td>
                     <td className="font-link">Estado:{sale.state}, Lenguaje: {sale.language}, Comentarios: {sale.comments}</td>
                     <td className="font-link">
                         {sale.amount}
@@ -34,9 +34,7 @@ const CardSalesList = (props) => {
                     </td>
                     <td className="font-link">{sale.price}€</td>
                     <td className="font-link">
-                        <Link to="/shoppingCart">
-                            <Button onClick={() => addToCartandModify(sales, sale)}>Comprar</Button>
-                        </Link>
+                            <Button onClick={() => addToCart(sale)}>Comprar</Button>
 
                     </td>
                 </tr>)}
@@ -44,14 +42,23 @@ const CardSalesList = (props) => {
         </Table>
     );
 
-    function addToCartandModify(actualSales, actualSale) {
-        
-        actualSales.map(sale => {
-            if (sale.id === actualSale.id) {
-                actualSales.splice(actualSales.indexOf(sale), 1);
-            }
-        });
-        onAdd(actualSale);
+    function addToCart(actualSale) {
+        const exist = cartItems.find((x) => x.id === actualSale.id);
+        if(exist){
+            Swal.fire(
+                'Esta venta ya esta en tu carrito!',
+                'No puedes repetir ventas',
+                'error'
+              )
+        }else{
+            Swal.fire(
+                'Se ha añadido la venta con exito',
+                'Siga comprando!',
+                'success'
+              )
+            onAdd(actualSale); 
+        }
+
     }
 
 
