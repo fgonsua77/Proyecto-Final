@@ -5,17 +5,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 const SalesCreate = (props) => {
-    const {user} = props;
-    const {username} = useParams();
-    console.log(user);
-    console.log(username);
-    const [usuario, setUsuario] = useState([]);
-    useEffect(() => {
-        fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${user}`)
-            .then((response) => response.json())
-            .then((usuario) => setUsuario(usuario))
-
-    }, []);
+    const {username, id} = useParams();
     const [cards, setCards] = useState([]);
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -27,7 +17,7 @@ const SalesCreate = (props) => {
     const initialState = {
         "vendedor":
         {
-            "id": `${username}`,
+            "id": `${id}`,
         },
         "carta":
         {
@@ -111,7 +101,7 @@ const SalesCreate = (props) => {
                                 </Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="font-link">
-                                <Link to={`/sales/${user}`}>
+                                <Link to={`/sales/${username}`}>
                                     Ventas
                                 </Link>
                             </Breadcrumb.Item>

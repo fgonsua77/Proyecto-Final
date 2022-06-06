@@ -1,13 +1,11 @@
 import { useParams, Link } from 'react-router-dom';
 import { Breadcrumb, Button } from "react-bootstrap";
 import { useState, useEffect } from 'react';
-const AccountAddressInfo = (props) => {
-    const {user} = props;
-    const idAddress = useParams().addressname;
+const AccountAddressInfo = () => {
+    const {user, addressid} = useParams();
     const [address, setAddress] = useState({});
-    console.log(username, idAddress);
     useEffect(() => {
-        fetch(`http://localhost:8080/address/idAddress=${idAddress}`)
+        fetch(`http://localhost:8080/address/idAddress=${addressid}`)
             .then((response) => response.json())
             .then((address) => setAddress(address))
             .then(console.log(address));

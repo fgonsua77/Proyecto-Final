@@ -80,7 +80,7 @@ const Header = (props) => {
                             <Link to={`/sales/${username}`}>
                                 <span className="font-link dropdown-item">Tus ofertas</span>
                             </Link>
-                            <Link to={`/sales/${usuario.id}/add`}>
+                            <Link to={`/sales/${usuario.username}/${usuario.id}/add`}>
                                 <span className="font-link dropdown-item">Crear ofertas</span>
                             </Link>
                         </div>

@@ -78,16 +78,16 @@ const App = () => {
           onRemove={onRemove} clearStorage={CartContext.clearStorage} />} />
         <Route path="/logout" element={<Navigate to='/login' />} />
         <Route path="/account/:user" element={<Account username={user} />} />
-        <Route path="/account/address=:addressname" element={<AccountAddressInfo username={user} />} />
+        <Route path="/account/:user/address=:addressid" element={<AccountAddressInfo username={user} />} />
         <Route path="/account/:user/:userId/createAddress" element={<AccountAddressCreate username={user} />} />
         <Route path="/favorites/:user" element={<Favorites username={user} />} />
         <Route path="/purchases/:user" element={<Purchases username={user} />} />
         <Route path="/purchases/:user/purchaseId=:purchaseId" element={<PurchaseInfo username={user} />} />
         <Route path="/purchases/:user/gateway" element={<PurchaseGateway cartItems={cartItems} username={user} />} />
         <Route path="/sales/:username" element={<Sales />} />
-        <Route path="/sales/:username/add" element={<SalesCreate username={user} />} />
+        <Route path="/sales/:username/:id/add" element={<SalesCreate user={user} />} />
         <Route path="/sellers" element={<Seller username={user}/>} />
-        <Route path="/sellers/:id/:username" element={<SellerInfo username={user}/>} />
+        <Route path="/sellers/:username" element={<SellerInfo username={user}/>} />
       </Routes>
       <footer>
         <Footer />

@@ -50,7 +50,7 @@ const Sales = (props) => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <Link to={`/sales/${usuario.id}/add`}>
+                        <Link to={`/sales/${usuario.username}/${usuario.id}/add`}>
                             <Button className="font-link" variant="primary">Crear una nueva venta</Button>
                         </Link>
                     </div>

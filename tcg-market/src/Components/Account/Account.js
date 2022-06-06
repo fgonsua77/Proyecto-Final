@@ -14,7 +14,7 @@ const Account = (props) => {
             .then((response) => response.json())
             .then((usuario) => setUsuario(usuario))
     }, []);
-    console.log(usuario);
+    console.log(usuario.id);
     return (
         <>
             <div className="container">
@@ -39,7 +39,7 @@ const Account = (props) => {
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-12 p-5">
-                                <AccountAddress usuario={usuario} />
+                                <AccountAddress username={user} id={usuario.id} />
                             </div>
                         </div>
                         <div className="row justify-content-center">

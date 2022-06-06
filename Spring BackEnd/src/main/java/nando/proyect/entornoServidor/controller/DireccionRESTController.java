@@ -41,7 +41,7 @@ public class DireccionRESTController {
         List<Direccion> direcciones = direccionService.encontrarTodas();
         List<Direccion> direccionesPorUsuario = new ArrayList<>();
         for (Direccion direccion : direcciones) {
-            if (direccion.getUsuario().getUsername() == username) {
+            if (direccion.getUsuario().getUsername().equals(username)) {
                 direccionesPorUsuario.add(direccion);
             }
         }
