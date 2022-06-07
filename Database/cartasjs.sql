@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-05-2022 a las 17:51:25
+-- Tiempo de generación: 08-06-2022 a las 00:11:20
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -30,18 +30,32 @@ SET time_zone = "+00:00";
 CREATE TABLE `addresses` (
   `id` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `apellidos` varchar(50) NOT NULL,
-  `calle` varchar(50) NOT NULL,
-  `piso` varchar(50) NOT NULL,
-  `cpostal` varchar(5) NOT NULL,
-  `ciudad` varchar(50) NOT NULL,
-  `pais` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(50) NOT NULL,
+  `street` varchar(50) NOT NULL,
+  `floor` varchar(50) NOT NULL,
+  `postalcode` varchar(5) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `country` varchar(50) NOT NULL,
   `comments` varchar(500) DEFAULT NULL,
   `preferred` tinyint(1) DEFAULT NULL,
-  `numero` int(3) NOT NULL,
-  `provincia` varchar(40) NOT NULL
+  `number` int(3) NOT NULL,
+  `province` varchar(40) NOT NULL,
+  `addressname` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `addresses`
+--
+
+INSERT INTO `addresses` (`id`, `iduser`, `name`, `surname`, `street`, `floor`, `postalcode`, `city`, `country`, `comments`, `preferred`, `number`, `province`, `addressname`) VALUES
+(1, 1, 'Monica ', 'Perez Sueiro', 'Su casa', 'Primero', '15172', 'A Coruña', 'España', 'Dirección primaria', 1, 40, 'A Coruña', ''),
+(2, 15, 'Pepe', 'Viyuela', 'Comedia', '19', '42000', 'Ciudad del Chiste', 'País de la comedia', 'No hace gracia', NULL, 65, 'Provincia del Humor', 'Poco humor'),
+(3, 15, 'sylvan beast', 'Nombre', 'Ernesto Che Guevara 40°A Bajo E', 'Piso Yo', '15172', 'A Coruña', 'España', 'Mi direccion', 0, 40, 'A Coruña', 'Ernesto Che Guevara 40°A Bajo E'),
+(4, 25, 'DIMENSIONAL ROBO', 'Amogus', '34', '2º', '15172', 'A Coruña', 'España', '', 0, 5, 'Galicia', 'Mi dimension'),
+(5, 25, 'Fernando', 'Gonzalez Suarez-Noguerol', '34', '2º', '15172', 'A Coruña', 'España', 'Mi dirección', 0, 5, 'Galicia', 'Mi dimension'),
+(6, 1, 'The DK Crew', 'Amogus', '34', '2º', '15172', 'A Coruña', 'España', 'Mi dirección', 0, 5, 'Galicia', 'Mi dimension'),
+(7, 25, 'Fernando', 'Amogus', '34', '2º', '15172', 'A Coruña', 'España', 'Mi dirección', 0, 5, 'Galicia', 'Mi dimension');
 
 -- --------------------------------------------------------
 
@@ -50,25 +64,25 @@ CREATE TABLE `addresses` (
 --
 
 CREATE TABLE `cards` (
-  `codigo` varchar(20) NOT NULL,
+  `code` varchar(20) NOT NULL,
   `expansion` int(11) DEFAULT NULL,
-  `nombre` varchar(55) DEFAULT NULL,
+  `name` varchar(55) DEFAULT NULL,
   `reprint` tinyint(1) DEFAULT NULL,
   `id` int(11) NOT NULL,
-  `imagen` varchar(400) DEFAULT NULL,
-  `destacado` tinyint(1) NOT NULL,
-  `rareza` int(11) DEFAULT NULL
+  `image` varchar(400) DEFAULT NULL,
+  `highlighted` tinyint(1) NOT NULL,
+  `rarity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `cards`
 --
 
-INSERT INTO `cards` (`codigo`, `expansion`, `nombre`, `reprint`, `id`, `imagen`, `destacado`, `rareza`) VALUES
+INSERT INTO `cards` (`code`, `expansion`, `name`, `reprint`, `id`, `image`, `highlighted`, `rarity`) VALUES
 ('D-BT01/001', 1, 'Vairina Valiente', 0, 1, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647089740/tcgmarket/D-BT01-001EN-RRR_ksqub7.webp', 1, NULL),
 ('DUDE-EN003', 2, 'Ash Blossom & Joyous Spring', 1, 2, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647090132/tcgmarket/ashblossom_uaddte.webp', 0, NULL),
 ('BT08-038', 3, 'Magnamon', 0, 3, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647090228/tcgmarket/magnamon_nlywhr.png', 1, NULL),
-(' D-BT01/004', 1, 'Diabolos Boys, Eden', 0, 4, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647089737/tcgmarket/D-BT01-004EN-RRR_qixhtc.webp', 0, NULL),
+(' D-BT01/004', 1, 'Diabolos Boys, Eden', 0, 4, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647089737/tcgmarket/D-BT01-004EN-RRR_qixhtc.webp', 1, NULL),
 ('BT08-053', 3, 'Raidramon', 0, 5, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647166400/tcgmarket/raidramon_hknzty.png', 0, NULL),
 ('BT08-032', 3, 'Imperialdramon Fighter Mode', 0, 6, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647166396/tcgmarket/imperialdramon_ovdmmt.png', 1, NULL),
 ('BT08-088', 3, 'Davis Motomiya & Ken Ichijoji', 0, 7, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647166396/tcgmarket/davis_ken_lkh4pf.png', 1, NULL),
@@ -91,9 +105,16 @@ CREATE TABLE `evaluations` (
   `comment` varchar(300) NOT NULL,
   `general` enum('EXCELLENT','GREAT','GOOD','BAD') NOT NULL,
   `article` enum('EXCELLENT','GREAT','GOOD','BAD') NOT NULL,
-  `package` enum('EXCELLENT','GREAT','GOOD','BAD') NOT NULL,
+  `packing` enum('EXCELLENT','GREAT','GOOD','BAD') NOT NULL,
   `idpurchase` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `evaluations`
+--
+
+INSERT INTO `evaluations` (`id`, `comment`, `general`, `article`, `packing`, `idpurchase`) VALUES
+(1, 'Bastante bien pero le faltaba mejor packaging', 'EXCELLENT', 'EXCELLENT', 'GREAT', 24);
 
 -- --------------------------------------------------------
 
@@ -103,25 +124,48 @@ CREATE TABLE `evaluations` (
 
 CREATE TABLE `expansions` (
   `id` int(11) NOT NULL,
-  `codigo` varchar(20) DEFAULT NULL,
-  `nombre` varchar(155) DEFAULT NULL,
-  `idJuego` int(3) DEFAULT NULL
+  `code` varchar(20) DEFAULT NULL,
+  `name` varchar(155) DEFAULT NULL,
+  `idGame` int(3) DEFAULT NULL,
+  `image` varchar(500) NOT NULL,
+  `releasedate` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `expansions`
 --
 
-INSERT INTO `expansions` (`id`, `codigo`, `nombre`, `idJuego`) VALUES
-(1, 'D-BT01', 'Genesis Of The Five Great', 3),
-(2, 'DUDE', 'Duel Devastation', 2),
-(3, 'BT08', 'NEW HERO', 1),
-(4, 'LEDD', 'Legendary Dragon Decks', 2),
-(5, 'LED8', 'Legendary Duelist 8', 2),
-(6, 'DUPO', 'Duel Power', 2),
-(7, 'ST09', 'Starter Deck 9: Ultimate Ancient Dragon', 1),
-(8, 'D-VS02', 'V Clan Collection 2', 3),
-(9, 'D-VS04', 'V Clan Collection 4', 3);
+INSERT INTO `expansions` (`id`, `code`, `name`, `idGame`, `image`, `releasedate`) VALUES
+(1, 'D-BT01', 'Genesis Of The Five Great', 3, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647390871/tcgmarket/genesis_sl1nfh.avif', '2021-05-21'),
+(2, 'DUDE', 'Duel Devastation', 2, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647390890/tcgmarket/mockup_dude_box_sp_oxlmrw.jpg', '2019-10-10'),
+(3, 'BT08', 'NEW HERO', 1, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647390857/tcgmarket/booster-box-new-hero-bt08-digimon-tcg_pvyjtr.webp', '2022-05-13'),
+(4, 'LEDD', 'Legendary Dragon Decks', 2, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647390888/tcgmarket/LEDD-DeckEN_sum1bh.webp', '2017-10-05'),
+(5, 'LED8', 'Legendary Duelist 8', 2, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647390936/tcgmarket/LED8-BoosterEN_na1fqu.webp', '2021-10-28'),
+(6, 'DUPO', 'Duel Power', 2, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647390883/tcgmarket/dupo_sp_box_mocks_dirdbl.jpg', '2019-04-04'),
+(7, 'ST09', 'Starter Deck 9: Ultimate Ancient Dragon', 1, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647390862/tcgmarket/ST09_ftjzut.jpg', '2022-05-13'),
+(8, 'D-VS02', 'V Clan Collection 2', 3, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647390867/tcgmarket/clancollec2_nkuez0.jpg', '2021-11-19'),
+(9, 'D-VS04', 'V Clan Collection 4', 3, 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1647390876/tcgmarket/D-VS04_Product__dnc2ur.jpg', '2022-03-03');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `favorites`
+--
+
+CREATE TABLE `favorites` (
+  `idUser` int(11) NOT NULL,
+  `idCarta` int(11) NOT NULL,
+  `id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `favorites`
+--
+
+INSERT INTO `favorites` (`idUser`, `idCarta`, `id`) VALUES
+(25, 3, 18),
+(25, 1, 19),
+(25, 4, 21);
 
 -- --------------------------------------------------------
 
@@ -131,18 +175,20 @@ INSERT INTO `expansions` (`id`, `codigo`, `nombre`, `idJuego`) VALUES
 
 CREATE TABLE `games` (
   `id` int(3) NOT NULL,
-  `nombre` varchar(50) DEFAULT NULL,
-  `compañia` varchar(50) DEFAULT NULL
+  `name` varchar(50) DEFAULT NULL,
+  `company` varchar(50) DEFAULT NULL,
+  `description` varchar(1000) NOT NULL,
+  `image` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `games`
 --
 
-INSERT INTO `games` (`id`, `nombre`, `compañia`) VALUES
-(1, 'Digimon', 'Bandai'),
-(2, 'Yu-Gi-Oh', 'Konami'),
-(3, 'Cardfight Vanguard!', 'Bushiroad');
+INSERT INTO `games` (`id`, `name`, `company`, `description`, `image`) VALUES
+(1, 'Digimon', 'Bandai', 'Digimon TCG es un juego donde podrás ser un Tamer y usar multitud de Digimon para jugar contra otros jugadores.\r\n\r\nCon un novedoso sistema de memoria, un arte sencillamente espectacular y un juego sencillo de aprender pero dificil de dominar, este juego te sorprenderá', 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1653926998/tcgmarket/logo_axihgi.png'),
+(2, 'Yu-Gi-Oh', 'Konami', 'Yu-Gi-Oh! es un juego de cartas de monstruos en el que cada jugador roba cartas de sus respectivas barajas (Decks) y toman turnos en los que se juegan las cartas en la mesa (conocida como Campo). Cada jugador comienza con un número determinado de LP (Life Points) traducido como Puntos de Vida (8000, según las reglas oficiales), y un mazo de cartas llamado Deck que debe contener un mínimo de 40 cartas y un máximo de 60, así como la posibilidad de tener un Side Deck de apoyo entre 0 a 15 cartas y un Deck Extra entre 0 a 15 cartas. La partida termina si se cumple una de las siguientes condiciones:\r\n\r\nLos LP de un jugador se reducen a 0.6​\r\nQue uno o ambos jugadores no tengan cartas en el Deck y deban robar una carta.\r\nUn jugador se rinde, para esto, se debe colocar la mano encima del Deck por diez segundos.\r\nUn jugador gana por el efecto de una carta. (Ejemplo, \"Exodia, el prohibido\" , \"Tablero del Destino\" o \"Cuenta Atrás Final\")', 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1653926998/tcgmarket/ygo-logo-with-copyright-600x279_vkbgoc.png'),
+(3, 'Vanguard', 'Bushiroad', 'Cardfight Vanguard es un juego TCG donde tu representas a la unidad de Vanguard de un ejercito a tus ordenes!\r\n\r\nCon 24 clanes a tu disposición, puedes montarte tu propio deck y contenderte en duelos con otros jugadores demostrando que la suerte y la habilidad están de tu lado!', 'https://res.cloudinary.com/dm8cjf50e/image/upload/v1653926998/tcgmarket/Vg_new_logo_qhkyvj.png');
 
 -- --------------------------------------------------------
 
@@ -151,35 +197,19 @@ INSERT INTO `games` (`id`, `nombre`, `compañia`) VALUES
 --
 
 CREATE TABLE `profiles` (
-  `id` int(11) NOT NULL,
-  `perfil` varchar(100) NOT NULL
+  `id` int(4) NOT NULL,
+  `profile` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `profiles`
 --
 
-INSERT INTO `profiles` (`id`, `perfil`) VALUES
+INSERT INTO `profiles` (`id`, `profile`) VALUES
 (1, 'ADMINISTRADOR'),
 (2, 'SUPERVISOR'),
 (3, 'USUARIO'),
 (4, 'VENDEDOR');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `purchases`
---
-
-CREATE TABLE `purchases` (
-  `id` int(4) NOT NULL,
-  `shipmentbill` int(5) NOT NULL,
-  `idaddress` int(4) NOT NULL,
-  `paymentdate` date DEFAULT NULL,
-  `confirmationdate` date NOT NULL,
-  `sentdate` date DEFAULT NULL,
-  `evaluation` int(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -192,12 +222,70 @@ CREATE TABLE `sales` (
   `idseller` int(4) NOT NULL,
   `idcard` int(4) NOT NULL,
   `price` int(10) NOT NULL,
-  `state` enum('NEAR MINT','EXCELLENT','GOOD','BAD') NOT NULL,
+  `state` varchar(50) NOT NULL,
   `comments` varchar(100) DEFAULT NULL,
-  `language` enum('SPANISH','GERMAN','ENGLISH','ITALIAN','FRENCH') NOT NULL,
+  `language` varchar(50) NOT NULL,
   `amount` int(1) NOT NULL,
-  `idpurchase` int(4) DEFAULT NULL
+  `idshipment` int(4) DEFAULT NULL,
+  `idaddress` int(4) DEFAULT NULL,
+  `paymentdate` date DEFAULT NULL,
+  `shipmentdate` date DEFAULT NULL,
+  `confirmationdate` date DEFAULT NULL,
+  `arrivaldate` date DEFAULT NULL,
+  `shipmentcode` varchar(50) DEFAULT NULL,
+  `buyer` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `sales`
+--
+
+INSERT INTO `sales` (`id`, `idseller`, `idcard`, `price`, `state`, `comments`, `language`, `amount`, `idshipment`, `idaddress`, `paymentdate`, `shipmentdate`, `confirmationdate`, `arrivaldate`, `shipmentcode`, `buyer`) VALUES
+(1, 1, 4, 5, 'EXCELLENT', 'Buenarda carta solida', 'SPANISH', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 15, 7, 6, 'EXCELLENT', NULL, 'ENGLISH', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 1, 3, 7, 'NEAR_MINT', NULL, 'ENGLISH', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 1, 14, 7, 'NEAR_MINT', NULL, 'ENGLISH', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 15, 11, 2, 'EXCELLENT', NULL, 'ENGLISH', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 15, 8, 6, 'NEAR_MINT', NULL, 'GERMAN', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 15, 4, 11, 'NEAR_MINT', 'Comentario', 'ENGLISH', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 15, 5, 10, 'NEAR_MINT', '', 'FRENCH', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 15, 4, 10, 'NEAR_MINT', 'Esta bien', 'ITALIAN', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 15, 3, 4, 'NEAR_MINT', '', 'ITALIAN', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 15, 3, 4, 'NEAR_MINT', '', 'ITALIAN', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 15, 6, 10, 'NEAR_MINT', '', 'FRENCH', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 15, 1, 4, 'NEAR_MINT', '', 'GERMAN', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 15, 2, 4, 'NEAR_MINT', '', 'SPANISH', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 15, 1, 11, 'NEAR_MINT', 'Tabueno', 'ENGLISH', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 15, 3, 10, 'NEAR_MINT', '', 'SPANISH', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 25, 3, 4, 'NEAR_MINT', '', 'GERMAN', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 25, 5, 2, 'NEAR_MINT', '', 'ENGLISH', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 15, 3, 5, '', 'Buen precio', 'ENGLISH', 2, 1, 4, '2022-05-17', '2022-06-01', '2022-05-11', '2022-06-05', '312783748127947', 25),
+(24, 25, 2, 3, 'EXCELLENT', NULL, 'SPANISH', 3, 2, 2, '2022-05-17', '2022-06-01', '2022-05-10', '2022-06-05', '312783748127947', 15),
+(25, 25, 3, 4, 'NEAR_MINT', '', 'FRENCH', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 25, 4, 3, 'NEAR_MINT', '', 'FRENCH', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `shipments`
+--
+
+CREATE TABLE `shipments` (
+  `id` int(4) NOT NULL,
+  `price` double NOT NULL,
+  `certified` tinyint(1) NOT NULL,
+  `name` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `shipments`
+--
+
+INSERT INTO `shipments` (`id`, `price`, `certified`, `name`) VALUES
+(1, 0, 0, 'Entrega en tienda'),
+(2, 5, 1, 'Certificado'),
+(3, 0.75, 0, 'Ordinario'),
+(4, 10, 1, 'Urgente - Llegada 24 horas');
 
 -- --------------------------------------------------------
 
@@ -206,22 +294,22 @@ CREATE TABLE `sales` (
 --
 
 CREATE TABLE `userprofile` (
-  `idUsuario` int(11) NOT NULL,
-  `idPerfil` int(11) NOT NULL
+  `idUser` int(11) NOT NULL,
+  `idProfile` int(11) NOT NULL,
+  `id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `userprofile`
 --
 
-INSERT INTO `userprofile` (`idUsuario`, `idPerfil`) VALUES
-(1, 1),
-(2, 3),
-(5, 3),
-(6, 1),
-(7, 1),
-(8, 3),
-(10, 3);
+INSERT INTO `userprofile` (`idUser`, `idProfile`, `id`) VALUES
+(25, 4, 1),
+(25, 3, 2),
+(15, 3, 3),
+(15, 4, 4),
+(1, 4, 5),
+(1, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -231,25 +319,30 @@ INSERT INTO `userprofile` (`idUsuario`, `idPerfil`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
+  `name` varchar(45) NOT NULL,
   `email` varchar(100) NOT NULL,
   `username` varchar(45) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `estatus` int(11) NOT NULL DEFAULT 1,
-  `fechaRegistro` date DEFAULT NULL,
-  `credito` int(10) DEFAULT NULL
+  `status` int(11) NOT NULL DEFAULT 1,
+  `registerdate` date DEFAULT NULL,
+  `credit` int(10) DEFAULT NULL,
+  `surname` varchar(50) NOT NULL,
+  `birthdate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `nombre`, `email`, `username`, `password`, `estatus`, `fechaRegistro`, `credito`) VALUES
-(1, 'Monica Perez Sueiro', 'monica@gmail.com', 'monica', '$2a$10$p2V5fKJtAKP0Y4KMdXSyZO.6I4OGL335HbF6dbN9gRzc9.au8hwfO', 1, '2019-06-10', NULL),
-(2, 'Fernando', 'fgonsua77@gmail.com', 'fer', '$2a$10$Bp8RDsBpHPUbG4YaSQwTUO5qniACGdAb7sv4f2.fgwBV.CxcW1CNa', 1, '2022-01-26', NULL),
-(5, 'Fernando', 'thegoodfailer@gmail.com', 'fer2', '$2a$10$Zgm73WmbiNsrbGsChZnA4eRQdO98S7VT6SeyVWnYcFqUhrAH8et0e', 1, '2022-01-27', NULL),
-(6, 'cumbia', 'cumbia@gmail.com', 'cumbia', '$2a$10$Ni4xw3zVIcSM3Hg5n7fDl.eefZgNDNLY90s29li0j3uape2wmPMM2', 1, '2022-01-27', NULL),
-(7, 'Alejandro', 'alejandro@gmail.com', 'alex', '$2a$10$t6oRi96ZlA8uPqfyVYxJZ.KDVpGC6WVXxu/u2Q5gLOj5Bvm3jbxKi', 1, '2022-02-02', NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `username`, `password`, `status`, `registerdate`, `credit`, `surname`, `birthdate`) VALUES
+(1, 'Monica ', 'monica@gmail.com', 'monica', '$2a$10$p2V5fKJtAKP0Y4KMdXSyZO.6I4OGL335HbF6dbN9gRzc9.au8hwfO', 1, '2019-06-10', NULL, 'Perez Sueiro', '1982-05-12'),
+(15, 'Fernando', 'fgonsua77@gmail.com', 'morphem', '$2a$10$4LY/2NqFZyMJBRkOGqoyPevymsnN2XelhDYxlQjftVEq4Xe0Wzjqm', 1, '2022-05-22', NULL, 'Gonzalez Suarez-Noguerol', '2022-05-04'),
+(16, 'Manuel', 'manu@gmail.com', 'manurc', '$2a$10$Q1dBmxdqL/ng24wE5hbGke0eRbzO1htPleG.96L.slGvlz4ajjUyK', 1, '2022-05-23', NULL, 'Rico', '1975-01-09'),
+(20, 'Fernando', 'nan2@gmail.com', 'OverlordTheGreat', '$2a$10$eNd7nm/QQarVMM5HzxA1..o4ag5UD1kzzZpXYdr880SdQ6KWvY2CS', 1, '2022-05-26', NULL, 'Amogus', '2022-05-15'),
+(22, 'Nan2', 'uwu@uwu.com', 'nan2', '$2a$10$NxIZ0zcbIGucAFtna0hOjul80ufZjyy476.NBfMwf1d5EIIQCd192', 1, '2022-05-27', NULL, 'Nan2', '2022-05-03'),
+(23, 'Fernando', 'fernando.gonzalez@campusdual.com', 'demo', '$2a$10$E5So83MwTOW3Bl051/IsMOaVlYK6WXD1.0IoXUS23xuJKPts/qgbe', 1, '2022-06-01', NULL, 'Amogus', '2003-02-01'),
+(24, 'Monica', 'monica2@gmail.com', 'Monica2', '$2a$10$.PTUxgaNVvlgePiwxXwFyuJ3N5e/2zbm.NzHTddW59xWQMySwS5Ae', 1, NULL, NULL, 'Perez', '1985-03-17'),
+(25, 'Monica', 'monica3@gmail.com', 'Monica3', '$2a$10$nu91AZ1Ustyq4iSZ5YY3MOxsCi22IlACIOEMsNdG.T9LIB2wVRfb2', 1, '2022-06-02', NULL, 'Perez', '1985-03-17');
 
 --
 -- Índices para tablas volcadas
@@ -267,22 +360,31 @@ ALTER TABLE `addresses`
 --
 ALTER TABLE `cards`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `codigo` (`codigo`),
+  ADD UNIQUE KEY `codigo` (`code`),
   ADD KEY `FK_ExpansionCarta` (`expansion`);
 
 --
 -- Indices de la tabla `evaluations`
 --
 ALTER TABLE `evaluations`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_Purchase_Evaluation` (`idpurchase`);
 
 --
 -- Indices de la tabla `expansions`
 --
 ALTER TABLE `expansions`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `codigo` (`codigo`),
-  ADD KEY `FK_JuegoExpansion` (`idJuego`);
+  ADD UNIQUE KEY `codigo` (`code`),
+  ADD KEY `FK_JuegoExpansion` (`idGame`);
+
+--
+-- Indices de la tabla `favorites`
+--
+ALTER TABLE `favorites`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_User` (`idUser`),
+  ADD KEY `FK_Card` (`idCarta`);
 
 --
 -- Indices de la tabla `games`
@@ -297,29 +399,29 @@ ALTER TABLE `profiles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `purchases`
---
-ALTER TABLE `purchases`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_Address_Purchase` (`idaddress`),
-  ADD KEY `FK_Purchase_Evaluation` (`evaluation`);
-
---
 -- Indices de la tabla `sales`
 --
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_Card_Sale` (`idcard`),
   ADD KEY `FK_Seller_Sale` (`idseller`),
-  ADD KEY `FK_Sale_Purchase` (`idpurchase`);
+  ADD KEY `index` (`idshipment`),
+  ADD KEY `idaddress` (`idaddress`),
+  ADD KEY `comprador` (`buyer`);
+
+--
+-- Indices de la tabla `shipments`
+--
+ALTER TABLE `shipments`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `userprofile`
 --
 ALTER TABLE `userprofile`
-  ADD UNIQUE KEY `Usuario_Perfil_UNIQUE` (`idUsuario`,`idPerfil`),
-  ADD KEY `fk_Usuarios1_idx` (`idUsuario`),
-  ADD KEY `fk_Perfiles1_idx` (`idPerfil`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idUser` (`idUser`),
+  ADD KEY `idProfile` (`idProfile`);
 
 --
 -- Indices de la tabla `users`
@@ -337,7 +439,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `cards`
@@ -349,7 +451,13 @@ ALTER TABLE `cards`
 -- AUTO_INCREMENT de la tabla `evaluations`
 --
 ALTER TABLE `evaluations`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `favorites`
+--
+ALTER TABLE `favorites`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `games`
@@ -361,25 +469,31 @@ ALTER TABLE `games`
 -- AUTO_INCREMENT de la tabla `profiles`
 --
 ALTER TABLE `profiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `purchases`
---
-ALTER TABLE `purchases`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT de la tabla `shipments`
+--
+ALTER TABLE `shipments`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `userprofile`
+--
+ALTER TABLE `userprofile`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Restricciones para tablas volcadas
@@ -398,25 +512,40 @@ ALTER TABLE `cards`
   ADD CONSTRAINT `FK_ExpansionCarta` FOREIGN KEY (`expansion`) REFERENCES `expansions` (`id`);
 
 --
+-- Filtros para la tabla `evaluations`
+--
+ALTER TABLE `evaluations`
+  ADD CONSTRAINT `FK_Purchase_Evaluation` FOREIGN KEY (`idpurchase`) REFERENCES `sales` (`id`);
+
+--
 -- Filtros para la tabla `expansions`
 --
 ALTER TABLE `expansions`
-  ADD CONSTRAINT `FK_JuegoExpansion` FOREIGN KEY (`idJuego`) REFERENCES `games` (`id`);
+  ADD CONSTRAINT `FK_JuegoExpansion` FOREIGN KEY (`idGame`) REFERENCES `games` (`id`);
 
 --
--- Filtros para la tabla `purchases`
+-- Filtros para la tabla `favorites`
 --
-ALTER TABLE `purchases`
-  ADD CONSTRAINT `FK_Address_Purchase` FOREIGN KEY (`idaddress`) REFERENCES `addresses` (`id`),
-  ADD CONSTRAINT `FK_Purchase_Evaluation` FOREIGN KEY (`evaluation`) REFERENCES `evaluations` (`id`);
+ALTER TABLE `favorites`
+  ADD CONSTRAINT `FK_Card` FOREIGN KEY (`idCarta`) REFERENCES `cards` (`id`),
+  ADD CONSTRAINT `FK_User` FOREIGN KEY (`idUser`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `sales`
 --
 ALTER TABLE `sales`
+  ADD CONSTRAINT `FK_Address_Sale` FOREIGN KEY (`idaddress`) REFERENCES `addresses` (`id`),
+  ADD CONSTRAINT `FK_Buyer_Sale` FOREIGN KEY (`buyer`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `FK_Card_Sale` FOREIGN KEY (`idcard`) REFERENCES `cards` (`id`),
-  ADD CONSTRAINT `FK_Sale_Purchase` FOREIGN KEY (`idpurchase`) REFERENCES `purchases` (`id`),
+  ADD CONSTRAINT `FK_Sale_Shipment` FOREIGN KEY (`idshipment`) REFERENCES `shipments` (`id`),
   ADD CONSTRAINT `FK_Seller_Sale` FOREIGN KEY (`idseller`) REFERENCES `users` (`id`);
+
+--
+-- Filtros para la tabla `userprofile`
+--
+ALTER TABLE `userprofile`
+  ADD CONSTRAINT `userprofile_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `userprofile_ibfk_2` FOREIGN KEY (`idProfile`) REFERENCES `profiles` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
