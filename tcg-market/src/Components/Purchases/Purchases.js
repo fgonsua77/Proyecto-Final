@@ -7,10 +7,9 @@ import Pagination from "../PaginationComponent/Pagination";
 
 const Purchases = (props) => {
     const {user} = useParams();
-    console.log(user);
     const [purchases, setPurchases] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:8080/sale/compras/user=${user}`)
+        fetch(`http://localhost:8080/sale/compras/username=${user}`)
             .then(response => response.json())
             .then(purchases => setPurchases(purchases))
     }, []);

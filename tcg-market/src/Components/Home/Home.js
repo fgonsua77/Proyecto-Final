@@ -42,7 +42,7 @@ const Home = (props) => {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12">
-                        <h1 className="font-link">Bienvenido a TCG-Market, {user.username} </h1>
+                        <h1 className="font-link">Bienvenido a TCG-Market, {user} </h1>
                     </div>
                 </div>
                 <h1 className="font-link d-flex justify-content-center">Destacados</h1>

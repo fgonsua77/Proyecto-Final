@@ -6,8 +6,10 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const SalesCreate = (props) => {
+    const navigate = useNavigate();
     const {username, id} = useParams();
     const [cards, setCards] = useState([]);
+
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-success',
@@ -122,13 +124,13 @@ const SalesCreate = (props) => {
                     <div className="col-12">
                         <Form onSubmit={() => saveSale(event)}>
                             <h3 className='font-link pt-3'>Selecciona la carta a vender!</h3>
-                            <Form.Select onChange={handleChangeObject} name="carta" value={sale.carta.id}>
+                            <Form.Select onChange={handleChangeObject} name="carta" value={sale.carta.id} required>
                                 {cards.map(card => (
                                     <option key={card.id} value={card.id}>{card.name} - {card.code} / {card.expansion.code}</option>
                                 ))}
                             </Form.Select>
                             <h3 className='font-link pt-3'>Selecciona el idioma</h3>
-                            <Form.Select title="Selecciona el idioma" onChange={handleChange} name="language" value={sale.language}>
+                            <Form.Select title="Selecciona el idioma" onChange={handleChange} name="language" value={sale.language} required>
                                 <option value="SPANISH" >Español</option>
                                 <option value="ENGLISH" >Ingles</option>
                                 <option value="FRENCH" >Frances</option>
@@ -142,6 +144,7 @@ const SalesCreate = (props) => {
                                 name="price"
                                 onChange={handleChange}
                                 value={sale.price}
+                                required
                             />
                             <h3 className='font-link pt-3'>Selecciona la cantidad de unidades</h3>
                             <Form.Control
@@ -150,15 +153,16 @@ const SalesCreate = (props) => {
                                 name="amount"
                                 onChange={handleChange}
                                 value={sale.amount}
+                                required
                             />
                             <h3 className='font-link pt-3'>El estado de la(s) carta(s)</h3>
-                            <Form.Select onChange={handleChange} name="state" value={sale.state}>
+                            <Form.Select onChange={handleChange} name="state" value={sale.state} required>
                                 <option value="NEAR_MINT">Near Mint</option>
                                 <option value="EXCELLENT">Excelente</option>
                                 <option value="GOOD">Buena</option>
                                 <option value="BAD">Mala</option>
                             </Form.Select>
-                            <Form.Text className="col">
+                            <Form.Text className="col" required>
                                 <span className="row font-link">Near Mint es un estado de carta casi perfecto</span>
                                 <span className="row font-link">Excelente es un estado de carta que se encuentra en buen estado</span>
                                 <span className="row font-link">Buena es un estado de carta que se encuentra en un estado normal</span>
