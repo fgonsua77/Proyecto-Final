@@ -30,20 +30,20 @@ const Register = (props) => {
         dispatch(registerUser(user))
             .then((response) => {
                 Swal.fire(
-                    'Se ha añadido la venta con exito',
-                    'Siga comprando!',
+                    'Se ha registrado con exito',
+                    'Inicia sesion!',
                     'success'
-                  )
+                  ).then((result) => {
+                    navigate("/login");
+                    
+                });
                 setShow(true);
                 setMessage(response.message);
-                setTimeout(() => {
-                    setShow(false);
-                }, 2000);
             })
             .catch((error) => {
                 Swal.fire(
                     'Ha habido un error en el registro',
-                    'Siga comprando!',
+                    'Introduzca los datos correctamente!',
                     'error'
                   )
                 console.log(error);
