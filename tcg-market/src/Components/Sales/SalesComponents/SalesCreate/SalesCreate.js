@@ -2,8 +2,9 @@
 import axios from 'axios';
 import { Form, Breadcrumb, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+
 const SalesCreate = (props) => {
     const {username, id} = useParams();
     const [cards, setCards] = useState([]);
@@ -52,6 +53,7 @@ const SalesCreate = (props) => {
                     'success'
                   )
                   setSale(initialState);
+                  navigate(`/sales/${username}`);
             }
             )
             .catch(err => console.log(err));

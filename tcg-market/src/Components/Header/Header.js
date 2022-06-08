@@ -11,6 +11,7 @@ import './Header.css';
 
 const Header = (props) => {
     const {cartLength, usuario, setUsuario } = props;
+    const [user, setUser] = useState(usuario);
     const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const logout = () => {
@@ -18,7 +19,7 @@ const Header = (props) => {
     };
     console.log(usuario);
     useEffect(() => {
-        usuario !== 'undefined' && fetch(`http://localhost:8080/apiuser/usuarios/getuser/usuario=${usuario}`)
+        usuario !== 'undefined' && fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${user}`)
             .then((response) => response.json())
             .then((usuario) => setUsuario(usuario))
     }, [usuario]);

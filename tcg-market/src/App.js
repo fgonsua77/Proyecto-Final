@@ -31,7 +31,7 @@ import SellerInfo from './Components/Seller/SellerComponents/SellerInfo/SellerIn
 const App = () => {
 
   const [cartItems, setCartItems] = useState([]);
-  const [usuario, setUsuario] = useState([]);
+  const [usuario, setUsuario] = useState(``);
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
     console.log(exist);
@@ -60,7 +60,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <header>
-        <Header artLength={cartItems.length} usuario={usuario} setUsuario={setUsuario} />
+        <Header cartLength={cartItems.length} usuario={usuario} setUsuario={setUsuario} />
       </header>
       <Routes>
         <Route path="/" element={<Navigate to='/home' />} />

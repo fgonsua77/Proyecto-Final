@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../../Services/index";
+import Swal from "sweetalert2";
 const Register = (props) => {
     const navigate = useNavigate();
     const initialState = {
@@ -37,8 +38,6 @@ const Register = (props) => {
                     navigate("/login");
                     
                 });
-                setShow(true);
-                setMessage(response.message);
             })
             .catch((error) => {
                 Swal.fire(
