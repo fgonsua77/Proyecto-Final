@@ -26,9 +26,6 @@ const cart = (props) => {
                      
                   </button>
                   </Link>
-                  <button className="btn btn-warning m-2" onClick={() =>clearStorage()}>
-                     <span className="font-link">Limpiar el carrito</span>
-                  </button>
                </Link>
             </div>
          </div>

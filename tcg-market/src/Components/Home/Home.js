@@ -7,7 +7,7 @@ import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Home = (props) => {
-    const {user} = props;
+    const {username} = props;
     const [cards, setCards] = useState([]);
     const [expansions, setExpansions] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -42,7 +42,7 @@ const Home = (props) => {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12">
-                        <h1 className="font-link">Bienvenido a TCG-Market, {user} </h1>
+                        <h1 className="font-link">Bienvenido a TCG-Market, {username} </h1>
                     </div>
                 </div>
                 <h1 className="font-link d-flex justify-content-center">Destacados</h1>

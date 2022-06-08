@@ -93,7 +93,7 @@ public class VentaRESTController {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasFiltradas = new ArrayList<Venta>();
         for (Venta venta : ventas) {
-            if ((venta.getVendedor().getUsername().equals(username)) && (venta.getConfirmationdate() != null)
+            if ((venta.getVendedor().getUsername().equals(username)) && (venta.getComprador().getUsername() != null)
                     && (venta.getDireccion() != null)) {
                 ventasFiltradas.add(venta);
             }
@@ -106,9 +106,11 @@ public class VentaRESTController {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasFiltradas = new ArrayList<Venta>();
         for (Venta venta : ventas) {
-            if ((venta.getDireccion().getUsuario().getUsername().equals(username))
-                    && (venta.getConfirmationdate() != null) && (venta.getDireccion() != null)) {
-                ventasFiltradas.add(venta);
+            if (venta.getVendedor().getUsername().equals(username)) {
+                if (venta.getComprador().getUsername() != null) {
+                    ventasFiltradas.add(venta);
+                }
+
             }
         }
         return ventasFiltradas.size();
@@ -119,7 +121,7 @@ public class VentaRESTController {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
         for (int i = 0; i < ventas.size(); i++) {
-            if (ventas.get(i).getConfirmationdate() == null  && ventas.get(i).getCarta().getId().equals(idCarta)) {
+            if (ventas.get(i).getConfirmationdate() == null && ventas.get(i).getCarta().getId().equals(idCarta)) {
                 ventasSinComprar.add(ventas.get(i));
             }
         }
@@ -146,12 +148,12 @@ public class VentaRESTController {
         List<Venta> ventas = ventaService.encontrarTodas();
         List<Venta> ventasSinComprar = new ArrayList<Venta>();
         for (int i = 0; i < ventas.size(); i++) {
-            if(ventas.get(i).getComprador() == null){
+            if (ventas.get(i).getComprador() == null) {
                 if (ventas.get(i).getVendedor().getUsername().equals(username)) {
                     ventasSinComprar.add(ventas.get(i));
                 }
             }
-            
+
         }
         Integer total = ventasSinComprar.size();
         return total;

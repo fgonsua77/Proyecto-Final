@@ -44,7 +44,6 @@ const Seller = (props) => {
                                                     <th>Nombre de usuario</th>
                                                     <th>Fecha de registro</th>
                                                     <th>Ventas listadas</th>
-                                                    <th>Ventas completadas</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
