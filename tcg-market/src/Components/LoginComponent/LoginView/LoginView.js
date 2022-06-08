@@ -43,7 +43,10 @@ const Login = (props) => {
                     'Has iniciado sesión correctamente',
                     'Paselo bien',
                     'success'
-                )
+                ).then((result) => {
+                    navigate("/");
+                    
+                });
                 setUser(initialState);
             })
             .catch((error) => {
