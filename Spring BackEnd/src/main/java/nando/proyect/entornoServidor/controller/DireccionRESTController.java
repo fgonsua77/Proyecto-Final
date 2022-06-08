@@ -99,7 +99,7 @@ public class DireccionRESTController {
         direccionAActualizar.setCity(direccion.getCity());
         direccionService.guardarDireccion(direccionAActualizar);
     }
-    @DeleteMapping("/delete/addressId={id}")
+    @PostMapping("/delete/{id}")
     public void borrarDireccionPorIdDeDireccion(@PathVariable("id") Integer id) {
         direccionService.borrarDireccionPorId(id);
     }

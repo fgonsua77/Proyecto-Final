@@ -10,20 +10,18 @@ import SearchBar from "../SearchBar/SearchBar";
 import './Header.css';
 
 const Header = (props) => {
-    const { username, cartLength } = props;
+    const {cartLength, usuario, setUsuario } = props;
     const auth = useSelector((state) => state.auth);
-    console.log(username);
     const dispatch = useDispatch();
     const logout = () => {
         dispatch(logoutUser());
     };
-    const [usuario, setUsuario] = useState([]);
+    console.log(usuario);
     useEffect(() => {
-        fetch(`http://localhost:8080/apiuser/usuarios/getuser/username=${username}`)
+        usuario !== 'undefined' && fetch(`http://localhost:8080/apiuser/usuarios/getuser/usuario=${usuario}`)
             .then((response) => response.json())
             .then((usuario) => setUsuario(usuario))
-    }, []);
-    console.log(usuario);
+    }, [usuario]);
     const guestLinks = (
         <>
             <Nav className="font-link navbar-right row registerLogin">
@@ -57,14 +55,14 @@ const Header = (props) => {
         <>
             <div className="collapse navbar-collapse p-0" id="navbarColor02">
                 <ul className="navbar-nav me-auto">
-                    <li className="nav-item dropdown" title={username}>
+                    <li className="nav-item dropdown" title={usuario}>
                         <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta</a>
                         <div className="dropdown-menu">
 
-                            <Link to={`/account/${username}`}>
+                            <Link to={`/account/${usuario}`}>
                                 <a className="font-link dropdown-item">Cuenta</a>
                             </Link>
-                            <Link to={`/favorites/${username}`}>
+                            <Link to={`/favorites/${usuario}`}>
                                 <a className="font-link dropdown-item">Favoritos</a>
                             </Link>
                             <a className="font-link dropdown-item" href="#">Mensajes</a>
@@ -78,10 +76,10 @@ const Header = (props) => {
                     <li className="nav-item">
                         <a className="nav-link dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#test1" aria-controls="test1" role="button" aria-haspopup="true" aria-expanded="false">Vender</a>
                         <div className="dropdown-menu" id="test1">
-                            <Link to={`/sales/${username}`}>
+                            <Link to={`/sales/${usuario}`}>
                                 <span className="font-link dropdown-item">Tus ofertas</span>
                             </Link>
-                            <Link to={`/sales/${usuario.username}/${usuario.id}/add`}>
+                            <Link to={`/sales/${usuario.usuario}/${usuario.id}/add`}>
                                 <span className="font-link dropdown-item">Crear ofertas</span>
                             </Link>
                         </div>
@@ -89,7 +87,7 @@ const Header = (props) => {
                     <li className="nav-item">
                         <a className="font-link nav-link dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#test2" role="button" aria-haspopup="true" aria-expanded="false">Comprar</a>
                         <div className="dropdown-menu" id="test2">
-                            <Link to={`/purchases/${username}/`}>
+                            <Link to={`/purchases/${usuario}/`}>
                                 <span className="font-link dropdown-item">Tus compras</span>
                             </Link>
                         </div>

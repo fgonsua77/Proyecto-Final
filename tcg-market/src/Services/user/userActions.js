@@ -1,7 +1,7 @@
 import * as UT from "./userTypes";
 import axios from "axios";
 
-const REGISTER_URL = "http://localhost:8080/apiuser/signup";
+const REGISTER_URL = "http://localhost:8080/api/auth/registrar";
 
 export const registerUser = (userObject) => async (dispatch) => {
   dispatch(userRequest());

@@ -10,7 +10,8 @@ const Register = (props) => {
         password: "",
         name: "",
         surname: "",
-        birthdate: ""
+        birthdate: "",
+        status: 1,
     };
 
 
@@ -23,7 +24,9 @@ const Register = (props) => {
 
     const dispatch = useDispatch();
 
-    const saveUser = () => {
+    const saveUser = (event) => {
+        event.preventDefault();
+        console.log(user);
         dispatch(registerUser(user))
             .then((response) => {
                 Swal.fire(
@@ -47,7 +50,7 @@ const Register = (props) => {
             });
     };
     return (
-        <form data-bitwarden-watching="1" className="d-flex justify-content-center mt-3" onSubmit={() => saveUser()}>
+        <form data-bitwarden-watching="1" className="d-flex justify-content-center mt-3" onSubmit={() => saveUser(event)}>
 
             <fieldset className="card p-4">
                 <h1 className="center">Formulario de registro</h1>

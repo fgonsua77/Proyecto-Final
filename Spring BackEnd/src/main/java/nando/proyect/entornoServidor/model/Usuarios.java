@@ -45,14 +45,16 @@ public class Usuarios {
 	@JoinTable(name = "userprofile", joinColumns = @JoinColumn(name = "idUser"), inverseJoinColumns = @JoinColumn(name = "idProfile"))
 	private Collection<Perfil> perfiles;
 
+
 	public Collection<Carta> getFavorites() {
 		return favorites;
 	}
-
+	public void setFavorites(Collection<Carta> favorites) {
+		this.favorites = favorites;
+	}
 	public Collection<Perfil> getPerfiles() {
 		return perfiles;
 	}
-
 	public void setPerfiles(Collection<Perfil> perfiles) {
 		this.perfiles = perfiles;
 	}

@@ -24,7 +24,7 @@ const AccountAddress = (props) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                const response = axios.delete(`http://localhost:8080/address/delete/${idAddress}`);
+                const response = axios.post(`http://localhost:8080/address/delete/${idAddress}`);
                 if (response.status === 200) {
                     Swal.fire(
                         'Borrada!',

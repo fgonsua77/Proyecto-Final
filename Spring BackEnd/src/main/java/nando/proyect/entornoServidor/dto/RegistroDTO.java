@@ -4,28 +4,28 @@ import java.util.Date;
 
 public class RegistroDTO {
 
-	private String nombre;
-	private String apellido;
+	private String name;
+	private String surname;
 	private String username;
 	private String email;
-	private Date fechaDeNacimiento;
+	private Date birthdate;
 	private Integer status;
 	private String password;
 
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
-	public String getApellido() {
-		return apellido;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public String getUsername() {
@@ -52,12 +52,12 @@ public class RegistroDTO {
 		this.password = password;
 	}
 	
-	public Date getFechaDeNacimiento() {
-		return fechaDeNacimiento;
+	public Date getBirthdate() {
+		return birthdate;
 	}
 
-	public void setFechaDeNacimiento(Date fechaDeNacimiento) {
-		this.fechaDeNacimiento = fechaDeNacimiento;
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
 	}
 	
 	public Integer getStatus() {

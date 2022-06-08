@@ -49,7 +49,6 @@ public class AuthControlador {
 	
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
-	
 	@PostMapping("/iniciarSesion")
 	public ResponseEntity<JWTAuthResponseDTO> authenticateUser(@RequestBody LoginDTO loginDTO){
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsernameOrEmail(), loginDTO.getPassword()));
@@ -60,7 +59,6 @@ public class AuthControlador {
 		String token = jwtTokenProvider.generarToken(authentication);
 		return ResponseEntity.ok(new JWTAuthResponseDTO(token));
 	}
-	
 	@PostMapping("/registrar")
 	public ResponseEntity<?> registrarUsuario(@RequestBody RegistroDTO registroDTO){
 		if(usuarioRepositorio.existsByUsername(registroDTO.getUsername())) {
@@ -72,11 +70,11 @@ public class AuthControlador {
 		}
 		
 		Usuarios usuario = new Usuarios();
-		usuario.setName(registroDTO.getNombre());
-		usuario.setSurname(registroDTO.getApellido());
+		usuario.setName(registroDTO.getName());
+		usuario.setSurname(registroDTO.getSurname());
 		usuario.setUsername(registroDTO.getUsername());
 		usuario.setEmail(registroDTO.getEmail());
-		usuario.setBirthdate(registroDTO.getFechaDeNacimiento());
+		usuario.setBirthdate(registroDTO.getBirthdate());
 		usuario.setStatus(registroDTO.getStatus());
 		usuario.setPassword(passwordEncoder.encode(registroDTO.getPassword()));
 		Collection<Perfil> perfiles = new ArrayList<>();
